@@ -11,9 +11,6 @@ app.use(user);
 app.use(note);
 app.use(speechRecognition);
 
-// dotenv
-require("dotenv").config();
-
 const port = 3000;
 
 app.listen(port, () => {
