@@ -13,6 +13,8 @@
     "express": "^4.17.3",
     "express-pino-logger": "^7.0.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.20.0",
+    "mongoose": "^6.2.3",
+    "mongoose-sequence": "^5.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
