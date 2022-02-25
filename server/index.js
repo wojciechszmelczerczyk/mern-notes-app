@@ -1,7 +1,11 @@
 // express
 const express = require("express");
 const app = express();
+const dbConnection = require("./db/connection");
 const bodyParser = require("body-parser");
+
+// connect to database
+dbConnection();
 
 app.use(express.json());
 app.use(
@@ -10,15 +14,6 @@ app.use(
   })
 );
 app.use(bodyParser.urlencoded({ extended: false }));
-
-const mongoose = require("mongoose");
-
-const uri = process.env.DB_URI;
-
-mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
 
 // routes
 const user = require("./routes/user.js");
