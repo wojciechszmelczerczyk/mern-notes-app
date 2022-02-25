@@ -13,11 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const mongoose = require("mongoose");
 
+const uri = process.env.DB_URI;
+
 mongoose
-  .connect(
-    "mongodb+srv://wojtek1702:AgxqJ1Gj8KbsxR7m@cluster0.9fm2w.mongodb.net/notes-app",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 

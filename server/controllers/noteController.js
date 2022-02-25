@@ -21,8 +21,15 @@ const createNote = (req, res) => {
   res.send("note added to database");
 };
 
+const deleteNote = async (req, res) => {
+  const { id } = req.params;
+  const deletedNote = await Note.findOneAndDelete({ id });
+  res.json(deletedNote);
+};
+
 module.exports = {
   getAllNotes,
   getSingleNote,
   createNote,
+  deleteNote,
 };
