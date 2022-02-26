@@ -1,9 +1,18 @@
 const User = require("../models/User.js");
 
-const register = (req, res) => {
-  const { email, password } = req.body;
-  User.create({ email, password });
-  res.send("user registered successfully");
+const createToken = require("../token/createToken.js");
+
+const register = async (req, res) => {
+  let { email, password, jwt = "" } = req.body;
+
+  // create new user with empty jwt
+  const newUser = await User.create({ email, password, jwt });
+
+  // save jwt in created user
+  const userWithJwt = await User.findByIdAndUpdate(newUser._id, {
+    jwt: createToken(newUser._id),
+  });
+  res.send(userWithJwt);
 };
 
 const authenticate = (req, res) => {

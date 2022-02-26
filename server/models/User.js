@@ -41,7 +41,9 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.pre("save", async function () {});
+// userSchema.post("save", async function () {
+
+// });
 
 userSchema.plugin(AutoIncrement, { inc_field: "user_id" });
 
