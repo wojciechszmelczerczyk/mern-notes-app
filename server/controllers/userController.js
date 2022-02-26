@@ -10,7 +10,7 @@ const register = async (req, res) => {
 
   // save jwt in created user
   const userWithJwt = await User.findByIdAndUpdate(newUser._id, {
-    jwt: createToken(newUser._id),
+    jwt: createToken(newUser.uuid),
   });
   res.send(userWithJwt);
 };
@@ -38,6 +38,13 @@ const authenticate = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  res.cookie("jwt", "", {
+    maxAge: 1,
+  });
+  res.send("jwt deleted");
+};
+
 const getCurrentUser = (req, res) => {
   res.send("get current user");
 };
@@ -46,4 +53,4 @@ const updateUser = (req, res) => {
   res.send("update current user");
 };
 
-module.exports = { register, authenticate, getCurrentUser, updateUser };
+module.exports = { register, authenticate, logout, getCurrentUser, updateUser };

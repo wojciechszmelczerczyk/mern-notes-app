@@ -6,6 +6,9 @@ const noteSchema = new Schema({
   note_id: {
     type: Number,
   },
+  user_uuid: {
+    type: String,
+  },
   status: {
     type: String,
     enum: ["draft", "visible", "deleted"],
