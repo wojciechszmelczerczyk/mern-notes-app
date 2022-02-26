@@ -2,20 +2,17 @@ const express = require("express");
 
 const router = express.Router();
 
-router
-  .route("/user")
-  .get((req, res) => {
-    res.send("user get");
-  })
-  .post((req, res) => {
-    res.send("user post");
-  })
-  .put((req, res) => {
-    res.send("user put");
-  });
+// controllers
 
-router.post("/user/authenticate", (req, res) => {
-  res.send("user authenticate");
-});
+const {
+  register,
+  authenticate,
+  getCurrentUser,
+  updateUser,
+} = require("../controllers/userController");
+
+router.route("/user").get(getCurrentUser).post(register).put(updateUser);
+
+router.post("/user/authenticate", authenticate);
 
 module.exports = router;

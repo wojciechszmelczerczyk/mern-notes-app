@@ -12,13 +12,23 @@ const getSingleNote = async (req, res) => {
 };
 
 const createNote = (req, res) => {
-  const { title } = req.body;
+  let { title } = req.body;
 
   // create note
   Note.create({ title });
 
   // give response
   res.send("note added to database");
+};
+
+const updateNote = async (req, res) => {
+  // update note
+  const { title } = req.body;
+  const { id } = req.params;
+
+  const updatedNote = await Note.findOneAndUpdate({ id }, { title });
+
+  res.send(updatedNote);
 };
 
 const deleteNote = async (req, res) => {
@@ -31,5 +41,6 @@ module.exports = {
   getAllNotes,
   getSingleNote,
   createNote,
+  updateNote,
   deleteNote,
 };
