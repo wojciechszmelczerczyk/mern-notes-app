@@ -41,9 +41,23 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// userSchema.post("save", async function () {
-
-// });
+// login user
+userSchema.statics.login = async function (email, password) {
+  // find user with passed email
+  const user = await this.findOne({
+    email,
+  });
+  // if exists compare passed password with one from the database
+  if (user) {
+    const auth = await bcrypt.compare(password, user.password);
+    // if passwords match return user, otherwise throw an error
+    if (auth) {
+      return user;
+    }
+    throw Error("incorrect password");
+  }
+  throw Error("incorrect email");
+};
 
 userSchema.plugin(AutoIncrement, { inc_field: "user_id" });
 
