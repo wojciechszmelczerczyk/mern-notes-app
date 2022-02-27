@@ -2,13 +2,13 @@
 
 ## Project description
 
-Target of project are students with hearing problem and completely deaf.
+The project target is helping hearing impaired students during the lessons they attend. But potentially can be used by any student.
 
-Main objective of the created system is to help those students by showing them transcrypted to text lessons.
+The project aims to introduce a speech to text system able to transcript the voice of the professor into a text on the screen of the student pc or mobile phone.
 
 Student can record teacher voice by clicking a button which will transcrypt voice to text for their better understandment.
 
-Registered users will have ability to export notes to .txt and .pdf file.
+Registered user will have premium feature to store the transcriptions online and save them to a file (txt or pdf format).
 
 Student will be able to change speech language.
 
@@ -33,6 +33,7 @@ Client side will be created in `React` using `Javascript` language.
 ## Requirements
 
 - install `node`
+- install `mongo`
 
 ## Usage
 
@@ -58,15 +59,20 @@ Client side will be created in `React` using `Javascript` language.
 
 ### User
 
-- `/user` - registration `POST`
-- `/user` - get current logged user info `GET`
-- `/user/authenticate` - login `POST`
-- `/user` - update user data `PUT`
+| Endpoint           | Method | Authenticated | Action                                        |
+| :----------------- | :----: | :-----------: | :-------------------------------------------- |
+| /user              |  GET   |      \*       | Returns current user data                     |
+| /user              |  POST  |       -       | Creates a new user                            |
+| /user              | DELETE |      \*       | Logout user, delete access token              |
+| /user              |  PUT   |      \*       | Updates current user                          |
+| /user/authenticate |  POST  |       -       | Authenticate the user, returning access token |
 
 ### Note
 
-- `/note` - create a note `POST`
-- `/note` - get all notes of current auth user `GET`
-- `/note/:id` - get single note if owned by the auth user `GET`
-- `/note/:id` - update note `PUT`
-- `/note/:id` - delete note `DELETE`
+| Endpoint  | Method | Authenticated | Action                                    |
+| :-------- | :----: | :-----------: | :---------------------------------------- |
+| /note     |  GET   |      \*       | Get all notes of current auth user        |
+| /note     |  POST  |      \*       | Create a note                             |
+| /note/:id |  GET   |      \*       | Get single note if owned by the auth user |
+| /note/:id |  PUT   |      \*       | Update note                               |
+| /note/:id | DELETE |      \*       | Delete note                               |
