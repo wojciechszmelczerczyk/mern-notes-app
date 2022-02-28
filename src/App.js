@@ -31,7 +31,7 @@ export default class App extends Component {
       tokenObj.authToken,
       tokenObj.region
     );
-    speechConfig.speechRecognitionLanguage = "en-US";
+    speechConfig.speechRecognitionLanguage = "pl-PL";
 
     const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
     const recognizer = new speechsdk.SpeechRecognizer(
@@ -43,20 +43,23 @@ export default class App extends Component {
       displayText: "speak into your microphone...",
     });
 
-    recognizer.recognizeOnceAsync((result) => {
-      let displayText;
-      if (result.reason === ResultReason.RecognizedSpeech) {
-        displayText = `RECOGNIZED: Text=${result.text}`;
-      } else {
-        displayText =
-          "ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.";
-      }
-
-      this.setState({
-        displayText: displayText,
-      });
+    recognizer.startContinuousRecognitionAsync((result) => {
+      let displayText = "";
+      recognizer.recognized = (s, e) => {
+        if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
+          displayText += e.result.text;
+          this.setState({ displayText: displayText });
+        } else if (e.result.reason === speechsdk.ResultReason.NoMatch) {
+          this.setState({
+            displayText:
+              "ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.",
+          });
+        }
+      };
     });
   }
+
+  async stopFunc() {}
 
   render() {
     return (
@@ -70,9 +73,10 @@ export default class App extends Component {
               onClick={() => this.sttFromMic()}
             ></i>
             Convert speech to text from your mic.
+            <button onClick={() => this.stopFunc()}>Stop</button>
           </div>
           <div className="col-6 output-display rounded">
-            <code>{this.state.displayText}</code>
+            <code style={{ color: "white" }}>{this.state.displayText}</code>
           </div>
         </div>
       </Container>
