@@ -2,23 +2,23 @@
 
 ## Project description
 
-### The project target is helping hearing impaired students during the lessons they attend. But potentially can be used by any student.
+The project target is helping hearing impaired students during the lessons they attend. But potentially can be used by any student.
 
-### The project aims to introduce a speech to text system able to transcript the voice of the professor into a text on the screen of the student pc or mobile phone.
+The project aims to introduce a speech to text system able to transcript the voice of the professor into a text on the screen of the student pc or mobile phone.
 
-### Student can record teacher voice by clicking a button which will transcrypt voice to text for their better understandment.
+Student can record teacher voice by clicking a button which will transcrypt voice to text for their better understandment.
 
-### Registered user will have premium feature to store the transcriptions online and save them to a file (txt or pdf format).
+Registered user will have premium feature to store the transcriptions online and save them to a file (txt or pdf format).
 
-### Student will be able to change speech language.
+Student will be able to change speech language.
 
-### Students will be able to search lessons by title they provide before transcryption to text.
+Students will be able to search lessons by title they provide before transcryption to text.
 
-### Server side of application will be made in `Node` using `Express` framework.
+Server side of application will be made in `Node` using `Express` framework.
 
-### Data will be saved to `Mongo` database.
+Data will be saved to `Mongo` database.
 
-### Client side will be created in `React` using `Javascript` language.
+Client side will be created in `React` using `Javascript` language.
 
 <br/>
 
