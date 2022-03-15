@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import { Container } from "reactstrap";
 import { getTokenOrRefresh } from "./tokenUtil";
 import "./custom.css";
-import { ResultReason } from "microsoft-cognitiveservices-speech-sdk";
-
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       displayText: "INITIALIZED: ready to test speech...",
     };
@@ -42,13 +39,12 @@ export default class App extends Component {
     this.setState({
       displayText: "speak into your microphone...",
     });
-
     recognizer.startContinuousRecognitionAsync((result) => {
       let displayText = "";
       recognizer.recognized = (s, e) => {
         if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
           displayText += e.result.text;
-          this.setState({ displayText: displayText });
+          this.setState({ displayText });
         } else if (e.result.reason === speechsdk.ResultReason.NoMatch) {
           this.setState({
             displayText:
@@ -59,7 +55,11 @@ export default class App extends Component {
     });
   }
 
-  async stopFunc() {}
+  stopMic() {
+    // recognizer.sessionStopped = (s, e) => {
+    //   recognizer.stopContinuousRecognitionAsync();
+    // };
+  }
 
   render() {
     return (
@@ -73,7 +73,7 @@ export default class App extends Component {
               onClick={() => this.sttFromMic()}
             ></i>
             Convert speech to text from your mic.
-            <button onClick={() => this.stopFunc()}>Stop</button>
+            <button onClick={() => this.stopMic()}>Stop</button>
           </div>
           <div className="col-6 output-display rounded">
             <code style={{ color: "white" }}>{this.state.displayText}</code>
