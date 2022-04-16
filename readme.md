@@ -61,6 +61,12 @@ Client side will be created in `React` using `Javascript` language.
 git clone repo
 ```
 
+### Navigate to project folder
+
+```sh
+cd /path/to/project
+```
+
 ### Install dependencies
 
 ```
@@ -102,7 +108,6 @@ SPEECH_REGION=
 # Token secret
 JWT_SECRET=
 
-
 # Token expiration time
 JWT_EXPIRATION=
 ```
@@ -111,7 +116,7 @@ JWT_EXPIRATION=
 
 ### App Architecture
 
-[![](https://mermaid.ink/img/pako:eNpNj8EKwjAMhl-l5LTB9gI7CFvrwYMgKnjpJVujFm07uu4gY-9uXR0sp3z__yckE3ROEVTw8Ng_2VVIy2LVGX9rsoHdqM1ZWe5Yk51pCKw-HfJ_ZJF5gmaBOgHfQnJ4dtSdd4O7b1ckT2QCA7Y4UL6dbxKIFaSFAgx5g1rFe6efLSE8yZCEKrYK_UuCtHPMjb3CQHulg_NQBT9SATgGd_nYbuWUERrj6yaJ8xdH-E18)](https://mermaid.live/edit#pako:eNpNj8EKwjAMhl-l5LTB9gI7CFvrwYMgKnjpJVujFm07uu4gY-9uXR0sp3z__yckE3ROEVTw8Ng_2VVIy2LVGX9rsoHdqM1ZWe5Yk51pCKw-HfJ_ZJF5gmaBOgHfQnJ4dtSdd4O7b1ckT2QCA7Y4UL6dbxKIFaSFAgx5g1rFe6efLSE8yZCEKrYK_UuCtHPMjb3CQHulg_NQBT9SATgGd_nYbuWUERrj6yaJ8xdH-E18)
+[![](https://mermaid.ink/img/pako:eNptkLFqw0AMhl9FaHIgfgEPBdvXoUOhtIUutyg-JT4S37l3uiHEefeqJB5SqkXi14d-SRccomNs8JBoHuHT2AAabdWfPAeBL95toK6fYEn8XTjLAl31rhnat5fNDe5WIM8xZF6gfdAPLJBn5mGsj3xeoK9e_ZBijvt_hqhHUsZUhoR2lPne7lcPKSk8jOtugPmzhMo24BYnThN5pxdefkGLMvLEFhstHaWjRRuuypXZkfCz8xITNns6Zd4iFYkf5zBgI6nwChlP-q3pTl1_AC3UZ08)](https://mermaid.live/edit#pako:eNptkLFqw0AMhl9FaHIgfgEPBdvXoUOhtIUutyg-JT4S37l3uiHEefeqJB5SqkXi14d-SRccomNs8JBoHuHT2AAabdWfPAeBL95toK6fYEn8XTjLAl31rhnat5fNDe5WIM8xZF6gfdAPLJBn5mGsj3xeoK9e_ZBijvt_hqhHUsZUhoR2lPne7lcPKSk8jOtugPmzhMo24BYnThN5pxdefkGLMvLEFhstHaWjRRuuypXZkfCz8xITNns6Zd4iFYkf5zBgI6nwChlP-q3pTl1_AC3UZ08)
 
 ### Database Architecture
 
@@ -119,9 +124,9 @@ JWT_EXPIRATION=
 
 ## App flow
 
-[![](https://mermaid.ink/img/pako:eNplkUFugzAQRa8yspRduACLVhBIsqzU7HAXlj0FVLCRPVSNMHevDUEirTe2_ryvmT-emDQKWcpqK4YGbgXXEE5WWaxbR2jfRI0fkCQvflM85FPrQBprUdLrvDoOB8giBpdYHB1aaMQ3gpDSjHqPXRbM39F5uFadqVu9NPkLaOMhW8V8ZzlVvXhy5P_w06pIi4IQtCH0UFTxvrXU4c5brKRDWjCgWPdQLvCOKx8cCUtA-EMJmcQNiLLxcI6JF7sLidUW9bwf-kmKo5ZcsyPr0YY0Kux_igRn1GCPnKXhqYT94ozrOXDjoEKUUrVkLEs_RefwyMRI5v2uJUvJjrhBRSvCX_YPav4F6pOZNg)](https://mermaid.live/edit#pako:eNplkUFugzAQRa8yspRduACLVhBIsqzU7HAXlj0FVLCRPVSNMHevDUEirTe2_ryvmT-emDQKWcpqK4YGbgXXEE5WWaxbR2jfRI0fkCQvflM85FPrQBprUdLrvDoOB8giBpdYHB1aaMQ3gpDSjHqPXRbM39F5uFadqVu9NPkLaOMhW8V8ZzlVvXhy5P_w06pIi4IQtCH0UFTxvrXU4c5brKRDWjCgWPdQLvCOKx8cCUtA-EMJmcQNiLLxcI6JF7sLidUW9bwf-kmKo5ZcsyPr0YY0Kux_igRn1GCPnKXhqYT94ozrOXDjoEKUUrVkLEs_RefwyMRI5v2uJUvJjrhBRSvCX_YPav4F6pOZNg)
+[![](https://mermaid.ink/img/pako:eNpNkc9uwyAMxl_F4tRJ7Qvk0Klt-ve63UoPKHgpagIRcTtVSd59JiRLuACffzb-TCMyp1EkIvequsN3Ki3w2lw95qYm9FCpHG-wWq3bUWph25gaMuc9ZvTZxZRtYOC8eGP9MVcuC-sG4dILXIf8G6Zqmxg9x6hVL5MrQiAHpTK2b6CF3fX_cov8LvKZx0Bb_AXriMn0GnYgQwXO-TTyNRJMQAv7iM_A_QCS8sRtsk9tbA4vZzLmD8F7n1KrF-rR_qFPOs7sR-U02T-O9rUJgwsGCx4Be4vxU4w_EKvZs85yj9KKpSjR8ww0f1YTEqSgO5YoRcJHrfxDCmk75p6V5onstSHnRfKjihqXQj3Jfb1tJhLyTxyh1Cj--HKguj-Oeaf2)](https://mermaid.live/edit#pako:eNpNkc9uwyAMxl_F4tRJ7Qvk0Klt-ve63UoPKHgpagIRcTtVSd59JiRLuACffzb-TCMyp1EkIvequsN3Ki3w2lw95qYm9FCpHG-wWq3bUWph25gaMuc9ZvTZxZRtYOC8eGP9MVcuC-sG4dILXIf8G6Zqmxg9x6hVL5MrQiAHpTK2b6CF3fX_cov8LvKZx0Bb_AXriMn0GnYgQwXO-TTyNRJMQAv7iM_A_QCS8sRtsk9tbA4vZzLmD8F7n1KrF-rR_qFPOs7sR-U02T-O9rUJgwsGCx4Be4vxU4w_EKvZs85yj9KKpSjR8ww0f1YTEqSgO5YoRcJHrfxDCmk75p6V5onstSHnRfKjihqXQj3Jfb1tJhLyTxyh1Cj--HKguj-Oeaf2)
 
-## Endpoints
+## API Endpoints
 
 ### User:
 
