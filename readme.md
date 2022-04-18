@@ -58,13 +58,13 @@ Client side will be created in `React` using `Javascript` language.
 ### Clone repository
 
 ```
-git clone repo
+git clone https://github.com/wojciechszmelczerczyk/express-notes-app.git
 ```
 
 ### Navigate to project folder
 
 ```sh
-cd /path/to/project
+cd /express-notes-app
 ```
 
 ### Install dependencies
@@ -124,7 +124,7 @@ JWT_EXPIRATION=
 
 ## App flow
 
-[![](https://mermaid.ink/img/pako:eNpNkc9uwyAMxl_F4tRJ7Qvk0Klt-ve63UoPKHgpagIRcTtVSd59JiRLuACffzb-TCMyp1EkIvequsN3Ki3w2lw95qYm9FCpHG-wWq3bUWph25gaMuc9ZvTZxZRtYOC8eGP9MVcuC-sG4dILXIf8G6Zqmxg9x6hVL5MrQiAHpTK2b6CF3fX_cov8LvKZx0Bb_AXriMn0GnYgQwXO-TTyNRJMQAv7iM_A_QCS8sRtsk9tbA4vZzLmD8F7n1KrF-rR_qFPOs7sR-U02T-O9rUJgwsGCx4Be4vxU4w_EKvZs85yj9KKpSjR8ww0f1YTEqSgO5YoRcJHrfxDCmk75p6V5onstSHnRfKjihqXQj3Jfb1tJhLyTxyh1Cj--HKguj-Oeaf2)](https://mermaid.live/edit#pako:eNpNkc9uwyAMxl_F4tRJ7Qvk0Klt-ve63UoPKHgpagIRcTtVSd59JiRLuACffzb-TCMyp1EkIvequsN3Ki3w2lw95qYm9FCpHG-wWq3bUWph25gaMuc9ZvTZxZRtYOC8eGP9MVcuC-sG4dILXIf8G6Zqmxg9x6hVL5MrQiAHpTK2b6CF3fX_cov8LvKZx0Bb_AXriMn0GnYgQwXO-TTyNRJMQAv7iM_A_QCS8sRtsk9tbA4vZzLmD8F7n1KrF-rR_qFPOs7sR-U02T-O9rUJgwsGCx4Be4vxU4w_EKvZs85yj9KKpSjR8ww0f1YTEqSgO5YoRcJHrfxDCmk75p6V5onstSHnRfKjihqXQj3Jfb1tJhLyTxyh1Cj--HKguj-Oeaf2)
+[![](https://mermaid.ink/img/pako:eNpVks9uwjAMxl_FyolJ8AI9bALa8ee63SgHq_FKBE0q1zChlnefSwp0vaT5_LNjf0lrimDJJKZkrA_wneYe9JvvmErXCDHUWNIeZrP3ruZwcZagYLLkxeGp6WDRIv-ToAjMVMjHLZZa9LmwmVypeRsr24kPg7C9C53wFZ7HYonOdzCPxCYSHi-uRCGQAJXG7811sNw9N_vILyOvbfW0p1_wQZRMd_0K4uREYz6NfEMCL6CDLOIjMBtAQRZtVme1zpdD9c_WNTG_wQvZhwOf95zVyIGorF8OrGJZddH13vXzndQHHS3G1zF-JKpHpwY1KMu9mZqKWC2weo9tn5AbOVBFuUn01yIfc5P7m3Ln2qohmXUS2CQ_el00NXiW8HX1hUmEz_SAUof6JqqBuv0B3yOyKw)](https://mermaid.live/edit#pako:eNpVks9uwjAMxl_FyolJ8AI9bALa8ee63SgHq_FKBE0q1zChlnefSwp0vaT5_LNjf0lrimDJJKZkrA_wneYe9JvvmErXCDHUWNIeZrP3ruZwcZagYLLkxeGp6WDRIv-ToAjMVMjHLZZa9LmwmVypeRsr24kPg7C9C53wFZ7HYonOdzCPxCYSHi-uRCGQAJXG7811sNw9N_vILyOvbfW0p1_wQZRMd_0K4uREYz6NfEMCL6CDLOIjMBtAQRZtVme1zpdD9c_WNTG_wQvZhwOf95zVyIGorF8OrGJZddH13vXzndQHHS3G1zF-JKpHpwY1KMu9mZqKWC2weo9tn5AbOVBFuUn01yIfc5P7m3Ln2qohmXUS2CQ_el00NXiW8HX1hUmEz_SAUof6JqqBuv0B3yOyKw)
 
 ## API Endpoints
 
