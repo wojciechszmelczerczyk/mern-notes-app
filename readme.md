@@ -36,7 +36,7 @@ Client side will be created in `React` using `Javascript` language.
   - [Database Architecture](#database-architecture)
 
 - [App flow](#app-flow)
-- [Endpoints](#endpoints)
+- [API Endpoints](#api-endpoints)
 
 ## Techstack
 
@@ -58,7 +58,13 @@ Client side will be created in `React` using `Javascript` language.
 ### Clone repository
 
 ```
-git clone repo
+git clone https://github.com/wojciechszmelczerczyk/express-notes-app.git
+```
+
+### Navigate to project folder
+
+```sh
+cd /express-notes-app
 ```
 
 ### Install dependencies
@@ -102,7 +108,6 @@ SPEECH_REGION=
 # Token secret
 JWT_SECRET=
 
-
 # Token expiration time
 JWT_EXPIRATION=
 ```
@@ -111,7 +116,7 @@ JWT_EXPIRATION=
 
 ### App Architecture
 
-[![](https://mermaid.ink/img/pako:eNpNj8EKwjAMhl-l5LTB9gI7CFvrwYMgKnjpJVujFm07uu4gY-9uXR0sp3z__yckE3ROEVTw8Ng_2VVIy2LVGX9rsoHdqM1ZWe5Yk51pCKw-HfJ_ZJF5gmaBOgHfQnJ4dtSdd4O7b1ckT2QCA7Y4UL6dbxKIFaSFAgx5g1rFe6efLSE8yZCEKrYK_UuCtHPMjb3CQHulg_NQBT9SATgGd_nYbuWUERrj6yaJ8xdH-E18)](https://mermaid.live/edit#pako:eNpNj8EKwjAMhl-l5LTB9gI7CFvrwYMgKnjpJVujFm07uu4gY-9uXR0sp3z__yckE3ROEVTw8Ng_2VVIy2LVGX9rsoHdqM1ZWe5Yk51pCKw-HfJ_ZJF5gmaBOgHfQnJ4dtSdd4O7b1ckT2QCA7Y4UL6dbxKIFaSFAgx5g1rFe6efLSE8yZCEKrYK_UuCtHPMjb3CQHulg_NQBT9SATgGd_nYbuWUERrj6yaJ8xdH-E18)
+[![](https://mermaid.ink/img/pako:eNptkLFqw0AMhl9FaHIgfgEPBdvXoUOhtIUutyg-JT4S37l3uiHEefeqJB5SqkXi14d-SRccomNs8JBoHuHT2AAabdWfPAeBL95toK6fYEn8XTjLAl31rhnat5fNDe5WIM8xZF6gfdAPLJBn5mGsj3xeoK9e_ZBijvt_hqhHUsZUhoR2lPne7lcPKSk8jOtugPmzhMo24BYnThN5pxdefkGLMvLEFhstHaWjRRuuypXZkfCz8xITNns6Zd4iFYkf5zBgI6nwChlP-q3pTl1_AC3UZ08)](https://mermaid.live/edit#pako:eNptkLFqw0AMhl9FaHIgfgEPBdvXoUOhtIUutyg-JT4S37l3uiHEefeqJB5SqkXi14d-SRccomNs8JBoHuHT2AAabdWfPAeBL95toK6fYEn8XTjLAl31rhnat5fNDe5WIM8xZF6gfdAPLJBn5mGsj3xeoK9e_ZBijvt_hqhHUsZUhoR2lPne7lcPKSk8jOtugPmzhMo24BYnThN5pxdefkGLMvLEFhstHaWjRRuuypXZkfCz8xITNns6Zd4iFYkf5zBgI6nwChlP-q3pTl1_AC3UZ08)
 
 ### Database Architecture
 
@@ -119,9 +124,9 @@ JWT_EXPIRATION=
 
 ## App flow
 
-[![](https://mermaid.ink/img/pako:eNplkUFugzAQRa8yspRduACLVhBIsqzU7HAXlj0FVLCRPVSNMHevDUEirTe2_ryvmT-emDQKWcpqK4YGbgXXEE5WWaxbR2jfRI0fkCQvflM85FPrQBprUdLrvDoOB8giBpdYHB1aaMQ3gpDSjHqPXRbM39F5uFadqVu9NPkLaOMhW8V8ZzlVvXhy5P_w06pIi4IQtCH0UFTxvrXU4c5brKRDWjCgWPdQLvCOKx8cCUtA-EMJmcQNiLLxcI6JF7sLidUW9bwf-kmKo5ZcsyPr0YY0Kux_igRn1GCPnKXhqYT94ozrOXDjoEKUUrVkLEs_RefwyMRI5v2uJUvJjrhBRSvCX_YPav4F6pOZNg)](https://mermaid.live/edit#pako:eNplkUFugzAQRa8yspRduACLVhBIsqzU7HAXlj0FVLCRPVSNMHevDUEirTe2_ryvmT-emDQKWcpqK4YGbgXXEE5WWaxbR2jfRI0fkCQvflM85FPrQBprUdLrvDoOB8giBpdYHB1aaMQ3gpDSjHqPXRbM39F5uFadqVu9NPkLaOMhW8V8ZzlVvXhy5P_w06pIi4IQtCH0UFTxvrXU4c5brKRDWjCgWPdQLvCOKx8cCUtA-EMJmcQNiLLxcI6JF7sLidUW9bwf-kmKo5ZcsyPr0YY0Kux_igRn1GCPnKXhqYT94ozrOXDjoEKUUrVkLEs_RefwyMRI5v2uJUvJjrhBRSvCX_YPav4F6pOZNg)
+[![](https://mermaid.ink/img/pako:eNpVks9uwjAMxl_FyolJ8AI9bALa8ee63SgHq_FKBE0q1zChlnefSwp0vaT5_LNjf0lrimDJJKZkrA_wneYe9JvvmErXCDHUWNIeZrP3ruZwcZagYLLkxeGp6WDRIv-ToAjMVMjHLZZa9LmwmVypeRsr24kPg7C9C53wFZ7HYonOdzCPxCYSHi-uRCGQAJXG7811sNw9N_vILyOvbfW0p1_wQZRMd_0K4uREYz6NfEMCL6CDLOIjMBtAQRZtVme1zpdD9c_WNTG_wQvZhwOf95zVyIGorF8OrGJZddH13vXzndQHHS3G1zF-JKpHpwY1KMu9mZqKWC2weo9tn5AbOVBFuUn01yIfc5P7m3Ln2qohmXUS2CQ_el00NXiW8HX1hUmEz_SAUof6JqqBuv0B3yOyKw)](https://mermaid.live/edit#pako:eNpVks9uwjAMxl_FyolJ8AI9bALa8ee63SgHq_FKBE0q1zChlnefSwp0vaT5_LNjf0lrimDJJKZkrA_wneYe9JvvmErXCDHUWNIeZrP3ruZwcZagYLLkxeGp6WDRIv-ToAjMVMjHLZZa9LmwmVypeRsr24kPg7C9C53wFZ7HYonOdzCPxCYSHi-uRCGQAJXG7811sNw9N_vILyOvbfW0p1_wQZRMd_0K4uREYz6NfEMCL6CDLOIjMBtAQRZtVme1zpdD9c_WNTG_wQvZhwOf95zVyIGorF8OrGJZddH13vXzndQHHS3G1zF-JKpHpwY1KMu9mZqKWC2weo9tn5AbOVBFuUn01yIfc5P7m3Ln2qohmXUS2CQ_el00NXiW8HX1hUmEz_SAUof6JqqBuv0B3yOyKw)
 
-## Endpoints
+## API Endpoints
 
 ### User:
 
