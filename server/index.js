@@ -1,11 +1,7 @@
 // express
 const express = require("express");
 const app = express();
-const dbConnection = require("./db/connection");
 const bodyParser = require("body-parser");
-
-// connect to database
-dbConnection();
 
 app.use(express.json());
 app.use(

@@ -1,8 +1,10 @@
 const User = require("../models/User.js");
-
 const createToken = require("../token/createToken.js");
+const { dbConnection, closeDbConnection } = require("../db/connection");
 
 const register = async (req, res) => {
+  await dbConnection();
+
   let { email, password, jwt = "" } = req.body;
 
   // create new user with empty jwt
@@ -13,9 +15,13 @@ const register = async (req, res) => {
     jwt: createToken(newUser.uuid),
   });
   res.send(userWithJwt);
+
+  await closeDbConnection();
 };
 
 const authenticate = async (req, res) => {
+  await dbConnection();
+
   const { email, password } = req.body;
   try {
     // compare input data and data from database
@@ -36,9 +42,10 @@ const authenticate = async (req, res) => {
     res.json({ error: err.message });
     return err;
   }
+  await closeDbConnection();
 };
 
-const logout = async (req, res) => {
+const logout = (req, res) => {
   res.cookie("jwt", "", {
     maxAge: 1,
   });
