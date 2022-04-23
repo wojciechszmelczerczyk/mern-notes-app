@@ -2,34 +2,37 @@ const mongoose = require("mongoose");
 const AutoIncrement = require("mongoose-sequence")(mongoose);
 const { Schema } = mongoose;
 
-const noteSchema = new Schema({
-  note_id: {
-    type: Number,
+const status = {
+  draft: "DRAFT",
+  visible: "VISIBLE",
+  deleted: "DELETED",
+};
+
+const noteSchema = new Schema(
+  {
+    note_id: {
+      type: Number,
+    },
+    user_uuid: {
+      type: String,
+    },
+    status: {
+      type: String,
+      enum: Object.freeze(status),
+    },
+    title: {
+      type: String,
+      required: [true, "Please provide the note title"],
+      unique: true,
+      lowercase: true,
+    },
+    content: {
+      type: String,
+      lowercase: true,
+    },
   },
-  user_uuid: {
-    type: String,
-  },
-  status: {
-    type: String,
-    enum: ["draft", "visible", "deleted"],
-  },
-  title: {
-    type: String,
-    required: [true, "Please provide the note title"],
-    unique: true,
-    lowercase: true,
-  },
-  content: {
-    type: String,
-    lowercase: true,
-  },
-  created_at: {
-    type: Date,
-  },
-  updated_at: {
-    type: Date,
-  },
-});
+  { timestamps: true }
+);
 
 noteSchema.plugin(AutoIncrement, { inc_field: "id" });
 
