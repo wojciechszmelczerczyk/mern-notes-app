@@ -6,9 +6,9 @@ const getAllNotes = async (req, res) => {
   // use this id in query to find data correlated with user
 
   let jwt = req.headers.cookie.slice(4);
-  const payload = extractIdFromToken(jwt);
+  const { id } = extractIdFromToken(jwt);
 
-  const notes = await Note.find({ user_uuid: payload.id });
+  const notes = await Note.find({ user_uuid: id });
   res.json(notes);
 };
 
@@ -22,10 +22,10 @@ const createNote = async (req, res) => {
   let { title } = req.body;
 
   let jwt = req.headers.cookie.slice(4);
-  const payload = extractIdFromToken(jwt);
+  const { id } = extractIdFromToken(jwt);
 
   // create note
-  const newNote = await Note.create({ title, user_uuid: payload.id });
+  const newNote = await Note.create({ title, user_uuid: id });
 
   // give response
   res.send({ added_note: newNote });
