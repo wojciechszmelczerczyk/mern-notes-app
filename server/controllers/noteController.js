@@ -13,8 +13,11 @@ const getAllNotes = async (req, res) => {
 };
 
 const getSingleNote = async (req, res) => {
+  let jwt = req.headers.cookie.slice(4);
+  let payload = extractIdFromToken(jwt);
+
   const { id } = req.params;
-  const note = await Note.findOne({ id });
+  const note = await Note.findOne({ id, user_uuid: payload.id });
   res.json(note);
 };
 
