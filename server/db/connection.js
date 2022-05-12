@@ -22,10 +22,9 @@ const dbConnection = async () => {
     });
   } catch (err) {
     // if error occured kill process
+    console.log(err.message);
     process.exit(1);
   }
 };
 
-const closeDbConnection = async () => await mongoose.disconnect();
-
-module.exports = { dbConnection, closeDbConnection };
+module.exports = dbConnection;

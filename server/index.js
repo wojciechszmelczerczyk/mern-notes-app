@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
+// db connection
+require("../server/db/connection")();
+
 app.use(express.json());
 app.use(
   express.urlencoded({

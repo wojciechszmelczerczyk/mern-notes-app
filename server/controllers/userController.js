@@ -1,10 +1,8 @@
 const User = require("../models/User.js");
 const createToken = require("../token/createToken.js");
-const { dbConnection, closeDbConnection } = require("../db/connection");
+const extractIdFromToken = require("../token/extractId.js");
 
 const register = async (req, res) => {
-  await dbConnection();
-
   let { email, password, jwt = "" } = req.body;
 
   // create new user with empty jwt
@@ -15,13 +13,9 @@ const register = async (req, res) => {
     jwt: createToken(newUser.uuid),
   });
   res.send(userWithJwt);
-
-  await closeDbConnection();
 };
 
 const authenticate = async (req, res) => {
-  await dbConnection();
-
   const { email, password } = req.body;
   try {
     // compare input data and data from database
@@ -42,22 +36,35 @@ const authenticate = async (req, res) => {
     res.json({ error: err.message });
     return err;
   }
-  await closeDbConnection();
 };
 
 const logout = (req, res) => {
   res.cookie("jwt", "", {
     maxAge: 1,
   });
-  res.send("jwt deleted");
+  res.json("jwt deleted");
 };
 
-const getCurrentUser = (req, res) => {
-  res.send("get current user");
+const getCurrentUser = async (req, res) => {
+  const cookie = req.headers.cookie.slice(4);
+
+  const { id } = extractIdFromToken(cookie);
+
+  const currentUser = await User.findOne({ uuid: id });
+
+  res.json(currentUser);
 };
 
-const updateUser = (req, res) => {
-  res.send("update current user");
+const updateUser = async (req, res) => {
+  const { email } = req.body;
+
+  const cookie = req.headers.cookie.slice(4);
+
+  const { id } = extractIdFromToken(cookie);
+
+  const updatedUser = await User.findOneAndUpdate({ uuid: id }, { email });
+
+  res.json({ updated_user: updatedUser });
 };
 
 module.exports = { register, authenticate, logout, getCurrentUser, updateUser };
