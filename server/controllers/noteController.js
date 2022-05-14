@@ -2,14 +2,11 @@ const Note = require("../models/Note.js");
 const extractIdFromToken = require("../token/extractId.js");
 
 const getAllNotes = async (req, res) => {
-  // extract jwt id
-  // use this id in query to find data correlated with user
-
   let jwt = req.headers.cookie.slice(4);
   const { id } = extractIdFromToken(jwt);
 
-  const notes = await Note.find({ user_uuid: id });
-  res.json(notes);
+  const notes = await Note.find({ user_id: id });
+  res.status(200).json(notes);
 };
 
 const getSingleNote = async (req, res) => {
@@ -17,8 +14,8 @@ const getSingleNote = async (req, res) => {
   let payload = extractIdFromToken(jwt);
 
   const { id } = req.params;
-  const note = await Note.findOne({ id, user_uuid: payload.id });
-  res.json(note);
+  const note = await Note.findOne({ _id: id, user_id: payload.id });
+  res.status(200).json(note);
 };
 
 const createNote = async (req, res) => {
@@ -28,13 +25,10 @@ const createNote = async (req, res) => {
   const { id } = extractIdFromToken(jwt);
 
   // create note
-  const newNote = await Note.create({ title, content, user_uuid: id });
-
-  // save note id in local storage
-  // localStorage.setItem("currentNoteId", newNote._id);
+  const newNote = await Note.create({ title, content, user_id: id });
 
   // give response
-  res.json({ added_note: newNote });
+  res.status(201).json({ added_note: newNote });
 };
 
 const updateNote = async (req, res) => {
@@ -44,13 +38,13 @@ const updateNote = async (req, res) => {
 
   const updatedNote = await Note.findOneAndUpdate({ id }, { title });
 
-  res.json(updatedNote);
+  res.status(201).json(updatedNote);
 };
 
 const deleteNote = async (req, res) => {
   const { id } = req.params;
   const deletedNote = await Note.findOneAndDelete({ id });
-  res.json(deletedNote);
+  res.status(200).json(deletedNote);
 };
 
 module.exports = {

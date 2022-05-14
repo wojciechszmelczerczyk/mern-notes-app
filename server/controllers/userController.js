@@ -7,17 +7,15 @@ const register = async (req, res) => {
   let errors;
 
   try {
-    // create new user with empty jwt
+    // create new user
     const newUser = await User.create({ email, password, jwt });
 
-    // save jwt in created user
-    const userWithJwt = await User.findByIdAndUpdate(newUser._id, {
-      jwt: createToken(newUser.uuid),
-    });
-    res.json(userWithJwt);
+    // return new user
+    res.json(newUser);
   } catch (err) {
     errors = err.message.split(", ");
-    res.json({ errors });
+    // return register errors
+    res.status(400).json({ errors });
   }
 };
 
@@ -28,7 +26,7 @@ const authenticate = async (req, res) => {
     const user = await User.login(email, password);
 
     // retrieve user jwt
-    const token = createToken(user.uuid);
+    const token = createToken(user._id);
 
     // update jwt in databsae with new token
     await User.findOneAndUpdate({ email }, { jwt: token });
@@ -40,9 +38,9 @@ const authenticate = async (req, res) => {
     });
 
     // return jwt
-    res.json({ token });
+    res.status(201).json({ token });
   } catch (err) {
-    res.json({ error: err.message });
+    res.status(400).json({ error: err.message });
     return err;
   }
 };
@@ -57,18 +55,18 @@ const logout = async (req, res) => {
   });
 
   // reset jwt in db
-  await User.findOneAndUpdate({ uuid: id }, { jwt: "" });
+  await User.findOneAndUpdate({ _id: id }, { jwt: "" });
 
-  res.json("jwt deleted");
+  res.status(200).json({ jwt: "token deleted" });
 };
 
 const getCurrentUser = async (req, res) => {
   const token = req.headers.cookie.slice(4);
   const { id } = extractIdFromToken(token);
 
-  const currentUser = await User.findOne({ uuid: id });
+  const currentUser = await User.findOne({ _id: id });
 
-  res.json(currentUser);
+  res.status(200).json(currentUser);
 };
 
 const updateUser = async (req, res) => {
@@ -78,9 +76,9 @@ const updateUser = async (req, res) => {
 
   const { id } = extractIdFromToken(cookie);
 
-  const updatedUser = await User.findOneAndUpdate({ uuid: id }, { email });
+  const updatedUser = await User.findOneAndUpdate({ _id: id }, { email });
 
-  res.json({ updated_user: updatedUser });
+  res.status(201).json({ updated_user: updatedUser });
 };
 
 module.exports = { register, authenticate, logout, getCurrentUser, updateUser };
