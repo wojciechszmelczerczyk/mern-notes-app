@@ -1,18 +1,22 @@
 const User = require("../models/User.js");
-
 const createToken = require("../token/createToken.js");
+const extractIdFromToken = require("../token/extractId.js");
 
 const register = async (req, res) => {
   let { email, password, jwt = "" } = req.body;
+  let errors;
 
-  // create new user with empty jwt
-  const newUser = await User.create({ email, password, jwt });
+  try {
+    // create new user
+    const newUser = await User.create({ email, password, jwt });
 
-  // save jwt in created user
-  const userWithJwt = await User.findByIdAndUpdate(newUser._id, {
-    jwt: createToken(newUser.uuid),
-  });
-  res.send(userWithJwt);
+    // return new user
+    res.json(newUser);
+  } catch (err) {
+    errors = err.message.split(", ");
+    // return register errors
+    res.status(400).json({ errors });
+  }
 };
 
 const authenticate = async (req, res) => {
@@ -22,7 +26,10 @@ const authenticate = async (req, res) => {
     const user = await User.login(email, password);
 
     // retrieve user jwt
-    const token = user.jwt;
+    const token = createToken(user._id);
+
+    // update jwt in databsae with new token
+    await User.findOneAndUpdate({ email }, { jwt: token });
 
     // populate cookie with jwt
     res.cookie("jwt", token, {
@@ -31,26 +38,47 @@ const authenticate = async (req, res) => {
     });
 
     // return jwt
-    res.json({ token });
+    res.status(201).json({ token });
   } catch (err) {
-    res.json({ error: err.message });
+    res.status(400).json({ error: err.message });
     return err;
   }
 };
 
 const logout = async (req, res) => {
+  const token = req.headers.cookie.slice(4);
+  const { id } = extractIdFromToken(token);
+
+  // reset cookie
   res.cookie("jwt", "", {
     maxAge: 1,
   });
-  res.send("jwt deleted");
+
+  // reset jwt in db
+  await User.findOneAndUpdate({ _id: id }, { jwt: "" });
+
+  res.status(200).json({ jwt: "token deleted" });
 };
 
-const getCurrentUser = (req, res) => {
-  res.send("get current user");
+const getCurrentUser = async (req, res) => {
+  const token = req.headers.cookie.slice(4);
+  const { id } = extractIdFromToken(token);
+
+  const currentUser = await User.findOne({ _id: id });
+
+  res.status(200).json(currentUser);
 };
 
-const updateUser = (req, res) => {
-  res.send("update current user");
+const updateUser = async (req, res) => {
+  const { email } = req.body;
+
+  const cookie = req.headers.cookie.slice(4);
+
+  const { id } = extractIdFromToken(cookie);
+
+  const updatedUser = await User.findOneAndUpdate({ _id: id }, { email });
+
+  res.status(201).json({ updated_user: updatedUser });
 };
 
 module.exports = { register, authenticate, logout, getCurrentUser, updateUser };

@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const validateToken = require("../middleware/validateToken");
+
 // controllers
 
 const {
@@ -14,10 +16,10 @@ const {
 
 router
   .route("/user")
-  .get(getCurrentUser)
+  .get(validateToken, getCurrentUser)
   .post(register)
-  .put(updateUser)
-  .delete(logout);
+  .put(validateToken, updateUser)
+  .delete(validateToken, logout);
 
 router.post("/user/authenticate", authenticate);
 

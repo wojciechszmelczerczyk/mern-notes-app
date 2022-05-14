@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const AutoIncrement = require("mongoose-sequence")(mongoose);
 const { Schema } = mongoose;
 
 const status = {
@@ -10,10 +9,7 @@ const status = {
 
 const noteSchema = new Schema(
   {
-    note_id: {
-      type: Number,
-    },
-    user_uuid: {
+    user_id: {
       type: String,
     },
     status: {
@@ -33,8 +29,6 @@ const noteSchema = new Schema(
   },
   { timestamps: true }
 );
-
-noteSchema.plugin(AutoIncrement, { inc_field: "id" });
 
 const Note = mongoose.model("note", noteSchema);
 
