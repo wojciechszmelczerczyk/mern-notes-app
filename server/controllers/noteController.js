@@ -22,16 +22,19 @@ const getSingleNote = async (req, res) => {
 };
 
 const createNote = async (req, res) => {
-  let { title } = req.body;
+  let { title, content = "" } = req.body;
 
   let jwt = req.headers.cookie.slice(4);
   const { id } = extractIdFromToken(jwt);
 
   // create note
-  const newNote = await Note.create({ title, user_uuid: id });
+  const newNote = await Note.create({ title, content, user_uuid: id });
+
+  // save note id in local storage
+  // localStorage.setItem("currentNoteId", newNote._id);
 
   // give response
-  res.send({ added_note: newNote });
+  res.json({ added_note: newNote });
 };
 
 const updateNote = async (req, res) => {
@@ -41,7 +44,7 @@ const updateNote = async (req, res) => {
 
   const updatedNote = await Note.findOneAndUpdate({ id }, { title });
 
-  res.send(updatedNote);
+  res.json(updatedNote);
 };
 
 const deleteNote = async (req, res) => {

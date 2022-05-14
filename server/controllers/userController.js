@@ -4,15 +4,21 @@ const extractIdFromToken = require("../token/extractId.js");
 
 const register = async (req, res) => {
   let { email, password, jwt = "" } = req.body;
+  let errors;
 
-  // create new user with empty jwt
-  const newUser = await User.create({ email, password, jwt });
+  try {
+    // create new user with empty jwt
+    const newUser = await User.create({ email, password, jwt });
 
-  // save jwt in created user
-  const userWithJwt = await User.findByIdAndUpdate(newUser._id, {
-    jwt: createToken(newUser.uuid),
-  });
-  res.send(userWithJwt);
+    // save jwt in created user
+    const userWithJwt = await User.findByIdAndUpdate(newUser._id, {
+      jwt: createToken(newUser.uuid),
+    });
+    res.json(userWithJwt);
+  } catch (err) {
+    errors = err.message.split(", ");
+    res.json({ errors });
+  }
 };
 
 const authenticate = async (req, res) => {
@@ -22,7 +28,10 @@ const authenticate = async (req, res) => {
     const user = await User.login(email, password);
 
     // retrieve user jwt
-    const token = user.jwt;
+    const token = createToken(user.uuid);
+
+    // update jwt in databsae with new token
+    await User.findOneAndUpdate({ email }, { jwt: token });
 
     // populate cookie with jwt
     res.cookie("jwt", token, {
@@ -38,17 +47,24 @@ const authenticate = async (req, res) => {
   }
 };
 
-const logout = (req, res) => {
+const logout = async (req, res) => {
+  const token = req.headers.cookie.slice(4);
+  const { id } = extractIdFromToken(token);
+
+  // reset cookie
   res.cookie("jwt", "", {
     maxAge: 1,
   });
+
+  // reset jwt in db
+  await User.findOneAndUpdate({ uuid: id }, { jwt: "" });
+
   res.json("jwt deleted");
 };
 
 const getCurrentUser = async (req, res) => {
-  const cookie = req.headers.cookie.slice(4);
-
-  const { id } = extractIdFromToken(cookie);
+  const token = req.headers.cookie.slice(4);
+  const { id } = extractIdFromToken(token);
 
   const currentUser = await User.findOne({ uuid: id });
 
