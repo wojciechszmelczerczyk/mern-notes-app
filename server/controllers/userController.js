@@ -29,7 +29,7 @@ const authenticate = async (req, res) => {
     const token = createToken(user._id);
 
     // update jwt in databsae with new token
-    await User.findOneAndUpdate({ email }, { jwt: token });
+    await User.findOneAndUpdate({ _id: user._id }, { jwt: token });
 
     // populate cookie with jwt
     res.cookie("jwt", token, {
