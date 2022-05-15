@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // db connection
 require("../server/db/connection")();
@@ -18,6 +19,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const user = require("./routes/user.js");
 const note = require("./routes/note.js");
 const speechRecognition = require("./routes/speechRecognition.js");
+
+app.use(cors());
 
 app.use(user);
 app.use(note);
