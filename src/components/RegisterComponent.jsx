@@ -1,5 +1,6 @@
 import { Component } from "react";
 import UserService from "../services/userService";
+import Form from "../components/Form";
 
 export default class RegisterComponent extends Component {
   constructor(props) {
@@ -29,27 +30,13 @@ export default class RegisterComponent extends Component {
 
   render() {
     return (
-      <>
-        <form>
-          <label>email:</label>
-          <input
-            type='email'
-            name='email'
-            placeholder='email'
-            value={this.state.email}
-            onChange={this.handleEmail}
-          ></input>
-          <label>password:</label>
-          <input
-            type='password'
-            name='password'
-            placeholder='password'
-            value={this.state.password}
-            onChange={this.handlePassword}
-          ></input>
-        </form>
-        <button onClick={this.createUser}>Submit</button>
-      </>
+      <Form
+        email={this.state.email}
+        password={this.state.password}
+        handleEmail={this.handleEmail}
+        handlePassword={this.handlePassword}
+        userOp={this.createUser}
+      />
     );
   }
 }

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const User = require("../models/User.js");
 const createToken = require("../token/createToken.js");
 const extractIdFromToken = require("../token/extractId.js");
