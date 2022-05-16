@@ -1,10 +1,8 @@
 import { Component } from "react";
 
-class NotesListComponent extends Component {
+export default class NoteListComponent extends Component {
   state = {};
   render() {
     return <h1>Notes List</h1>;
   }
 }
-
-export default NotesListComponent;

@@ -2,7 +2,10 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const cors = require("cors");
+const cors = require("cors")({
+  origin: "http://localhost:5000",
+  credentials: true,
+});
 
 // db connection
 require("../server/db/connection")();
@@ -20,7 +23,7 @@ const user = require("./routes/user.js");
 const note = require("./routes/note.js");
 const speechRecognition = require("./routes/speechRecognition.js");
 
-app.use(cors());
+app.use(cors);
 
 app.use(user);
 app.use(note);

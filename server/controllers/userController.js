@@ -5,11 +5,9 @@ const extractIdFromToken = require("../token/extractId.js");
 const register = async (req, res) => {
   let { email, password, jwt = "" } = req.body;
   let errors;
-
   try {
     // create new user
     const newUser = await User.create({ email, password, jwt });
-
     // return new user
     res.json(newUser);
   } catch (err) {
