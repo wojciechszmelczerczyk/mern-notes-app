@@ -7,7 +7,10 @@ export async function getTokenOrRefresh() {
 
   if (speechToken === undefined) {
     try {
-      const res = await axios.get("http://localhost:3000/api/get-speech-token");
+      const res = await axios.get(
+        "http://localhost:3000/api/get-speech-token",
+        { withCredentials: true }
+      );
       console.log(res);
       const token = res.data.token;
       const region = res.data.region;

@@ -3,13 +3,9 @@ const { verify } = require("jsonwebtoken");
 require("dotenv").config({ path: `${process.cwd()}/.env` });
 
 const validateToken = (req, res, next) => {
-  console.log("middleware activated");
   try {
-    let token = req.headers.cookie;
+    let token = req.cookies.jwt;
     if (token) {
-      // extract jwt from header
-      token = token.slice(4);
-
       verify(token, process.env.JWT_SECRET, (err) => {
         if (err) throw new Error("Jwt is not valid");
         next();

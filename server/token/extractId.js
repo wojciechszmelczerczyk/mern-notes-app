@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken");
+const { decode } = require("jsonwebtoken");
 
-require("dotenv").config({ path: `${process.cwd()}/.env` });
+require("dotenv").config();
 
 const extractIdFromToken = (token) => {
-  return jwt.decode(token);
+  return decode(token);
 };
 
 module.exports = extractIdFromToken;

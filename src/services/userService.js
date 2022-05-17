@@ -8,10 +8,14 @@ class UserService {
     });
   }
   auth(email, password) {
-    return axios.post("http://localhost:3000/user/authenticate", {
-      email,
-      password,
-    });
+    return axios.post(
+      "http://localhost:3000/user/authenticate",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
   }
 }
 
