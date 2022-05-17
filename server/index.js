@@ -2,6 +2,8 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const validateToken = require("./middleware/validateToken");
 const cors = require("cors")({
   origin: "http://localhost:5000",
   credentials: true,
@@ -10,20 +12,22 @@ const cors = require("cors")({
 // db connection
 require("../server/db/connection")();
 
+app.use(cors);
 app.use(express.json());
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes
-const user = require("./routes/user.js");
-const note = require("./routes/note.js");
-const speechRecognition = require("./routes/speechRecognition.js");
+const user = require("./routes/user");
+const note = require("./routes/note");
+const speechRecognition = require("./routes/speechRecognition");
 
-app.use(cors);
+app.use(validateToken.unless({ path: ["/user", "/user/authenticate"] }));
 
 app.use(user);
 app.use(note);

@@ -3,6 +3,7 @@ const { verify } = require("jsonwebtoken");
 require("dotenv").config({ path: `${process.cwd()}/.env` });
 
 const validateToken = (req, res, next) => {
+  console.log("middleware activated");
   try {
     let token = req.headers.cookie;
     if (token) {
@@ -20,5 +21,7 @@ const validateToken = (req, res, next) => {
     res.status(401).json({ jwt_error: err.message });
   }
 };
+
+validateToken.unless = require("express-unless");
 
 module.exports = validateToken;
