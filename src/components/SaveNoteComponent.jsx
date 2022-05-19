@@ -1,3 +1,4 @@
+import NoteService from "../services/noteService.js";
 import React, { Component } from "react";
 import { Container } from "reactstrap";
 import { getTokenOrRefresh } from "../tokenUtil";
@@ -10,6 +11,8 @@ export default class SaveNoteComponent extends Component {
     this.state = {
       displayText: "INITIALIZED: ready to test speech...",
     };
+
+    this.saveNote = this.saveNote.bind(this);
   }
 
   async componentDidMount() {
@@ -20,6 +23,12 @@ export default class SaveNoteComponent extends Component {
         displayText: "FATAL_ERROR: " + tokenRes.error,
       });
     }
+  }
+
+  async saveNote() {
+    const noteId = localStorage.getItem("note_id");
+
+    await NoteService.saveNote(this.state.displayText, noteId);
   }
 
   async sttFromMic() {
@@ -79,6 +88,7 @@ export default class SaveNoteComponent extends Component {
             <code style={{ color: "white" }}>{this.state.displayText}</code>
           </div>
         </div>
+        <button onClick={this.saveNote}>Save note</button>
       </Container>
     );
   }

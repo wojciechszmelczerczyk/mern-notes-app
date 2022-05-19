@@ -28,7 +28,7 @@ const createNote = async (req, res) => {
   const newNote = await Note.create({ title, content, user_id: id });
 
   // give response
-  res.status(201).json({ added_note: newNote });
+  res.status(201).json(newNote);
 };
 
 const updateNote = async (req, res) => {
@@ -41,6 +41,13 @@ const updateNote = async (req, res) => {
   res.status(201).json(updatedNote);
 };
 
+const fillNoteContent = async (req, res) => {
+  const { content, id } = req.body;
+
+  // add note content
+  await Note.findByIdAndUpdate(id, { content });
+};
+
 const deleteNote = async (req, res) => {
   const { id } = req.params;
   const deletedNote = await Note.findOneAndDelete({ id });
@@ -51,6 +58,7 @@ module.exports = {
   getAllNotes,
   getSingleNote,
   createNote,
+  fillNoteContent,
   updateNote,
   deleteNote,
 };

@@ -7,11 +7,14 @@ const {
   getAllNotes,
   getSingleNote,
   createNote,
+  fillNoteContent,
   updateNote,
   deleteNote,
 } = require("../controllers/noteController");
 
 router.route("/note").get(getAllNotes).post(createNote);
+
+router.route("/note/save").post(fillNoteContent);
 
 router.route("/note/:id").get(getSingleNote).delete(deleteNote).put(updateNote);
 
