@@ -1,5 +1,6 @@
 import NoteService from "../services/noteService";
 import { useState } from "react";
+
 export default function CreateNoteComponent() {
   const [title, setTitle] = useState("");
 
@@ -16,7 +17,7 @@ export default function CreateNoteComponent() {
   }
 
   return (
-    <>
+    <div className='create-note-container'>
       <form>
         <label>Note title: </label>
         <input
@@ -27,6 +28,6 @@ export default function CreateNoteComponent() {
         ></input>
       </form>
       <button onClick={createNote}>Create note</button>
-    </>
+    </div>
   );
 }

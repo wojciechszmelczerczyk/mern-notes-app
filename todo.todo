@@ -1,0 +1,26 @@
+=====================
+Speech-to-text notes 
+=====================
+
+23.05
+
+1. Implement stop recognition.
+2. Implement delete note id from local storage after note being saved. 
+3. Implement buffer prompt with recognizing words.
+4. Change div where recognized words are stored into editable element.
+
+
+24.05
+
+5. Implement refresh token for jwt's. 
+6. Implement listing notes.
+7. Implement pagination.
+8. Implement deleting notes.
+9. Implement getting note by id.
+10. Implement searching notes by title.
+
+
+25.05
+
+11. Implement styles 
+

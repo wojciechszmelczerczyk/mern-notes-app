@@ -9,10 +9,10 @@ const createToken = (id) => {
     {
       id,
     },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: maxAge,
-    }
+    process.env.JWT_SECRET
+    // {
+    //   expiresIn: maxAge,
+    // }
   );
 };
 

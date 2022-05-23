@@ -10,6 +10,14 @@ main-container {
   color: #0c6e47;
 }
 
+.fa-microphone-slash {
+  color: #ff0000;
+}
+
+.fa-microphone-slash:hover {
+  color: #af0000;
+}
+
 .fa-file-audio {
   color: #ff652f;
 }
