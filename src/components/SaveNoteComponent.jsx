@@ -74,6 +74,7 @@ export default function SaveNoteComponent() {
       };
 
       recognizer.recognized = (s, e) => {
+        setRecognizingText("");
         if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
           text += e.result.text;
           setText(text);
