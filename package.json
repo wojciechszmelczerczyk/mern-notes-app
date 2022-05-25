@@ -16,7 +16,7 @@
     "express-pino-logger": "^7.0.0",
     "express-unless": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
-    "microsoft-cognitiveservices-speech-sdk": "^1.20.0",
+    "microsoft-cognitiveservices-speech-sdk": "^1.21.1",
     "mongoose": "^6.2.3",
     "mongoose-sequence": "^5.3.1",
     "react": "^17.0.2",
