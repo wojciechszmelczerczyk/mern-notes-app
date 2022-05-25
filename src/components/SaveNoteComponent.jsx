@@ -1,5 +1,6 @@
 import NoteService from "../services/noteService.js";
 import React from "react";
+import Buffer from "../components/Buffer";
 import { Container } from "reactstrap";
 import { getTokenOrRefresh } from "../tokenUtil";
 import "../custom.css";
@@ -9,6 +10,7 @@ const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 export default function SaveNoteComponent() {
   const [text, setText] = useState("Listening on changes...");
+  const [recognizingText, setRecognizingText] = useState("");
   let [noteTitle, setNoteTitle] = useState("");
   let [isListening, setListening] = useState(false);
   let [stopRecognizing, setStopRecognizing] = React.useState(() => noop);
@@ -68,7 +70,7 @@ export default function SaveNoteComponent() {
       );
 
       recognizer.recognizing = (s, e) => {
-        console.log(`RECOGNIZING: Text=${e.result.text}`);
+        setRecognizingText(e.result.text);
       };
 
       recognizer.recognized = (s, e) => {
@@ -114,6 +116,7 @@ export default function SaveNoteComponent() {
         <div className='col-6 output-display rounded'>
           <code style={{ color: "white" }}>{text}</code>
         </div>
+        <Buffer text={recognizingText} />
       </div>
       <button onClick={saveNote}>Save note</button>
     </Container>

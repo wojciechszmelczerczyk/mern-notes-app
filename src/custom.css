@@ -40,3 +40,14 @@ main-container {
   background-color: #272727;
   color: #747474;
 }
+
+#buffer {
+  display: inline-block;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  white-space: nowrap;
+  word-break: break-all;
+  background-color: grey;
+  height: auto;
+  width: auto;
+}
