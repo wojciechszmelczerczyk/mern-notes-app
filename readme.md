@@ -36,6 +36,7 @@ Client side will be created in `React` using `Javascript` language.
   - [Database Architecture](#database-architecture)
 
 - [App flow](#app-flow)
+- [Client routing](#client-routing)
 - [API Endpoints](#api-endpoints)
 
 ## Techstack
