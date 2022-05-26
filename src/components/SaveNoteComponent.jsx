@@ -10,6 +10,7 @@ const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 export default function SaveNoteComponent() {
   const [text, setText] = useState("Listening on changes...");
+  // const [editedText, setEditedText] = useState(text);
   const [recognizingText, setRecognizingText] = useState("");
   let [noteTitle, setNoteTitle] = useState("");
   let [isListening, setListening] = useState(false);
@@ -50,6 +51,11 @@ export default function SaveNoteComponent() {
     await NoteService.saveNote(text, noteId);
   }
 
+  // function handleText(e) {
+  //   console.log(e.target.value);
+  //   setEditedText(e.target.value);
+  // }
+
   async function mic() {
     if (!isListening) {
       setText("speak into your microphone...");
@@ -77,6 +83,7 @@ export default function SaveNoteComponent() {
         setRecognizingText("");
         if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
           text += e.result.text;
+          console.log(text);
           setText(text);
         } else if (e.result.reason === speechsdk.ResultReason.NoMatch) {
           setText(text);
@@ -114,9 +121,8 @@ export default function SaveNoteComponent() {
           <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
           Convert speech to text from your mic.
         </div>
-        <div className='col-6 output-display rounded'>
-          <code style={{ color: "white" }}>{text}</code>
-        </div>
+
+        <textarea rows='10' cols='50' value={text} />
         <Buffer text={recognizingText} />
       </div>
       <button onClick={saveNote}>Save note</button>
