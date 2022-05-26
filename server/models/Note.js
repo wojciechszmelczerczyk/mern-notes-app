@@ -19,7 +19,6 @@ const noteSchema = new Schema(
     title: {
       type: String,
       required: [true, "Please provide the note title"],
-      unique: true,
       lowercase: true,
     },
     content: {
