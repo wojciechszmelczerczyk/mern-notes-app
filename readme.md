@@ -126,6 +126,17 @@ JWT_EXPIRATION=
 
 [![](https://mermaid.ink/img/pako:eNpVks9uwjAMxl_FyolJ8AI9bALa8ee63SgHq_FKBE0q1zChlnefSwp0vaT5_LNjf0lrimDJJKZkrA_wneYe9JvvmErXCDHUWNIeZrP3ruZwcZagYLLkxeGp6WDRIv-ToAjMVMjHLZZa9LmwmVypeRsr24kPg7C9C53wFZ7HYonOdzCPxCYSHi-uRCGQAJXG7811sNw9N_vILyOvbfW0p1_wQZRMd_0K4uREYz6NfEMCL6CDLOIjMBtAQRZtVme1zpdD9c_WNTG_wQvZhwOf95zVyIGorF8OrGJZddH13vXzndQHHS3G1zF-JKpHpwY1KMu9mZqKWC2weo9tn5AbOVBFuUn01yIfc5P7m3Ln2qohmXUS2CQ_el00NXiW8HX1hUmEz_SAUof6JqqBuv0B3yOyKw)](https://mermaid.live/edit#pako:eNpVks9uwjAMxl_FyolJ8AI9bALa8ee63SgHq_FKBE0q1zChlnefSwp0vaT5_LNjf0lrimDJJKZkrA_wneYe9JvvmErXCDHUWNIeZrP3ruZwcZagYLLkxeGp6WDRIv-ToAjMVMjHLZZa9LmwmVypeRsr24kPg7C9C53wFZ7HYonOdzCPxCYSHi-uRCGQAJXG7811sNw9N_vILyOvbfW0p1_wQZRMd_0K4uREYz6NfEMCL6CDLOIjMBtAQRZtVme1zpdD9c_WNTG_wQvZhwOf95zVyIGorF8OrGJZddH13vXzndQHHS3G1zF-JKpHpwY1KMu9mZqKWC2weo9tn5AbOVBFuUn01yIfc5P7m3Ln2qohmXUS2CQ_el00NXiW8HX1hUmEz_SAUof6JqqBuv0B3yOyKw)
 
+## Client routing
+
+| Endpoint      | Authenticated | Component            | Describtion                    |
+| :------------ | :-----------: | :------------------- | ------------------------------ |
+| `/`           |      \*       | NoteListComponent    | Note list of current auth user |
+| `/register`   |       -       | RegisterComponent    | Register form                  |
+| `/login`      |       -       | LoginComponent       | Login form                     |
+| `/note/:id`   |      \*       | NoteDetailsComponent | Single note details            |
+| `/createNote` |      \*       | CreateNoteComponent  | Set note title                 |
+| `/saveNote`   |      \*       | SaveNoteComponent    | Speech-to-text component       |
+
 ## API Endpoints
 
 ### User:
@@ -148,3 +159,9 @@ JWT_EXPIRATION=
 | `/note/:id`  |  GET   |      \*       | Get single note if owned by the auth user |
 | `/note/:id`  |  PUT   |      \*       | Update note                               |
 | `/note/:id`  | DELETE |      \*       | Delete note                               |
+
+### Speech-to-text:
+
+| Endpoint                | Method | Authenticated | Action                           |
+| :---------------------- | :----: | :-----------: | :------------------------------- |
+| `/api/get-speech-token` |  GET   |      \*       | Get speech token data and region |
