@@ -128,14 +128,14 @@ JWT_EXPIRATION=
 
 ## Client routing
 
-| Endpoint      | Authenticated | Component            | Describtion                    |
-| :------------ | :-----------: | :------------------- | ------------------------------ |
-| `/`           |      \*       | NoteListComponent    | Note list of current auth user |
-| `/register`   |       -       | RegisterComponent    | Register form                  |
-| `/login`      |       -       | LoginComponent       | Login form                     |
+| Endpoint      | Authenticated |      Component       | Describtion                    |
+| :------------ | :-----------: | :------------------: | ------------------------------ |
+| `/`           |      \*       |  NoteListComponent   | Note list of current auth user |
+| `/register`   |       -       |  RegisterComponent   | Register form                  |
+| `/login`      |       -       |    LoginComponent    | Login form                     |
 | `/note/:id`   |      \*       | NoteDetailsComponent | Single note details            |
 | `/createNote` |      \*       | CreateNoteComponent  | Set note title                 |
-| `/saveNote`   |      \*       | SaveNoteComponent    | Speech-to-text component       |
+| `/saveNote`   |      \*       |  SaveNoteComponent   | Speech-to-text component       |
 
 ## API Endpoints
 
