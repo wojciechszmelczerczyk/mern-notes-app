@@ -166,3 +166,11 @@ JWT_EXPIRATION=
 | Endpoint                | Method | Authenticated | Action                           |
 | :---------------------- | :----: | :-----------: | :------------------------------- |
 | `/api/get-speech-token` |  GET   |      \*       | Get speech token data and region |
+
+## Tests
+
+### Backend API
+
+### To run tests:
+
+`npm run api-test`
