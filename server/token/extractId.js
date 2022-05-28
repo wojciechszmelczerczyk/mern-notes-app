@@ -1,6 +1,7 @@
-const { decode } = require("jsonwebtoken");
+const appRoot = require("app-root-path");
+require("dotenv").config({ path: `${appRoot}.env` });
 
-require("dotenv").config();
+const { decode } = require("jsonwebtoken");
 
 const extractIdFromToken = (token) => {
   return decode(token);

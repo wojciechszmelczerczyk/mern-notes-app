@@ -1,8 +1,4 @@
-require("dotenv").config({ path: `${process.cwd()}/.env` });
-
 const mongoose = require("mongoose");
-
-const uri = process.env.DB_URI;
 
 // display message depends on db connection status
 
@@ -14,7 +10,7 @@ mongoose.connection.on("disconnected", () =>
   console.log("Database connection off")
 );
 
-const dbConnection = async () => {
+const dbConnection = async (uri) => {
   try {
     await mongoose.connect(uri, {
       useNewUrlParser: true,
@@ -27,4 +23,9 @@ const dbConnection = async () => {
   }
 };
 
-module.exports = dbConnection;
+// disconnect db
+const dbDisconnect = async () => {
+  await mongoose.disconnect();
+};
+
+module.exports = { dbConnection, dbDisconnect };

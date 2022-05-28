@@ -107,6 +107,9 @@ SPEECH_KEY=
 # Speech region for Microsoft Cognitive Services
 SPEECH_REGION=
 
+# Token for test purposes
+JWT=
+
 # Token secret
 JWT_SECRET=
 
@@ -171,6 +174,109 @@ JWT_EXPIRATION=
 ## Tests
 
 ### Backend API
+
+### Note
+
+`GET /note`
+
+```javascript
+describe("GET /note", () => {
+  test("when jwt doesn't exists", async () => {
+    const notes = await request(app).get("/note");
+
+    expect(notes.status).toEqual(401);
+    expect(notes.body.jwt_error).toEqual("Jwt doesn't exists");
+  });
+
+  test("when jwt is incorrect", async () => {
+    const notes = await request(app).get("/note").set("Cookie", "jwt=ssss;");
+
+    expect(notes.status).toEqual(401);
+    expect(notes.body.jwt_error).toEqual("Jwt is not valid");
+  });
+
+  test("when jwt is correct", async () => {
+    const notes = await request(app).get("/note").set("Cookie", `jwt=${jwt};`);
+
+    expect(notes.body).toBeTruthy();
+    expect(notes.status).toEqual(200);
+  });
+});
+```
+
+### User
+
+`POST /user`
+
+```javascript
+describe("POST /user", () => {
+  test("when credentials are correct", async () => {
+    let user = {
+      email: "testuser@gmail.com",
+      password: "testpassword123",
+    };
+
+    const newUser = await request(app).post("/user").send(user);
+
+    expect(newUser.body.email).toEqual(user.email);
+    expect(newUser.status).toEqual(200);
+  });
+
+  test("when credentials are incorrect", async () => {
+    let user = {
+      email: "testuser",
+      password: "test",
+    };
+
+    const newUser = await request(app).post("/user").send(user);
+
+    expect(newUser.body.errors).toBeTruthy();
+    expect(newUser.status).toEqual(400);
+  });
+});
+```
+
+`POST /user/authenticate`
+
+```javascript
+describe("POST /user/authenticate", () => {
+  test("when credentials are correct", async () => {
+    let user = {
+      email: "testuser@gmail.com",
+      password: "testpassword123",
+    };
+
+    const newUser = await request(app).post("/user/authenticate").send(user);
+
+    expect(newUser.body.token).toBeTruthy();
+    expect(newUser.status).toEqual(201);
+  });
+
+  test("when credentials don't match user in db", async () => {
+    let user = {
+      email: "testuser",
+      password: "test",
+    };
+
+    const newUser = await request(app).post("/user/authenticate").send(user);
+
+    expect(newUser.body.error).toBeTruthy();
+    expect(newUser.status).toEqual(400);
+  });
+
+  test("when credentials are incorrect", async () => {
+    let user = {
+      email: "testuser2@gmail.com",
+      password: "test1234",
+    };
+
+    const newUser = await request(app).post("/user/authenticate").send(user);
+
+    expect(newUser.body.error).toBeTruthy();
+    expect(newUser.status).toEqual(400);
+  });
+});
+```
 
 ### To run tests:
 

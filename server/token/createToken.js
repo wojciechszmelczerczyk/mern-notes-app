@@ -1,4 +1,6 @@
-require("dotenv").config();
+const appRoot = require("app-root-path");
+
+require("dotenv").config({ path: `${appRoot}.env` });
 
 const { sign } = require("jsonwebtoken");
 
