@@ -175,6 +175,10 @@ JWT_EXPIRATION=
 
 ### Backend API
 
+### To run tests:
+
+`npm run api-test`
+
 ### Note
 
 `GET /note`
@@ -277,7 +281,3 @@ describe("POST /user/authenticate", () => {
   });
 });
 ```
-
-### To run tests:
-
-`npm run api-test`
