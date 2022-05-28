@@ -1,5 +1,5 @@
-const appRoot = require("app-root-path");
-require("dotenv").config({ path: `${appRoot}.env` });
+const { path } = require("app-root-path");
+require("dotenv").config({ path: `${path}/.env` });
 const createServer = require("../util/createServer");
 const request = require("supertest");
 const { dbConnection } = require("../db/connection");

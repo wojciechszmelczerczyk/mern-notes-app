@@ -22,7 +22,6 @@ const createNote = async (req, res) => {
   let { title, content = "" } = req.body;
 
   let jwt = req.headers.cookie.slice(4);
-  console.log(jwt);
   const { id } = extractIdFromToken(jwt);
 
   // create note

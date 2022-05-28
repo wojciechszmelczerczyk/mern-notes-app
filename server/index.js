@@ -1,7 +1,7 @@
-const appRoot = require("app-root-path");
+const { path } = require("app-root-path");
 
 // env
-require("dotenv").config({ path: `${appRoot}.env` });
+require("dotenv").config({ path: `${path}/.env` });
 
 // express
 const createServer = require("../server/util/createServer");
@@ -13,7 +13,7 @@ dbConnection(process.env.DB_URI);
 
 const app = createServer();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

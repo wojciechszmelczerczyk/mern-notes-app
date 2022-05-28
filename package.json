@@ -10,6 +10,7 @@
     "axios": "^0.26.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
+    "concurrently": "^7.2.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -32,7 +33,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=5000 react-scripts start",
+    "client": "PORT=5000 react-scripts start",
+    "server": "nodemon server/index.js",
+    "app": "concurrently \"npm run client\" \"npm run server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "api-test": "jest --watchAll",

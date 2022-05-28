@@ -77,22 +77,22 @@ npm i
 
 ### Run app
 
-<br/>
-
 #### Run React server
 
 ```
-npm start
+npm run client
 ```
 
 #### Run Express REST API
 
 ```sh
-# navigate to folder with express api
-cd /server
+npm run server
+```
 
-# run app with node cli (nodemon recommended)
-node index.js
+#### Run both servers concurrently
+
+```sh
+npm run app
 ```
 
 ### Env setup
@@ -106,6 +106,9 @@ SPEECH_KEY=
 
 # Speech region for Microsoft Cognitive Services
 SPEECH_REGION=
+
+# Port
+PORT=
 
 # Token for test purposes
 JWT=
