@@ -38,6 +38,11 @@ Client side will be created in `React` using `Javascript` language.
 - [App flow](#app-flow)
 - [Client routing](#client-routing)
 - [API Endpoints](#api-endpoints)
+- [JWT](#jwt)
+
+  - [Middleware](#middleware)
+  - [Create token](#create-token-helper-function)
+
 - [Tests](#tests)
 
 ## Techstack
@@ -173,6 +178,49 @@ JWT_EXPIRATION=
 | Endpoint                | Method | Authenticated | Action                           |
 | :---------------------- | :----: | :-----------: | :------------------------------- |
 | `/api/get-speech-token` |  GET   |      \*       | Get speech token data and region |
+
+## JWT
+
+### Middleware
+
+#### Middleware which verify token.
+
+```javascript
+const validateToken = (req, res, next) => {
+  try {
+    let token = req.cookies.jwt;
+    if (token) {
+      verify(token, process.env.JWT_SECRET, (err) => {
+        if (err) throw new Error("Jwt is not valid");
+        next();
+      });
+    } else if (token === undefined) {
+      throw new Error("Jwt doesn't exists");
+    }
+  } catch (err) {
+    res.status(401).json({ jwt_error: err.message });
+  }
+};
+```
+
+### Create token helper function.
+
+#### Function sign new token with user id.
+
+```javascript
+
+const createToken = (id) => {
+  return sign(
+    {
+      id,
+    },
+    process.env.JWT_SECRET
+    {
+      expiresIn: maxAge,
+    }
+  );
+};
+```
 
 ## Tests
 
