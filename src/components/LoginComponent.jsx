@@ -1,6 +1,7 @@
 import { Component } from "react";
 import UserService from "../services/userService";
 import Form from "../components/Form";
+import { Navigate } from "react-router-dom";
 
 export default class LoginComponent extends Component {
   constructor(props) {
@@ -14,11 +15,16 @@ export default class LoginComponent extends Component {
   state = {
     email: "",
     password: "",
+    redirect: false,
   };
 
   async authUser() {
-    const x = await UserService.auth(this.state.email, this.state.password);
-    console.log(x);
+    const auth = await UserService.auth(this.state.email, this.state.password);
+    if (auth) {
+      this.setState({ redirect: true });
+    } else {
+      // some handler...
+    }
   }
 
   handleEmail(e) {
@@ -30,14 +36,22 @@ export default class LoginComponent extends Component {
   }
 
   render() {
+    let { redirect } = this.state;
+
     return (
-      <Form
-        email={this.state.email}
-        password={this.state.password}
-        handleEmail={this.handleEmail}
-        handlePassword={this.handlePassword}
-        userOp={this.authUser}
-      />
+      <>
+        {!redirect ? (
+          <Form
+            email={this.state.email}
+            password={this.state.password}
+            handleEmail={this.handleEmail}
+            handlePassword={this.handlePassword}
+            userOp={this.authUser}
+          />
+        ) : (
+          <Navigate to='/' />
+        )}
+      </>
     );
   }
 }

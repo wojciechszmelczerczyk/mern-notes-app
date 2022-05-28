@@ -6,10 +6,12 @@ import { getTokenOrRefresh } from "../tokenUtil";
 import "../custom.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 export default function SaveNoteComponent() {
   const [text, setText] = useState("Listening on changes...");
+  const [redirect, setRedirect] = useState(false);
   // const [editedText, setEditedText] = useState(text);
   const [recognizingText, setRecognizingText] = useState("");
   let [noteTitle, setNoteTitle] = useState("");
@@ -48,13 +50,18 @@ export default function SaveNoteComponent() {
 
   async function saveNote() {
     const noteId = localStorage.getItem("note_id");
-    await NoteService.saveNote(text, noteId);
+    const savedNote = await NoteService.saveNote(text, noteId);
+    if (savedNote) {
+      setRedirect(true);
+    } else {
+      // some handler
+    }
   }
 
-  // function handleText(e) {
-  //   console.log(e.target.value);
-  //   setEditedText(e.target.value);
-  // }
+  function handleText(e) {
+    console.log(e.target.value);
+    // setEditedText(e.target.value);
+  }
 
   async function mic() {
     if (!isListening) {
@@ -114,18 +121,24 @@ export default function SaveNoteComponent() {
   }
   return (
     <Container className='app-container'>
-      <h1 className='display-4 mb-3'>{noteTitle}</h1>
+      {!redirect ? (
+        <>
+          <h1 className='display-4 mb-3'>{noteTitle}</h1>
 
-      <div className='row main-container'>
-        <div className='col-6'>
-          <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
-          Convert speech to text from your mic.
-        </div>
+          <div className='row main-container'>
+            <div className='col-6'>
+              <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
+              Convert speech to text from your mic.
+            </div>
 
-        <textarea rows='10' cols='50' value={text} />
-        <Buffer text={recognizingText} />
-      </div>
-      <button onClick={saveNote}>Save note</button>
+            <textarea rows='10' cols='50' value={text} onChange={handleText} />
+            <Buffer text={recognizingText} />
+          </div>
+          <button onClick={saveNote}>Save note</button>
+        </>
+      ) : (
+        <Navigate to='/' />
+      )}
     </Container>
   );
 }

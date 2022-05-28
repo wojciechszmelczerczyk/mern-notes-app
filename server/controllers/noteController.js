@@ -45,7 +45,8 @@ const fillNoteContent = async (req, res) => {
   const { content, id } = req.body;
 
   // add note content
-  await Note.findByIdAndUpdate(id, { content });
+  const noteWithFillContent = await Note.findByIdAndUpdate(id, { content });
+  res.json(noteWithFillContent);
 };
 
 const deleteNote = async (req, res) => {
