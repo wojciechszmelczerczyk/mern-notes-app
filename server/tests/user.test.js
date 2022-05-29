@@ -3,15 +3,15 @@ require("dotenv").config({ path: `${path}/.env` });
 const createServer = require("../util/createServer");
 const request = require("supertest");
 const { dbConnection } = require("../db/connection");
-const flushUser = require("./hooks/flushUser");
+const User = require("../models/User");
+
+const flush = require("./hooks/flushDocument");
 
 let app = createServer();
 
-beforeAll(async () => {
-  await dbConnection(process.env.DB_URI);
-});
+beforeAll(async () => await dbConnection(process.env.DB_URI));
 
-afterAll(flushUser);
+afterAll(async () => await flush(User));
 
 describe("POST /user", () => {
   test("when credentials are correct", async () => {

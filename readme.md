@@ -232,7 +232,9 @@ const createToken = (id) => {
 
 ### Note
 
-`GET /note`
+<details>
+
+<summary>GET /note</summary>
 
 ```javascript
 describe("GET /note", () => {
@@ -259,9 +261,50 @@ describe("GET /note", () => {
 });
 ```
 
+</details>
+
+<br />
+
+<details>
+<summary>POST /note</summary>
+
+```javascript
+describe("POST /note", () => {
+  test("when jwt doesn't exists", async () => {
+    const newNote = await request(app)
+      .post("/note")
+      .send({ title: "new note added in jest", content: "" });
+    expect(newNote.status).toBe(401);
+    expect(newNote.body.jwt_error).toBe("Jwt doesn't exists");
+  });
+
+  test("when jwt is incorrect", async () => {
+    const newNote = await request(app)
+      .post("/note")
+      .send({ title: "new note added in jest", content: "" })
+      .set("Cookie", "jwt=false-token;");
+    expect(newNote.status).toBe(401);
+    expect(newNote.body.jwt_error).toBe("Jwt is not valid");
+  });
+
+  test.only("when jwt is correct", async () => {
+    const newNote = await request(app)
+      .post("/note")
+      .send({ title: "just next note added in jest", content: "" })
+      .set("Cookie", `jwt=${jwt};`);
+
+    expect(newNote.status).toBe(201);
+    expect(newNote.body.title).toBe("just next note added in jest");
+  });
+});
+```
+
+</details>
+
 ### User
 
-`POST /user`
+<details>
+<summary>POST /user</summary>
 
 ```javascript
 describe("POST /user", () => {
@@ -291,7 +334,12 @@ describe("POST /user", () => {
 });
 ```
 
-`POST /user/authenticate`
+</details>
+
+<br />
+
+<details>
+<summary>POST /user/authenticate</summary>
 
 ```javascript
 describe("POST /user/authenticate", () => {
@@ -332,3 +380,7 @@ describe("POST /user/authenticate", () => {
   });
 });
 ```
+
+</details>
+
+<br />
