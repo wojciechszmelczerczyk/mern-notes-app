@@ -17,6 +17,9 @@ class NoteService {
       { withCredentials: true }
     );
   }
+  getNotes() {
+    return axios.get("http://localhost:3000/note", { withCredentials: true });
+  }
 }
 
 export default new NoteService();

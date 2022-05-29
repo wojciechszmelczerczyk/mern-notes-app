@@ -4,7 +4,8 @@ require("dotenv").config({ path: `${path}/.env` });
 const { decode } = require("jsonwebtoken");
 
 const extractIdFromToken = (token) => {
-  return decode(token);
+  const { id } = decode(token);
+  return id;
 };
 
 module.exports = extractIdFromToken;

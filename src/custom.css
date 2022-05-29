@@ -53,3 +53,10 @@ main-container {
   width: auto;
   max-width: 300px;
 }
+
+.note {
+  height: auto;
+  width: 200px;
+  background-color: bisque;
+  border-radius: 10%;
+}
