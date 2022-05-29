@@ -52,6 +52,7 @@ export default function SaveNoteComponent() {
     const noteId = localStorage.getItem("note_id");
     const savedNote = await NoteService.saveNote(text, noteId);
     if (savedNote) {
+      localStorage.removeItem("note_id");
       setRedirect(true);
     } else {
       // some handler
