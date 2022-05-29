@@ -33,7 +33,7 @@ const authenticate = async (req, res) => {
     // populate cookie with jwt
     res.cookie("jwt", token, {
       httpOnly: true,
-      // expiresIn: process.env.JWT_EXPIRATION * 1000,
+      expiresIn: process.env.JWT_EXPIRATION * 1000,
     });
 
     // return jwt
