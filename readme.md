@@ -42,6 +42,7 @@ Client side will be created in `React` using `Javascript` language.
 
   - [Middleware](#middleware)
   - [Create token](#create-token-helper-function)
+  - [Extract user id](#extract-user-id-helper-function)
 
 - [Tests](#tests)
 
