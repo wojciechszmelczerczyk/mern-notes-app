@@ -222,6 +222,17 @@ const createToken = (id) => {
 };
 ```
 
+### Extract user id helper function.
+
+#### Function take token as a parameter and return user id.
+
+```javascript
+const extractIdFromToken = (token) => {
+  const { id } = decode(token);
+  return id;
+};
+```
+
 ## Tests
 
 ### Backend API
