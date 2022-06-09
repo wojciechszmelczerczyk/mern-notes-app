@@ -4,16 +4,14 @@ require("dotenv").config({ path: `${path}/.env` });
 
 const { sign } = require("jsonwebtoken");
 
-const maxAge = process.env.JWT_EXPIRATION;
-
-const createToken = (id) => {
+const createToken = (id, secret, exp) => {
   return sign(
     {
       id,
     },
-    process.env.JWT_SECRET,
+    secret,
     {
-      expiresIn: maxAge,
+      expiresIn: exp,
     }
   );
 };

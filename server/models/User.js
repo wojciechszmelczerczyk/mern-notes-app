@@ -17,7 +17,7 @@ const userSchema = new Schema({
     minlength: [6, "Password is too short. Minimum length is 6 characters"],
   },
 
-  jwt: {
+  refreshToken: {
     type: String,
   },
 });

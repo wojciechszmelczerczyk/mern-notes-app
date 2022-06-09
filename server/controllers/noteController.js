@@ -2,16 +2,14 @@ const Note = require("../models/Note.js");
 const extractIdFromToken = require("../token/extractId.js");
 
 const getAllNotes = async (req, res) => {
-  let jwt = req.cookies.jwt;
-  const id = extractIdFromToken(jwt);
+  const id = req.user.id;
 
   const notes = await Note.find({ user_id: id });
   res.status(200).json(notes);
 };
 
 const getSingleNote = async (req, res) => {
-  let jwt = req.cookies.jwt;
-  const userId = extractIdFromToken(jwt);
+  const userId = req.user.id;
 
   const { id } = req.params;
   const note = await Note.findOne({ _id: id, user_id: userId });
@@ -21,8 +19,7 @@ const getSingleNote = async (req, res) => {
 const createNote = async (req, res) => {
   let { title, content = "" } = req.body;
 
-  let jwt = req.cookies.jwt;
-  const id = extractIdFromToken(jwt);
+  const id = req.user.id;
 
   // create note
   const newNote = await Note.create({ title, content, user_id: id });

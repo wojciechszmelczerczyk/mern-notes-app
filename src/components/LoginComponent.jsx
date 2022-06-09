@@ -19,8 +19,13 @@ export default class LoginComponent extends Component {
   };
 
   async authUser() {
-    const auth = await UserService.auth(this.state.email, this.state.password);
-    if (auth) {
+    const { status } = await UserService.auth(
+      this.state.email,
+      this.state.password
+    );
+
+    if (status === 201) {
+      // add current user id to local storage
       this.setState({ redirect: true });
     } else {
       // some handler...

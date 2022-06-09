@@ -8,7 +8,6 @@ export default function CreateNoteComponent() {
 
   async function createNote() {
     const newNote = await NoteService.createNote(title);
-
     if (newNote) {
       const newNoteId = newNote["data"]["_id"];
       localStorage.setItem("note_id", newNoteId);
@@ -21,7 +20,6 @@ export default function CreateNoteComponent() {
   function handleTitle(e) {
     setTitle(e.target.value);
   }
-
   return (
     <div className='create-note-container'>
       {!redirect ? (

@@ -25,7 +25,11 @@ function createServer() {
   app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: false }));
 
-  app.use(validateToken.unless({ path: ["/user", "/user/authenticate"] }));
+  app.use(
+    validateToken.unless({
+      path: ["/user", "/user/authenticate", "/user/refresh-token"],
+    })
+  );
 
   app.use(express.json());
 

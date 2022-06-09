@@ -119,11 +119,17 @@ PORT=
 # Token for test purposes
 JWT=
 
-# Token secret
-JWT_SECRET=
+# Access token secret
+ACCESS_TOKEN_SECRET=
 
-# Token expiration time
-JWT_EXPIRATION=
+# Refresh token secret
+REFRESH_TOKEN_SECRET=
+
+# Access token expiration time
+ACCESS_TOKEN_EXP=
+
+# Refresh token expiration time
+REFRESH_TOKEN_EXP=
 ```
 
 ## Architectures
@@ -155,13 +161,14 @@ JWT_EXPIRATION=
 
 ### User:
 
-| Endpoint             | Method | Authenticated | Action                                        |
-| :------------------- | :----: | :-----------: | :-------------------------------------------- |
-| `/user`              |  GET   |      \*       | Returns current user data                     |
-| `/user`              |  POST  |       -       | Creates a new user                            |
-| `/user`              | DELETE |      \*       | Logout user, delete access token              |
-| `/user`              |  PUT   |      \*       | Update current user                           |
-| `/user/authenticate` |  POST  |       -       | Authenticate the user, returning access token |
+| Endpoint              | Method | Authenticated | Action                                               |
+| :-------------------- | :----: | :-----------: | :--------------------------------------------------- |
+| `/user`               |  GET   |      \*       | Returns current user data                            |
+| `/user`               |  POST  |       -       | Creates a new user                                   |
+| `/user`               | DELETE |      \*       | Logout user, delete access token                     |
+| `/user`               |  PUT   |      \*       | Update current user                                  |
+| `/user/authenticate`  |  POST  |       -       | Authenticate the user, return access token           |
+| `/user/refresh-token` |  GET   |      \*       | If access token has expired, return new access token |
 
 ### Note:
 
@@ -182,9 +189,15 @@ JWT_EXPIRATION=
 
 ## JWT
 
+### Basic token auth implementation.
+
+### If access token is valid get protected route resource, otherwise send refresh token and get new access token.
+
+[![](https://mermaid.ink/img/pako:eNpNkEGOgzAMRa9ied1egMVUFJiqW8qOsIiIW6KSpDKhVRW4-6TASPXK8n-W_3fA1inCBG8sHx1UubAQK62zXpP1Dez3PzCl1QTHunJ3siBH34HRSvX0kkzNunBcwDycB0greMpeq8O8SvkiQRbeNGyjbBn91iUNbuSW4EL8JG6-F4pg3YYXq4syujjV6ef-N39aVUuveHqKAXCHhthIrWKu8GEE-o4MCUxiqyTfBQo7R258KOmpUNo7xuQq-4F2GBO6y9u2mHge6R_KtYw_Mhs1_wFqSmIt)](https://mermaid.live/edit#pako:eNpNkEGOgzAMRa9ied1egMVUFJiqW8qOsIiIW6KSpDKhVRW4-6TASPXK8n-W_3fA1inCBG8sHx1UubAQK62zXpP1Dez3PzCl1QTHunJ3siBH34HRSvX0kkzNunBcwDycB0greMpeq8O8SvkiQRbeNGyjbBn91iUNbuSW4EL8JG6-F4pg3YYXq4syujjV6ef-N39aVUuveHqKAXCHhthIrWKu8GEE-o4MCUxiqyTfBQo7R258KOmpUNo7xuQq-4F2GBO6y9u2mHge6R_KtYw_Mhs1_wFqSmIt)
+
 ### Middleware
 
-#### Middleware which verify token.
+#### Middleware which verify access token.
 
 ```javascript
 const validateToken = (req, res, next) => {
@@ -244,32 +257,46 @@ const extractIdFromToken = (token) => {
 
 ### Note
 
+`GET /note`
+
 <details>
 
-<summary>GET /note</summary>
+<summary>when jwt doesn't exists</summary>
 
 ```javascript
-describe("GET /note", () => {
-  test("when jwt doesn't exists", async () => {
-    const notes = await request(app).get("/note");
+test("when jwt doesn't exists", async () => {
+  const notes = await request(app).get("/note");
 
-    expect(notes.status).toEqual(401);
-    expect(notes.body.jwt_error).toEqual("Jwt doesn't exists");
-  });
+  expect(notes.status).toEqual(401);
+  expect(notes.body.jwt_error).toEqual("Jwt doesn't exists");
+});
+```
 
-  test("when jwt is incorrect", async () => {
-    const notes = await request(app).get("/note").set("Cookie", "jwt=ssss;");
+</details>
 
-    expect(notes.status).toEqual(401);
-    expect(notes.body.jwt_error).toEqual("Jwt is not valid");
-  });
+<details>
+<summary>when jwt is incorrect</summary>
 
-  test("when jwt is correct", async () => {
-    const notes = await request(app).get("/note").set("Cookie", `jwt=${jwt};`);
+```javascript
+test("when jwt is incorrect", async () => {
+  const notes = await request(app).get("/note").set("Cookie", "jwt=ssss;");
 
-    expect(notes.body).toBeTruthy();
-    expect(notes.status).toEqual(200);
-  });
+  expect(notes.status).toEqual(401);
+  expect(notes.body.jwt_error).toEqual("Jwt is not valid");
+});
+```
+
+</details>
+
+<details>
+<summary>when jwt is correct</summary>
+
+```javascript
+test("when jwt is correct", async () => {
+  const notes = await request(app).get("/note").set("Cookie", `jwt=${jwt};`);
+
+  expect(notes.body).toBeTruthy();
+  expect(notes.status).toEqual(200);
 });
 ```
 
@@ -277,37 +304,51 @@ describe("GET /note", () => {
 
 <br />
 
+`POST /note`
+
 <details>
-<summary>POST /note</summary>
+<summary>when jwt doesn't exists</summary>
 
 ```javascript
-describe("POST /note", () => {
-  test("when jwt doesn't exists", async () => {
-    const newNote = await request(app)
-      .post("/note")
-      .send({ title: "new note added in jest", content: "" });
-    expect(newNote.status).toBe(401);
-    expect(newNote.body.jwt_error).toBe("Jwt doesn't exists");
-  });
+test("when jwt doesn't exists", async () => {
+  const newNote = await request(app)
+    .post("/note")
+    .send({ title: "new note added in jest", content: "" });
+  expect(newNote.status).toBe(401);
+  expect(newNote.body.jwt_error).toBe("Jwt doesn't exists");
+});
+```
 
-  test("when jwt is incorrect", async () => {
-    const newNote = await request(app)
-      .post("/note")
-      .send({ title: "new note added in jest", content: "" })
-      .set("Cookie", "jwt=false-token;");
-    expect(newNote.status).toBe(401);
-    expect(newNote.body.jwt_error).toBe("Jwt is not valid");
-  });
+</details>
 
-  test.only("when jwt is correct", async () => {
-    const newNote = await request(app)
-      .post("/note")
-      .send({ title: "just next note added in jest", content: "" })
-      .set("Cookie", `jwt=${jwt};`);
+<details>
+<summary>when jwt is incorrect</summary>
 
-    expect(newNote.status).toBe(201);
-    expect(newNote.body.title).toBe("just next note added in jest");
-  });
+```javascript
+test("when jwt is incorrect", async () => {
+  const newNote = await request(app)
+    .post("/note")
+    .send({ title: "new note added in jest", content: "" })
+    .set("Cookie", "jwt=false-token;");
+  expect(newNote.status).toBe(401);
+  expect(newNote.body.jwt_error).toBe("Jwt is not valid");
+});
+```
+
+</details>
+
+<details>
+<summary>when jwt is correct</summary>
+
+```javascript
+test("when jwt is correct", async () => {
+  const newNote = await request(app)
+    .post("/note")
+    .send({ title: "just next note added in jest", content: "" })
+    .set("Cookie", `jwt=${jwt};`);
+
+  expect(newNote.status).toBe(201);
+  expect(newNote.body.title).toBe("just next note added in jest");
 });
 ```
 
@@ -315,34 +356,41 @@ describe("POST /note", () => {
 
 ### User
 
+`POST /user`
+
 <details>
-<summary>POST /user</summary>
+<summary>when credentials are correct</summary>
 
 ```javascript
-describe("POST /user", () => {
-  test("when credentials are correct", async () => {
-    let user = {
-      email: "testuser@gmail.com",
-      password: "testpassword123",
-    };
+test("when credentials are correct", async () => {
+  let user = {
+    email: "testuser@gmail.com",
+    password: "testpassword123",
+  };
 
-    const newUser = await request(app).post("/user").send(user);
+  const newUser = await request(app).post("/user").send(user);
 
-    expect(newUser.body.email).toEqual(user.email);
-    expect(newUser.status).toEqual(200);
-  });
+  expect(newUser.body.email).toEqual(user.email);
+  expect(newUser.status).toEqual(200);
+});
+```
 
-  test("when credentials are incorrect", async () => {
-    let user = {
-      email: "testuser",
-      password: "test",
-    };
+</details>
 
-    const newUser = await request(app).post("/user").send(user);
+<details>
+<summary>when credentials are incorrect</summary>
 
-    expect(newUser.body.errors).toBeTruthy();
-    expect(newUser.status).toEqual(400);
-  });
+```javascript
+test("when credentials are incorrect", async () => {
+  let user = {
+    email: "testuser",
+    password: "test",
+  };
+
+  const newUser = await request(app).post("/user").send(user);
+
+  expect(newUser.body.errors).toBeTruthy();
+  expect(newUser.status).toEqual(400);
 });
 ```
 
@@ -350,49 +398,63 @@ describe("POST /user", () => {
 
 <br />
 
+`POST /user/authenticate`
+
 <details>
-<summary>POST /user/authenticate</summary>
+<summary>when credentials are correct</summary>
 
 ```javascript
-describe("POST /user/authenticate", () => {
-  test("when credentials are correct", async () => {
-    let user = {
-      email: "testuser@gmail.com",
-      password: "testpassword123",
-    };
+test("when credentials are correct", async () => {
+  let user = {
+    email: "testuser@gmail.com",
+    password: "testpassword123",
+  };
 
-    const newUser = await request(app).post("/user/authenticate").send(user);
+  const newUser = await request(app).post("/user/authenticate").send(user);
 
-    expect(newUser.body.token).toBeTruthy();
-    expect(newUser.status).toEqual(201);
-  });
-
-  test("when credentials don't match user in db", async () => {
-    let user = {
-      email: "testuser",
-      password: "test",
-    };
-
-    const newUser = await request(app).post("/user/authenticate").send(user);
-
-    expect(newUser.body.error).toBeTruthy();
-    expect(newUser.status).toEqual(400);
-  });
-
-  test("when credentials are incorrect", async () => {
-    let user = {
-      email: "testuser2@gmail.com",
-      password: "test1234",
-    };
-
-    const newUser = await request(app).post("/user/authenticate").send(user);
-
-    expect(newUser.body.error).toBeTruthy();
-    expect(newUser.status).toEqual(400);
-  });
+  expect(newUser.body.token).toBeTruthy();
+  expect(newUser.status).toEqual(201);
 });
 ```
 
 </details>
 
-<br />
+<details>
+
+<summary>when credentials don't match user in db</summary>
+
+```javascript
+test("when credentials don't match user in db", async () => {
+  let user = {
+    email: "testuser",
+    password: "test",
+  };
+
+  const newUser = await request(app).post("/user/authenticate").send(user);
+
+  expect(newUser.body.error).toBeTruthy();
+  expect(newUser.status).toEqual(400);
+});
+```
+
+</details>
+
+<details>
+
+<summary>when credentials are incorrect</summary>
+
+```javascript
+test("when credentials are incorrect", async () => {
+  let user = {
+    email: "testuser2@gmail.com",
+    password: "test1234",
+  };
+
+  const newUser = await request(app).post("/user/authenticate").send(user);
+
+  expect(newUser.body.error).toBeTruthy();
+  expect(newUser.status).toEqual(400);
+});
+```
+
+</details>

@@ -1,14 +1,14 @@
 require("dotenv").config();
 const User = require("../models/User.js");
 const createToken = require("../token/createToken.js");
-const extractIdFromToken = require("../token/extractId.js");
+const { verify } = require("jsonwebtoken");
 
 const register = async (req, res) => {
-  let { email, password, jwt = "" } = req.body;
+  let { email, password, refreshToken = "" } = req.body;
   let errors;
   try {
     // create new user
-    const newUser = await User.create({ email, password, jwt });
+    const newUser = await User.create({ email, password, refreshToken });
     // return new user
     res.json(newUser);
   } catch (err) {
@@ -24,44 +24,81 @@ const authenticate = async (req, res) => {
     // compare input data and data from database
     const user = await User.login(email, password);
 
-    // retrieve user jwt
-    const token = createToken(user._id);
+    // create refresh token
+    const refreshToken = createToken(
+      user._id,
+      process.env.REFRESH_TOKEN_SECRET,
+      process.env.REFRESH_TOKEN_EXP
+    );
 
-    // update jwt in databsae with new token
-    await User.findOneAndUpdate({ email }, { jwt: token });
+    // create access token
+    const accessToken = createToken(
+      user._id,
+      process.env.ACCESS_TOKEN_SECRET,
+      process.env.ACCESS_TOKEN_EXP
+    );
 
-    // populate cookie with jwt
-    res.cookie("jwt", token, {
+    // update jwt in database with new refresh token
+    await User.findOneAndUpdate({ email }, { refreshToken });
+
+    // // populate cookie with jwt
+    res.cookie("jwt", accessToken, {
       httpOnly: true,
-      expiresIn: process.env.JWT_EXPIRATION * 1000,
+      maxAge: process.env.ACCESS_TOKEN_EXP * 1000,
     });
 
     // return jwt
-    res.status(201).json({ token });
+    res.status(201).json({ accessToken, refreshToken });
   } catch (err) {
     res.status(400).json({ error: err.message });
     return err;
   }
 };
 
+const refreshToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+
+    verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+    const id = req.user.id;
+
+    let jwt = createToken(
+      id,
+      process.env.ACCESS_TOKEN_SECRET,
+      process.env.ACCESS_TOKEN_EXP
+    );
+
+    res.cookie("jwt", jwt, {
+      httpOnly: true,
+      maxAge: process.env.ACCESS_TOKEN_EXP * 1000,
+    });
+
+    res.json({ accessToken: jwt, refreshToken });
+  } catch (err) {
+    res.json({
+      fail: true,
+      err: err.message,
+    });
+  }
+};
+
 const logout = async (req, res) => {
-  const token = req.headers.cookie.slice(4);
-  const { id } = extractIdFromToken(token);
+  const id = req.user.id;
 
   // reset cookie
   res.cookie("jwt", "", {
     maxAge: 1,
   });
 
-  // reset jwt in db
-  await User.findOneAndUpdate({ _id: id }, { jwt: "" });
+  // invalidate RT in db
+  await User.findOneAndUpdate({ _id: id }, { refreshToken: "" });
 
-  res.status(200).json({ jwt: "token deleted" });
+  res.status(200).json({ rt_invalidate: "rt deleted" });
 };
 
 const getCurrentUser = async (req, res) => {
-  const token = req.headers.cookie.slice(4);
-  const { id } = extractIdFromToken(token);
+  const id = req.user.id;
 
   const currentUser = await User.findOne({ _id: id });
 
@@ -71,13 +108,22 @@ const getCurrentUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const { email } = req.body;
 
-  const cookie = req.headers.cookie.slice(4);
-
-  const { id } = extractIdFromToken(cookie);
+  const id = req.user.id;
 
   const updatedUser = await User.findOneAndUpdate({ _id: id }, { email });
 
   res.status(201).json({ updated_user: updatedUser });
 };
 
-module.exports = { register, authenticate, logout, getCurrentUser, updateUser };
+module.exports = {
+  register,
+  authenticate,
+  refreshToken,
+  logout,
+  getCurrentUser,
+  updateUser,
+};
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+//   .eyJpZCI6IjYyYTBjOTFhMmFiZjI5MWIxYzI1MzQ5OCIsImlhdCI6MTY1NDc3MDU0MiwiZXhwIjoxNjU0NzcwODAxfQ
+//   .lQOUZZDEUPeIb2qnQaO_ - rFquN_cuaBTTNjszLYz3hQ;

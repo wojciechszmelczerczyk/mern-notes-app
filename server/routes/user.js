@@ -7,6 +7,7 @@ const router = express.Router();
 const {
   register,
   authenticate,
+  refreshToken,
   logout,
   getCurrentUser,
   updateUser,
@@ -20,5 +21,7 @@ router
   .delete(logout);
 
 router.post("/user/authenticate", authenticate);
+
+router.post("/user/refresh-token", refreshToken);
 
 module.exports = router;
