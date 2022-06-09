@@ -191,7 +191,7 @@ REFRESH_TOKEN_EXP=
 
 ### Basic token auth implementation.
 
-### If access token is valid get protected route resource, otherwise send refresh token and get new access token.
+#### If access token is valid get protected route resource, otherwise send refresh token and get new access token.
 
 [![](https://mermaid.ink/img/pako:eNpNkEGOgzAMRa9ied1egMVUFJiqW8qOsIiIW6KSpDKhVRW4-6TASPXK8n-W_3fA1inCBG8sHx1UubAQK62zXpP1Dez3PzCl1QTHunJ3siBH34HRSvX0kkzNunBcwDycB0greMpeq8O8SvkiQRbeNGyjbBn91iUNbuSW4EL8JG6-F4pg3YYXq4syujjV6ef-N39aVUuveHqKAXCHhthIrWKu8GEE-o4MCUxiqyTfBQo7R258KOmpUNo7xuQq-4F2GBO6y9u2mHge6R_KtYw_Mhs1_wFqSmIt)](https://mermaid.live/edit#pako:eNpNkEGOgzAMRa9ied1egMVUFJiqW8qOsIiIW6KSpDKhVRW4-6TASPXK8n-W_3fA1inCBG8sHx1UubAQK62zXpP1Dez3PzCl1QTHunJ3siBH34HRSvX0kkzNunBcwDycB0greMpeq8O8SvkiQRbeNGyjbBn91iUNbuSW4EL8JG6-F4pg3YYXq4syujjV6ef-N39aVUuveHqKAXCHhthIrWKu8GEE-o4MCUxiqyTfBQo7R258KOmpUNo7xuQq-4F2GBO6y9u2mHge6R_KtYw_Mhs1_wFqSmIt)
 
