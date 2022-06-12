@@ -22,6 +22,6 @@ router
 
 router.post("/user/authenticate", authenticate);
 
-router.post("/user/refresh-token", refreshToken);
+router.get("/user/refresh-token", refreshToken);
 
 module.exports = router;

@@ -130,6 +130,9 @@ ACCESS_TOKEN_EXP=
 
 # Refresh token expiration time
 REFRESH_TOKEN_EXP=
+
+# Refresh token cookie path
+REFRESH_TOKEN_SCOPE=/user/refresh-token
 ```
 
 ## Architectures

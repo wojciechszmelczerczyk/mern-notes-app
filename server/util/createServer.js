@@ -27,7 +27,11 @@ function createServer() {
 
   app.use(
     validateToken.unless({
-      path: ["/user", "/user/authenticate", "/user/refresh-token"],
+      path: [
+        { url: "/user", method: "POST" },
+        "/user/authenticate",
+        "/user/refresh-token",
+      ],
     })
   );
 

@@ -3,24 +3,31 @@ const { verify } = require("jsonwebtoken");
 const refreshToken = require("../token/refreshToken");
 
 const validateToken = (req, res, next) => {
-  // retrieve jwt from cookie
-  let token = req.cookies.jwt;
+  try {
+    // retrieve jwt from cookie
+    let token = req.cookies.jwt;
 
-  // if exists
-  if (token === null)
-    return res
-      .json({ access_token_error: "Access Token doesn't exist" })
-      .status(401);
-  // verify if token is valid
+    // if token doesn't exist throw error
+    if (token === undefined) throw new Error("Jwt doesn't exist");
 
-  verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) => {
-    if (err) res.json({ access_token_error: err.name }).status(403);
-    // attach user data to request
-    req.user = user;
-    next();
-  });
-
-  // if token doesn't exist throw error
+    // otherwise check if token expired
+    verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
+      if (error) {
+        // if token has expired, call refresh token api to get new
+        // no cookies in this api call,
+        await refreshToken();
+        next();
+      } else {
+        req.user = user;
+        next();
+      }
+    });
+  } catch (error) {
+    res.status(403).json({
+      fail: true,
+      error: error.message,
+    });
+  }
 };
 
 validateToken.unless = require("express-unless");

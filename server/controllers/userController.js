@@ -42,13 +42,18 @@ const authenticate = async (req, res) => {
     await User.findOneAndUpdate({ email }, { refreshToken });
 
     // // populate cookie with jwt
-    res.cookie("jwt", accessToken, {
-      httpOnly: true,
-      maxAge: process.env.ACCESS_TOKEN_EXP * 1000,
-    });
+    res
+      .cookie("jwt", accessToken, {
+        httpOnly: true,
+      })
+      .cookie("rt", refreshToken, {
+        httpOnly: true,
+        path: process.env.REFRESH_TOKEN_SCOPE,
+      })
+      .status(201)
+      .json({ accessToken, refreshToken });
 
     // return jwt
-    res.status(201).json({ accessToken, refreshToken });
   } catch (err) {
     res.status(400).json({ error: err.message });
     return err;
@@ -57,11 +62,11 @@ const authenticate = async (req, res) => {
 
 const refreshToken = async (req, res) => {
   try {
-    const { refreshToken } = req.body;
+    const refreshToken = req.cookies.rt;
 
-    verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    if (refreshToken === undefined) return res.json("token doesn't exist");
 
-    const id = req.user.id;
+    const { id } = verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
     let jwt = createToken(
       id,
@@ -71,7 +76,7 @@ const refreshToken = async (req, res) => {
 
     res.cookie("jwt", jwt, {
       httpOnly: true,
-      maxAge: process.env.ACCESS_TOKEN_EXP * 1000,
+      maxAge: process.env.ACCESS_TOKEN_EXP * 100,
     });
 
     res.json({ accessToken: jwt, refreshToken });
@@ -123,7 +128,3 @@ module.exports = {
   getCurrentUser,
   updateUser,
 };
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-//   .eyJpZCI6IjYyYTBjOTFhMmFiZjI5MWIxYzI1MzQ5OCIsImlhdCI6MTY1NDc3MDU0MiwiZXhwIjoxNjU0NzcwODAxfQ
-//   .lQOUZZDEUPeIb2qnQaO_ - rFquN_cuaBTTNjszLYz3hQ;

@@ -11,8 +11,9 @@ export default function NoteListComponent() {
     noteService
       .getNotes()
       .then((res) => {
-        setNotes(res.data);
-        setIsLoggedIn(true);
+        if (res.status === 200) {
+          setNotes(res.data);
+        }
       })
       .catch((err) => {
         setIsLoggedIn(false);
