@@ -7,7 +7,8 @@ export default function CreateNoteComponent() {
   const [redirect, setRedirect] = useState(false);
 
   async function createNote() {
-    const newNote = await NoteService.createNote(title);
+    const at = localStorage.getItem("at");
+    const newNote = await NoteService.createNote(at, title);
     if (newNote) {
       const newNoteId = newNote["data"]["_id"];
       localStorage.setItem("note_id", newNoteId);

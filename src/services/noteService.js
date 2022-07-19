@@ -1,24 +1,38 @@
 import axios from "axios";
+// import axiosInstance from "../../server/token/rtInterceptor";
 
 class NoteService {
-  createNote(title) {
+  createNote(at, title) {
     return axios.post(
       "http://localhost:3000/note",
       {
         title,
       },
-      { withCredentials: true }
+      {
+        headers: {
+          Authorization: `Bearer ${at}`,
+        },
+        withCredentials: true,
+      }
     );
   }
-  saveNote(content, id) {
+  saveNote(at, content, id) {
     return axios.post(
       "http://localhost:3000/note/save",
       { content, id },
-      { withCredentials: true }
+      {
+        headers: {
+          Authorization: `Bearer ${at}`,
+        },
+        withCredentials: true,
+      }
     );
   }
-  getNotes() {
+  getNotes(at) {
     return axios.get("http://localhost:3000/note", {
+      headers: {
+        Authorization: `Bearer ${at}`,
+      },
       withCredentials: true,
     });
   }

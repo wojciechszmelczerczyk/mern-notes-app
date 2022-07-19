@@ -2,6 +2,11 @@ main-container {
   margin-top: 100px;
 }
 
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 .fa-microphone {
   color: #14a76c;
 }
@@ -55,8 +60,40 @@ main-container {
 }
 
 .note {
-  height: auto;
-  width: 200px;
-  background-color: bisque;
-  border-radius: 10%;
+  margin-top: 10px;
+  min-height: 200px;
+  width: 300px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.note .noteTitle {
+  font-size: 24px;
+  font-family: "Taviraj", serif;
+  text-align: center;
+}
+
+.note .noteContent {
+  margin: auto;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.noteListTitle {
+  margin-top: 150px;
+  font-family: "Taviraj", serif;
+  text-align: center;
+}
+
+.container {
+  margin-left: 20px;
+  position: absolute;
+  left: 25%;
+  bottom: 15%;
+  border-radius: 5%;
+}
+
+.noteList {
+  max-height: 400px;
+  overflow-y: scroll;
 }

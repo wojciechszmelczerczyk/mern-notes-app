@@ -1,11 +1,13 @@
 require("dotenv").config({ path: `${process.cwd()}/.env` });
 const { verify } = require("jsonwebtoken");
-const refreshToken = require("../token/refreshToken");
 
 const validateToken = (req, res, next) => {
   try {
-    // retrieve jwt from cookie
-    let token = req.cookies.jwt;
+    // retrieve jwt from auth header
+
+    let authHeader = req.headers["authorization"];
+
+    let token = authHeader && authHeader.split(" ")[1];
 
     // if token doesn't exist throw error
     if (token === undefined) throw new Error("Jwt doesn't exist");
@@ -13,10 +15,8 @@ const validateToken = (req, res, next) => {
     // otherwise check if token expired
     verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
       if (error) {
-        // if token has expired, call refresh token api to get new
-        // no cookies in this api call,
-        await refreshToken();
-        next();
+        // if token expired, return 403
+        res.status(403).json({ jwtValidationError: "at is not valid anymore" });
       } else {
         req.user = user;
         next();

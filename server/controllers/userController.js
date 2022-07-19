@@ -41,17 +41,8 @@ const authenticate = async (req, res) => {
     // update jwt in database with new refresh token
     await User.findOneAndUpdate({ email }, { refreshToken });
 
-    // // populate cookie with jwt
-    res
-      .cookie("jwt", accessToken, {
-        httpOnly: true,
-      })
-      .cookie("rt", refreshToken, {
-        httpOnly: true,
-        path: process.env.REFRESH_TOKEN_SCOPE,
-      })
-      .status(201)
-      .json({ accessToken, refreshToken });
+    // populate cookie with jwt
+    res.status(201).json({ accessToken, refreshToken });
 
     // return jwt
   } catch (err) {
@@ -62,11 +53,13 @@ const authenticate = async (req, res) => {
 
 const refreshToken = async (req, res) => {
   try {
-    const refreshToken = req.cookies.rt;
+    const authHeader = req.headers.rt;
 
-    if (refreshToken === undefined) return res.json("token doesn't exist");
+    const rt = authHeader && authHeader.split(" ")[1];
 
-    const { id } = verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    if (rt === undefined) return res.json("rt doesn't exist");
+
+    const { id } = verify(rt, process.env.REFRESH_TOKEN_SECRET);
 
     let jwt = createToken(
       id,
@@ -74,12 +67,7 @@ const refreshToken = async (req, res) => {
       process.env.ACCESS_TOKEN_EXP
     );
 
-    res.cookie("jwt", jwt, {
-      httpOnly: true,
-      maxAge: process.env.ACCESS_TOKEN_EXP * 100,
-    });
-
-    res.json({ accessToken: jwt, refreshToken });
+    res.json({ accessToken: jwt, rt });
   } catch (err) {
     res.json({
       fail: true,
@@ -92,14 +80,11 @@ const logout = async (req, res) => {
   const id = req.user.id;
 
   // reset cookie
-  res.cookie("jwt", "", {
-    maxAge: 1,
-  });
 
   // invalidate RT in db
   await User.findOneAndUpdate({ _id: id }, { refreshToken: "" });
 
-  res.status(200).json({ rt_invalidate: "rt deleted" });
+  res.status(200).json({ rtInvalidate: "rt deleted" });
 };
 
 const getCurrentUser = async (req, res) => {

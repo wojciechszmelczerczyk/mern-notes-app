@@ -19,7 +19,7 @@ export default class LoginComponent extends Component {
   };
 
   async authUser() {
-    const { status } = await UserService.auth(
+    const { status, data } = await UserService.auth(
       this.state.email,
       this.state.password
     );
@@ -27,6 +27,9 @@ export default class LoginComponent extends Component {
     if (status === 201) {
       // add current user id to local storage
       this.setState({ redirect: true });
+      // save at and rt in local storage
+      localStorage.setItem("at", data["accessToken"]);
+      localStorage.setItem("rt", data["refreshToken"]);
     } else {
       // some handler...
     }

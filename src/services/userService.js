@@ -7,7 +7,7 @@ class UserService {
       password,
     });
   }
-  auth(email, password) {
+  async auth(email, password) {
     return axios.post(
       "http://localhost:3000/user/authenticate",
       {
@@ -16,6 +16,10 @@ class UserService {
       },
       { withCredentials: true }
     );
+  }
+
+  logout() {
+    return axios.delete("http://localhost:3000/user");
   }
 }
 

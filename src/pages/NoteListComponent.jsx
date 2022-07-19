@@ -8,12 +8,13 @@ export default function NoteListComponent() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   useEffect(() => {
+    const at = localStorage.getItem("at");
+    // const rt = localStorage.getItem("rt");
+
     noteService
-      .getNotes()
+      .getNotes(at)
       .then((res) => {
-        if (res.status === 200) {
-          setNotes(res.data);
-        }
+        setNotes(res.data);
       })
       .catch((err) => {
         setIsLoggedIn(false);
@@ -24,11 +25,16 @@ export default function NoteListComponent() {
     <div>
       {isLoggedIn ? (
         <>
-          <h1>Note list</h1>
-          <div>
-            {notes.map((note) => (
-              <Note title={note.title} content={note.content} key={note._id} />
-            ))}
+          <h1 className='noteListTitle'>Note list</h1>
+
+          <div className='container noteList'>
+            <div className='row justify-content-between'>
+              {notes.map((note) => (
+                <div className='col' key={note._id}>
+                  <Note title={note.title} content={note.content} />
+                </div>
+              ))}
+            </div>
           </div>
         </>
       ) : (

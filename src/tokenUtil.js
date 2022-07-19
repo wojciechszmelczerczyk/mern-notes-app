@@ -7,14 +7,19 @@ export async function getTokenOrRefresh() {
 
   if (speechToken === undefined) {
     try {
+      const at = localStorage.getItem("at");
       const res = await axios.get(
         "http://localhost:3000/api/get-speech-token",
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${at}`,
+          },
+          withCredentials: true,
+        }
       );
-      // console.log(res);
       const token = res.data.token;
       const region = res.data.region;
-      // console.log(token, region);
+      console.log(token, region);
       cookie.set("speech-token", region + ":" + token, {
         maxAge: 540,
         path: "/",

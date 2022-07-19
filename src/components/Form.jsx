@@ -1,4 +1,4 @@
-const Form = (props) => {
+const Form = ({ email, password, handleEmail, handlePassword, userOp }) => {
   return (
     <>
       <form>
@@ -7,19 +7,19 @@ const Form = (props) => {
           type='email'
           name='email'
           placeholder='email'
-          value={props.email}
-          onChange={props.handleEmail}
+          value={email}
+          onChange={handleEmail}
         ></input>
         <label>password:</label>
         <input
           type='password'
           name='password'
           placeholder='password'
-          value={props.password}
-          onChange={props.handlePassword}
+          value={password}
+          onChange={handlePassword}
         ></input>
       </form>
-      <button onClick={props.userOp}>Submit</button>
+      <button onClick={userOp}>Submit</button>
     </>
   );
 };

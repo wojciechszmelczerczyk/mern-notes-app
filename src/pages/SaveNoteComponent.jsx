@@ -1,24 +1,25 @@
+import "../custom.css";
+import { Container } from "reactstrap";
+import { getTokenOrRefresh } from "../tokenUtil";
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import NoteService from "../services/noteService.js";
 import React from "react";
 import Buffer from "../components/Buffer";
-import { Container } from "reactstrap";
-import { getTokenOrRefresh } from "../tokenUtil";
-import "../custom.css";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 export default function SaveNoteComponent() {
   const [text, setText] = useState("Listening on changes...");
   const [redirect, setRedirect] = useState(false);
-  // const [editedText, setEditedText] = useState(text);
   const [recognizingText, setRecognizingText] = useState("");
   let [noteTitle, setNoteTitle] = useState("");
   let [isListening, setListening] = useState(false);
   let [stopRecognizing, setStopRecognizing] = React.useState(() => noop);
 
   function noop() {}
+
+  let at = localStorage.getItem("at");
 
   useEffect(() => {
     // // check for valid speech key/region
@@ -29,8 +30,12 @@ export default function SaveNoteComponent() {
 
     // get current note title
     let noteId = localStorage.getItem("note_id");
+
     axios
-      .get(`http://localhost:3000/note/${noteId}`, { withCredentials: true })
+      .get(`http://localhost:3000/note/${noteId}`, {
+        headers: { Authorization: `Bearer ${at}` },
+        withCredentials: true,
+      })
       .then((res) => setNoteTitle(res["data"]["title"]));
   }, []);
 
@@ -50,7 +55,7 @@ export default function SaveNoteComponent() {
 
   async function saveNote() {
     const noteId = localStorage.getItem("note_id");
-    const savedNote = await NoteService.saveNote(text, noteId);
+    const savedNote = await NoteService.saveNote(at, text, noteId);
     if (savedNote) {
       localStorage.removeItem("note_id");
       setRedirect(true);
@@ -61,7 +66,6 @@ export default function SaveNoteComponent() {
 
   function handleText(e) {
     console.log(e.target.value);
-    // setEditedText(e.target.value);
   }
 
   async function mic() {
