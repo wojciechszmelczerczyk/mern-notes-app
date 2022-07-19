@@ -6,11 +6,13 @@ export default function CreateNoteComponent() {
   const [title, setTitle] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  async function createNote() {
+  async function createNote(e) {
+    e.preventDefault();
     const at = localStorage.getItem("at");
     const newNote = await NoteService.createNote(at, title);
     if (newNote) {
       const newNoteId = newNote["data"]["_id"];
+      console.log(newNoteId);
       localStorage.setItem("note_id", newNoteId);
       setRedirect(true);
     } else {
@@ -24,18 +26,21 @@ export default function CreateNoteComponent() {
   return (
     <div className='create-note-container'>
       {!redirect ? (
-        <>
-          <form>
-            <label>Note title: </label>
+        <div className='createFormContainer'>
+          <form onSubmit={createNote}>
+            <label className='createNoteLabel'>Note title: </label>
             <input
+              className='noteTitleInput'
               name='title'
               placeholder='title'
               value={title}
               onChange={handleTitle}
             ></input>
+            <button type='submit' className='createNoteButton'>
+              Create note
+            </button>
           </form>
-          <button onClick={createNote}>Create note</button>
-        </>
+        </div>
       ) : (
         <Navigate to='/saveNote' />
       )}

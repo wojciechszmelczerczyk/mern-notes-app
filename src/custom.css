@@ -46,8 +46,14 @@ main-container {
   color: #747474;
 }
 
+/* List Notes Component */
+
 #buffer {
   display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   scroll-behavior: smooth;
   overflow-y: scroll;
   white-space: normal;
@@ -62,7 +68,7 @@ main-container {
 .note {
   margin-top: 10px;
   min-height: 200px;
-  width: 300px;
+  width: 100%;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -80,7 +86,7 @@ main-container {
 }
 
 .noteListTitle {
-  margin-top: 150px;
+  margin-top: 5%;
   font-family: "Taviraj", serif;
   text-align: center;
 }
@@ -88,12 +94,97 @@ main-container {
 .container {
   margin-left: 20px;
   position: absolute;
-  left: 25%;
+  left: 50%;
   bottom: 15%;
+  transform: translate(-50%, 15%);
   border-radius: 5%;
 }
 
 .noteList {
   max-height: 400px;
   overflow-y: scroll;
+}
+
+.dou {
+  font-size: 20px;
+  /* text-align: center; */
+}
+
+.emptyNoteListInfo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Create Note Component */
+
+.createFormContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.createNoteButton {
+  font-size: 40px;
+}
+
+.noteTitleInput {
+  margin-left: 10px;
+  font-size: 40px;
+}
+
+.createNoteLabel {
+  font-size: 40px;
+}
+
+@media screen and (max-width: 1750px) {
+  .createNoteButton {
+    font-size: 30px;
+  }
+
+  .noteTitleInput {
+    margin-left: 10px;
+    font-size: 30px;
+  }
+
+  .createNoteLabel {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 1395px) {
+  .createNoteButton {
+    font-size: 25px;
+  }
+
+  .noteTitleInput {
+    font-size: 25px;
+  }
+
+  .createNoteLabel {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 1174px) {
+  .createNoteButton {
+    font-size: 20px;
+  }
+
+  .noteTitleInput {
+    font-size: 20px;
+  }
+
+  .createNoteLabel {
+    font-size: 20px;
+  }
+}
+
+/* Save Note Component */
+.app-container {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

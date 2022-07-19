@@ -20,22 +20,29 @@ export default function NoteListComponent() {
         setIsLoggedIn(false);
       });
   }, []);
-
   return (
     <div>
       {isLoggedIn ? (
         <>
           <h1 className='noteListTitle'>Note list</h1>
 
-          <div className='container noteList'>
-            <div className='row justify-content-between'>
-              {notes.map((note) => (
-                <div className='col' key={note._id}>
-                  <Note title={note.title} content={note.content} />
-                </div>
-              ))}
+          {notes.length === 0 ? (
+            <div className='emptyNoteListInfo'>No notes, add some!</div>
+          ) : (
+            <div className='container noteList'>
+              <div className='row justify-content-center'>
+                {notes.map((note) => (
+                  <div className='col-sm-12 col-md-6 col-lg-4' key={note._id}>
+                    <Note
+                      title={note.title}
+                      content={note.content}
+                      updatedAt={note.updatedAt}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </>
       ) : (
         <Navigate to='/login' />
