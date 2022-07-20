@@ -1,14 +1,55 @@
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faNotesMedical } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faArrowAltCircleRight,
+  fa1,
+  fa2,
+} from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn }) => {
   return (
-    <div className='d-flex flex-row-reverse'>
-      <NavLink to='/createNote'>
-        <FontAwesomeIcon icon={faNotesMedical} color='black' size='xl' />
-      </NavLink>
-    </div>
+    <>
+      {isLoggedIn ? (
+        <div className='d-flex flex-row-reverse'>
+          <NavLink to='/logout'>
+            <FontAwesomeIcon
+              className='logoutIcon'
+              icon={faArrowAltCircleRight}
+              color='black'
+              size='3x'
+            />
+          </NavLink>
+          <NavLink to='/createNote'>
+            <FontAwesomeIcon
+              className='loginIcon'
+              icon={faPlus}
+              color='black'
+              size='3x'
+            />
+          </NavLink>
+        </div>
+      ) : (
+        <div className='d-flex flex-row-reverse'>
+          <NavLink to='/login'>
+            <FontAwesomeIcon
+              className='logoutIcon'
+              icon={fa1}
+              color='black'
+              size='3x'
+            />
+          </NavLink>
+          <NavLink to='/register'>
+            <FontAwesomeIcon
+              className='registerIcon'
+              icon={fa2}
+              color='black'
+              size='3x'
+            />
+          </NavLink>
+        </div>
+      )}
+    </>
   );
 };
 

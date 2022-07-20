@@ -11,7 +11,7 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Navbar />
+        <Navbar isLoggedIn />
         <Routes>
           <Route path='/' element={<NoteListComponent />} />
           <Route path='/register' element={<RegisterComponent />} />

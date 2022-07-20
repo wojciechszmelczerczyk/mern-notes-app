@@ -24,13 +24,13 @@ export default function NoteListComponent() {
     <div>
       {isLoggedIn ? (
         <>
-          <h1 className='noteListTitle'>Note list</h1>
+          <h1 className='noteListTitle'>Note list📜</h1>
 
           {notes.length === 0 ? (
-            <div className='emptyNoteListInfo'>No notes, add some!</div>
+            <div className='emptyNoteListInfo'>No notes add some!✍️</div>
           ) : (
             <div className='container noteList'>
-              <div className='row justify-content-center'>
+              <div className='row justify-content-start'>
                 {notes.map((note) => (
                   <div className='col-sm-12 col-md-6 col-lg-4' key={note._id}>
                     <Note

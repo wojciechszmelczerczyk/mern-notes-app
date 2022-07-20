@@ -7,7 +7,7 @@ class UserService {
       password,
     });
   }
-  async auth(email, password) {
+  auth(email, password) {
     return axios.post(
       "http://localhost:3000/user/authenticate",
       {

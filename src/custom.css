@@ -107,7 +107,6 @@ main-container {
 
 .dou {
   font-size: 20px;
-  /* text-align: center; */
 }
 
 .emptyNoteListInfo {
@@ -115,6 +114,16 @@ main-container {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.addNoteIcon {
+  margin-top: 20px;
+  margin-right: 35px;
+}
+
+.logoutIcon {
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 /* Create Note Component */
