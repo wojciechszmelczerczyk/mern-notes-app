@@ -25,7 +25,6 @@ const getSingleNote = async (req, res) => {
 const createNote = async (req, res) => {
   let { title, content = "" } = req.body;
 
-  // ???
   let id =
     req.user?.id === undefined
       ? extractIdFromToken(req.cookies.jwt)

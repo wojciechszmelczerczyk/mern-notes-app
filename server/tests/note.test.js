@@ -19,22 +19,26 @@ describe("GET /note", () => {
   test("when jwt doesn't exists", async () => {
     const notes = await request(app).get("/note");
 
-    expect(notes.status).toEqual(401);
-    expect(notes.body.jwt_error).toEqual("Jwt doesn't exists");
+    expect(notes.status).toEqual(403);
+    expect(notes.body.error).toEqual("Jwt doesn't exist");
   });
 
   test("when jwt is incorrect", async () => {
-    const notes = await request(app).get("/note").set("Cookie", "jwt=ssss;");
+    const notes = await request(app)
+      .get("/note")
+      .set("Authorization", "Bearer ssss");
 
-    expect(notes.status).toEqual(401);
-    expect(notes.body.jwt_error).toEqual("Jwt is not valid");
+    expect(notes.status).toEqual(403);
+    expect(notes.body.error).toEqual("jwt malformed");
   });
 
-  test("when jwt is correct", async () => {
-    const notes = await request(app).get("/note").set("Cookie", `jwt=${jwt};`);
+  test("when jwt is expired", async () => {
+    const notes = await request(app)
+      .get("/note")
+      .set("Authorization", `Bearer ${jwt};`);
 
-    expect(notes.body).toBeTruthy();
-    expect(notes.status).toEqual(200);
+    expect(notes.status).toEqual(403);
+    expect(notes.body.error).toEqual("invalid token");
   });
 });
 
@@ -43,24 +47,25 @@ describe("POST /note", () => {
     const newNote = await request(app)
       .post("/note")
       .send({ title: "new note added in jest", content: "" });
-    expect(newNote.status).toBe(401);
-    expect(newNote.body.jwt_error).toBe("Jwt doesn't exists");
+    expect(newNote.status).toBe(403);
+    expect(newNote.body.error).toBe("Jwt doesn't exist");
   });
 
   test("when jwt is incorrect", async () => {
     const newNote = await request(app)
       .post("/note")
       .send({ title: "new note added in jest", content: "" })
-      .set("Cookie", "jwt=false-token;");
-    expect(newNote.status).toBe(401);
-    expect(newNote.body.jwt_error).toBe("Jwt is not valid");
+      .set("Authorization", "Bearer falseToken");
+
+    expect(newNote.status).toBe(403);
+    expect(newNote.body.error).toBe("jwt malformed");
   });
 
-  test("when jwt is correct", async () => {
+  test("when jwt is expired", async () => {
     const newNote = await request(app)
       .post("/note")
       .send({ title: "just next note added in jest", content: "" })
-      .set("Cookie", `jwt=${jwt};`);
+      .set("Authorization", `Bearer ${jwt}`);
 
     expect(newNote.status).toBe(201);
     expect(newNote.body.title).toBe("just next note added in jest");

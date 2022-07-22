@@ -48,7 +48,7 @@ describe("POST /user/authenticate", () => {
 
     const newUser = await request(app).post("/user/authenticate").send(user);
 
-    expect(newUser.body.token).toBeTruthy();
+    expect(newUser.body.accessToken).toBeTruthy();
     expect(newUser.status).toEqual(201);
   });
 

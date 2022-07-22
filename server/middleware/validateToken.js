@@ -4,7 +4,6 @@ const { verify } = require("jsonwebtoken");
 const validateToken = (req, res, next) => {
   try {
     // retrieve jwt from auth header
-
     let authHeader = req.headers["authorization"];
 
     let token = authHeader && authHeader.split(" ")[1];
@@ -15,8 +14,9 @@ const validateToken = (req, res, next) => {
     // otherwise check if token expired
     verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
       if (error) {
-        // if token expired, return 403
-        res.status(403).json({ jwtValidationError: "at is not valid anymore" });
+        if (error.name === "JsonWebTokenError") {
+          res.status(403).json({ error: error.message });
+        }
       } else {
         req.user = user;
         next();

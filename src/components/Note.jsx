@@ -6,9 +6,9 @@ const Note = ({ title, content, updatedAt, key }) => {
   return (
     <>
       <div className='note' key={key}>
-        <h1 className='noteTitle'>{title}</h1>
         <h2 className='noteContent'>{content}</h2>
       </div>
+      <h1 className='noteTitle'>{title}</h1>
       <h2 className='dou'>{updated}</h2>
     </>
   );
