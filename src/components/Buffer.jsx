@@ -5,7 +5,7 @@ const Buffer = ({ text }) => {
     <div>
       {text ? (
         <div id='buffer'>
-          <p>{text}</p>
+          <p className='bufferText'>{text}</p>
         </div>
       ) : (
         ""

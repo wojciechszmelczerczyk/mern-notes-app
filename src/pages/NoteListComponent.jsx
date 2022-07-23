@@ -9,7 +9,6 @@ export default function NoteListComponent() {
 
   useEffect(() => {
     const at = localStorage.getItem("at");
-    // const rt = localStorage.getItem("rt");
 
     noteService
       .getNotes(at)
@@ -24,7 +23,7 @@ export default function NoteListComponent() {
     <div>
       {isLoggedIn ? (
         <>
-          <h1 className='noteListTitle'>Note list📜</h1>
+          <h1 className='noteListTitle'>Speech Notes</h1>
 
           {notes.length === 0 ? (
             <div className='emptyNoteListInfo'>No notes add some!✍️</div>

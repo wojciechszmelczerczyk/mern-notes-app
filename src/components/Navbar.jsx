@@ -13,12 +13,12 @@ const Navbar = ({ isLoggedIn }) => {
       {isLoggedIn ? (
         <div className='d-flex flex-row-reverse'>
           <NavLink to='/logout'>
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               className='logoutIcon'
               icon={faArrowAltCircleRight}
               color='black'
               size='3x'
-            />
+            /> */}
           </NavLink>
           <NavLink to='/createNote'>
             <FontAwesomeIcon
@@ -40,12 +40,12 @@ const Navbar = ({ isLoggedIn }) => {
             />
           </NavLink>
           <NavLink to='/register'>
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               className='registerIcon'
               icon={fa2}
               color='black'
               size='3x'
-            />
+            /> */}
           </NavLink>
         </div>
       )}

@@ -25,14 +25,12 @@ export async function getTokenOrRefresh() {
         path: "/",
       });
 
-      // console.log("Token fetched from back-end: " + token);
       return { authToken: token, region: region };
     } catch (err) {
       console.log(err.response.data);
       return { authToken: null, error: err.response.data };
     }
   } else {
-    // console.log("Token fetched from cookie: " + speechToken);
     const idx = speechToken.indexOf(":");
     return {
       authToken: speechToken.slice(idx + 1),

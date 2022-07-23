@@ -25,11 +25,11 @@ export default class LoginComponent extends Component {
     );
 
     if (status === 201) {
-      // add current user id to local storage
-      this.setState({ redirect: true });
       // save at and rt in local storage
       localStorage.setItem("at", data["accessToken"]);
       localStorage.setItem("rt", data["refreshToken"]);
+      // add current user id to local storage
+      this.setState({ redirect: true });
     } else {
       // some handler...
     }

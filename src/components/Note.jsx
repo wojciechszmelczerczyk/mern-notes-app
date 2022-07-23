@@ -1,7 +1,8 @@
 import "../custom.css";
 
 const Note = ({ title, content, updatedAt, key }) => {
-  let updated = updatedAt.replace(/T|Z|/gi, "").slice(-22, -4);
+  // change date format
+  let updated = updatedAt.replace(/T|Z/g, " ").substr(0, updatedAt.length - 5);
 
   return (
     <>
