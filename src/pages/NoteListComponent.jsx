@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import noteService from "../services/noteService";
 import Note from "../components/Note";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const at = localStorage.getItem("at");
@@ -19,6 +20,7 @@ export default function NoteListComponent() {
         setIsLoggedIn(false);
       });
   }, []);
+
   return (
     <div>
       {isLoggedIn ? (
@@ -31,7 +33,12 @@ export default function NoteListComponent() {
             <div className='container noteList'>
               <div className='row justify-content-start'>
                 {notes.map((note) => (
-                  <div className='col-sm-12 col-md-6 col-lg-4' key={note._id}>
+                  <div
+                    className='col-sm-12 col-md-6 col-lg-4'
+                    key={note._id}
+                    onClick={() => navigate(`note/${note._id}`)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <Note
                       title={note.title}
                       content={note.content}

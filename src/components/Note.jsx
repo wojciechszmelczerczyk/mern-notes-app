@@ -3,7 +3,6 @@ import "../custom.css";
 const Note = ({ title, content, updatedAt, key }) => {
   // change date format
   let updated = updatedAt.replace(/T|Z/g, " ").substr(0, updatedAt.length - 5);
-
   return (
     <>
       <div className='note' key={key}>

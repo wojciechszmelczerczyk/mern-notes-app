@@ -39,10 +39,11 @@ const createNote = async (req, res) => {
 
 const updateNote = async (req, res) => {
   // update note
-  const { title } = req.body;
+  const { content } = req.body;
+
   const { id } = req.params;
 
-  const updatedNote = await Note.findOneAndUpdate({ id }, { title });
+  const updatedNote = await Note.findByIdAndUpdate(id, { content });
 
   res.status(201).json(updatedNote);
 };

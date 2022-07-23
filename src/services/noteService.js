@@ -36,6 +36,26 @@ class NoteService {
       withCredentials: true,
     });
   }
+
+  getSingleNote(at, id) {
+    return axios.get(`http://localhost:3000/note/${id}`, {
+      headers: {
+        Authorization: `Bearer ${at}`,
+      },
+    });
+  }
+
+  updateNote(at, id, noteContent) {
+    return axios.put(
+      `http://localhost:3000/note/${id}`,
+      { content: noteContent },
+      {
+        headers: {
+          Authorization: `Bearer ${at}`,
+        },
+      }
+    );
+  }
 }
 
 export default new NoteService();
