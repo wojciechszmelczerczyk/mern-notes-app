@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NoteService from "../services/noteService";
 
 export default function NoteDetailsComponent() {
@@ -7,6 +7,7 @@ export default function NoteDetailsComponent() {
   const [noteContent, setNoteContent] = useState("");
 
   let { id } = useParams();
+  let navigate = useNavigate();
   let at = localStorage.getItem("at");
 
   useEffect(() => {
@@ -20,18 +21,32 @@ export default function NoteDetailsComponent() {
 
   function updateNoteContent(e) {
     setNoteContent(e.target.value);
-    console.log(noteContent);
   }
 
   async function updateNote() {
-    return await NoteService.updateNote(at, id, noteContent);
+    await NoteService.updateNote(at, id, noteContent);
+    navigate("/");
+  }
+
+  async function downloadNote() {
+    await NoteService.downloadNote(at, id);
+    navigate("/");
   }
 
   return (
     <>
-      <h1>{noteTitle}</h1>
-      <textarea value={noteContent} onChange={updateNoteContent} />
-      <button onClick={updateNote}>Save</button>
+      <h1 className='singleNoteTitle'>{noteTitle}</h1>
+      <textarea
+        className='singleNoteContent'
+        value={noteContent}
+        onChange={updateNoteContent}
+      />
+      <button className='updateNoteBtn' onClick={updateNote}>
+        Save
+      </button>
+      <button className='downloadNoteBtn' onClick={downloadNote}>
+        Download PDF
+      </button>
     </>
   );
 }

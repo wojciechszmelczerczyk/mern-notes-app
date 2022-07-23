@@ -1,6 +1,8 @@
+// import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+const pdf = require("pdf-lib");
 const Note = require("../models/Note.js");
 const extractIdFromToken = require("../token/extractId");
-
+const { writeFile } = require("fs/promises");
 const getAllNotes = async (req, res) => {
   let id =
     req.user?.id === undefined
@@ -62,6 +64,40 @@ const deleteNote = async (req, res) => {
   res.status(200).json(deletedNote);
 };
 
+const downloadNote = async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = await Note.findById(id);
+
+  // Create a new PDFDocument
+  const pdfDoc = await pdf.PDFDocument.create();
+
+  // Embed the Times Roman font
+  const timesRomanFont = await pdfDoc.embedFont(pdf.StandardFonts.TimesRoman);
+
+  // Add a blank page to the document
+  const page = pdfDoc.addPage();
+
+  // Get the width and height of the page
+  const { width, height } = page.getSize();
+
+  // Draw a string of text toward the top of the page
+  const fontSize = 30;
+  page.drawText(`${title} ${content}`, {
+    x: 50,
+    y: height - 4 * fontSize,
+    size: fontSize,
+    font: timesRomanFont,
+    color: pdf.rgb(0, 0.53, 0.71),
+  });
+
+  // Serialize the PDFDocument to bytes (a Uint8Array)
+  const pdfBytes = await pdfDoc.save();
+
+  await writeFile("note.pdf", pdfBytes);
+
+  res.status(200).download("note.pdf");
+};
+
 module.exports = {
   getAllNotes,
   getSingleNote,
@@ -69,4 +105,5 @@ module.exports = {
   fillNoteContent,
   updateNote,
   deleteNote,
+  downloadNote,
 };

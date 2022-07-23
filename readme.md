@@ -175,14 +175,15 @@ REFRESH_TOKEN_SCOPE=/user/refresh-token
 
 ### Note:
 
-| Endpoint     | Method | Authenticated | Action                                    |
-| :----------- | :----: | :-----------: | :---------------------------------------- |
-| `/note`      |  GET   |      \*       | Get all notes of current auth user        |
-| `/note`      |  POST  |      \*       | Create a note                             |
-| `/note/save` |  POST  |      \*       | Fill note content via speech-to-text api  |
-| `/note/:id`  |  GET   |      \*       | Get single note if owned by the auth user |
-| `/note/:id`  |  PUT   |      \*       | Update note                               |
-| `/note/:id`  | DELETE |      \*       | Delete note                               |
+| Endpoint         | Method | Authenticated | Action                                    |
+| :--------------- | :----: | :-----------: | :---------------------------------------- |
+| `/note`          |  GET   |      \*       | Get all notes of current auth user        |
+| `/note`          |  POST  |      \*       | Create a note                             |
+| `/note/save`     |  POST  |      \*       | Fill note content via speech-to-text api  |
+| `/note/:id`      |  GET   |      \*       | Get single note if owned by the auth user |
+| `/note/:id`      |  PUT   |      \*       | Update note                               |
+| `/note/:id`      | DELETE |      \*       | Delete                                    |
+| `/note/:id/file` |  GET   |      \*       | Download Note in PDF                      |
 
 ### Speech-to-text:
 

@@ -56,6 +56,14 @@ class NoteService {
       }
     );
   }
+
+  downloadNote(at, id) {
+    return axios.get(`http://localhost:3000/note/${id}/file`, {
+      headers: {
+        Authorization: `Bearer ${at}`,
+      },
+    });
+  }
 }
 
 export default new NoteService();

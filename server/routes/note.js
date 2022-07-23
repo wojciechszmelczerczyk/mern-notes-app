@@ -10,6 +10,7 @@ const {
   fillNoteContent,
   updateNote,
   deleteNote,
+  downloadNote,
 } = require("../controllers/noteController");
 
 router.route("/note").get(getAllNotes).post(createNote);
@@ -17,5 +18,7 @@ router.route("/note").get(getAllNotes).post(createNote);
 router.route("/note/save").post(fillNoteContent);
 
 router.route("/note/:id").get(getSingleNote).delete(deleteNote).put(updateNote);
+
+router.get("/note/:id/file", downloadNote);
 
 module.exports = router;
