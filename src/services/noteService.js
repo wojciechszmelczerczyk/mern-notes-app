@@ -16,6 +16,7 @@ class NoteService {
       }
     );
   }
+
   saveNote(at, content, id) {
     return axios.post(
       "http://localhost:3000/note/save",
@@ -28,6 +29,7 @@ class NoteService {
       }
     );
   }
+
   getNotes(at) {
     return axios.get("http://localhost:3000/note", {
       headers: {

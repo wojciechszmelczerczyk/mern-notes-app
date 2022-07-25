@@ -3,6 +3,7 @@ const pdf = require("pdf-lib");
 const Note = require("../models/Note.js");
 const extractIdFromToken = require("../token/extractId");
 const { writeFile } = require("fs/promises");
+
 const getAllNotes = async (req, res) => {
   let id =
     req.user?.id === undefined
@@ -77,14 +78,23 @@ const downloadNote = async (req, res) => {
   // Add a blank page to the document
   const page = pdfDoc.addPage();
 
-  // Get the width and height of the page
-  const { width, height } = page.getSize();
+  // Get the height of the page
+  const { height } = page.getSize();
 
   // Draw a string of text toward the top of the page
   const fontSize = 30;
-  page.drawText(`${title} ${content}`, {
-    x: 50,
+
+  page.drawText(title, {
+    x: 235,
     y: height - 4 * fontSize,
+    size: fontSize + 10,
+    font: timesRomanFont,
+    color: pdf.rgb(0, 0.53, 0.71),
+  });
+
+  page.drawText(content, {
+    x: 50,
+    y: height - 8 * fontSize,
     size: fontSize,
     font: timesRomanFont,
     color: pdf.rgb(0, 0.53, 0.71),
@@ -95,7 +105,10 @@ const downloadNote = async (req, res) => {
 
   await writeFile("note.pdf", pdfBytes);
 
-  res.status(200).download("note.pdf");
+  res.download(`${process.cwd()}/note.pdf`, (err) => {
+    if (err) console.log(err);
+    console.log("done");
+  });
 };
 
 module.exports = {
