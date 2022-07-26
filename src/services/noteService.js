@@ -59,12 +59,25 @@ class NoteService {
     );
   }
 
-  downloadNote(at, id) {
-    return axios.get(`http://localhost:3000/note/${id}/file`, {
-      headers: {
-        Authorization: `Bearer ${at}`,
-      },
-    });
+  downloadNote(at, id, format) {
+    let responseType;
+
+    if (format === "pdf") {
+      responseType = "blob";
+    } else if (format === "txt") {
+      responseType = "text";
+    }
+
+    return axios.post(
+      `http://localhost:3000/note/${id}/file`,
+      { format },
+      {
+        headers: {
+          Authorization: `Bearer ${at}`,
+        },
+        responseType,
+      }
+    );
   }
 }
 

@@ -183,7 +183,7 @@ REFRESH_TOKEN_SCOPE=/user/refresh-token
 | `/note/:id`      |  GET   |      \*       | Get single note if owned by the auth user |
 | `/note/:id`      |  PUT   |      \*       | Update note                               |
 | `/note/:id`      | DELETE |      \*       | Delete                                    |
-| `/note/:id/file` |  GET   |      \*       | Download Note in PDF                      |
+| `/note/:id/file` |  POST  |      \*       | Download Note in pdf/txt format           |
 
 ### Speech-to-text:
 

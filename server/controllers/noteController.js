@@ -67,48 +67,54 @@ const deleteNote = async (req, res) => {
 
 const downloadNote = async (req, res) => {
   const { id } = req.params;
+  // intercept file format
+  const { format } = req.body;
   const { title, content } = await Note.findById(id);
+  let noteFile;
+  if (format === "pdf") {
+    noteFile = "note.pdf";
 
-  // Create a new PDFDocument
-  const pdfDoc = await pdf.PDFDocument.create();
+    // Create a new PDFDocument
+    const pdfDoc = await pdf.PDFDocument.create();
 
-  // Embed the Times Roman font
-  const timesRomanFont = await pdfDoc.embedFont(pdf.StandardFonts.TimesRoman);
+    // Embed the Times Roman font
+    const timesRomanFont = await pdfDoc.embedFont(pdf.StandardFonts.TimesRoman);
 
-  // Add a blank page to the document
-  const page = pdfDoc.addPage();
+    // Add a blank page to the document
+    const page = pdfDoc.addPage();
 
-  // Get the height of the page
-  const { height } = page.getSize();
+    // Get the height of the page
+    const { height } = page.getSize();
 
-  // Draw a string of text toward the top of the page
-  const fontSize = 30;
+    // Draw a string of text toward the top of the page
+    const fontSize = 30;
 
-  page.drawText(title, {
-    x: 235,
-    y: height - 4 * fontSize,
-    size: fontSize + 10,
-    font: timesRomanFont,
-    color: pdf.rgb(0, 0.53, 0.71),
-  });
+    page.drawText(title, {
+      x: 235,
+      y: height - 4 * fontSize,
+      size: fontSize + 10,
+      font: timesRomanFont,
+      color: pdf.rgb(0, 0.53, 0.71),
+    });
 
-  page.drawText(content, {
-    x: 50,
-    y: height - 8 * fontSize,
-    size: fontSize,
-    font: timesRomanFont,
-    color: pdf.rgb(0, 0.53, 0.71),
-  });
+    page.drawText(content, {
+      x: 50,
+      y: height - 8 * fontSize,
+      size: fontSize,
+      font: timesRomanFont,
+      color: pdf.rgb(0, 0.53, 0.71),
+    });
 
-  // Serialize the PDFDocument to bytes (a Uint8Array)
-  const pdfBytes = await pdfDoc.save();
+    // Serialize the PDFDocument to bytes (a Uint8Array)
+    const pdfBytes = await pdfDoc.save();
 
-  await writeFile("note.pdf", pdfBytes);
-
-  res.download(`${process.cwd()}/note.pdf`, (err) => {
-    if (err) console.log(err);
-    console.log("done");
-  });
+    await writeFile("note.pdf", pdfBytes);
+  } else if (format === "txt") {
+    noteFile = "note.txt";
+    // txt file
+    await writeFile(noteFile, `${title} ${content}`);
+  }
+  res.download(`${process.cwd()}/${noteFile}`, noteFile);
 };
 
 module.exports = {

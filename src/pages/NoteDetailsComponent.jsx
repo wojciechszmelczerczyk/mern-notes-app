@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import NoteService from "../services/noteService";
+import download from "js-file-download";
 
 export default function NoteDetailsComponent() {
   const [noteTitle, setNoteTitle] = useState("");
@@ -28,8 +30,13 @@ export default function NoteDetailsComponent() {
     navigate("/");
   }
 
-  async function downloadNote() {
-    await NoteService.downloadNote(at, id);
+  async function downloadNote(format) {
+    const res = await NoteService.downloadNote(at, id, format);
+    if (res.headers["content-type"] === "application/pdf") {
+      download(res.data, "note.pdf");
+    } else {
+      download(res.data, "note.txt");
+    }
     navigate("/");
   }
 
@@ -44,9 +51,35 @@ export default function NoteDetailsComponent() {
       <button className='updateNoteBtn' onClick={updateNote}>
         Save
       </button>
-      <button className='downloadNoteBtn' onClick={downloadNote}>
-        Download PDF
-      </button>
+      <div className='dropdown'>
+        <button
+          className='btn btn-secondary dropdown-toggle'
+          type='button'
+          id='dropdownMenuButton'
+          data-bs-toggle='dropdown'
+          aria-expanded='false'
+        >
+          Download
+        </button>
+        <ul className='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+          <li>
+            <a
+              className='dropdown-item'
+              onClick={(e) => downloadNote(e.currentTarget.innerText)}
+            >
+              pdf
+            </a>
+          </li>
+          <li>
+            <a
+              className='dropdown-item'
+              onClick={(e) => downloadNote(e.currentTarget.innerText)}
+            >
+              txt
+            </a>
+          </li>
+        </ul>
+      </div>
     </>
   );
 }

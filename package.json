@@ -33,6 +33,7 @@
     "express": "^4.17.3",
     "express-pino-logger": "^7.0.0",
     "express-unless": "^1.0.0",
+    "js-file-download": "^0.4.12",
     "jsonwebtoken": "^8.5.1",
     "microsoft-cognitiveservices-speech-sdk": "^1.21.1",
     "mongoose": "^6.2.3",
