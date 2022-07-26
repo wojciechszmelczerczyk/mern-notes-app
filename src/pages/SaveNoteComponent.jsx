@@ -2,7 +2,7 @@ import "../custom.css";
 import { Container } from "reactstrap";
 import { getTokenOrRefresh } from "../tokenUtil";
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import NoteService from "../services/noteService.js";
 import React from "react";
 import Buffer from "../components/Buffer";
@@ -18,6 +18,8 @@ export default function SaveNoteComponent() {
   let [stopRecognizing, setStopRecognizing] = React.useState(() => noop);
 
   function noop() {}
+
+  let navigate = useNavigate();
 
   let at = localStorage.getItem("at");
 
@@ -139,7 +141,15 @@ export default function SaveNoteComponent() {
             <textarea rows='10' cols='50' value={text} onChange={handleText} />
             <Buffer text={recognizingText} />
           </div>
-          <button onClick={saveNote}>Save note</button>
+          <button className='btn btn-success saveNoteBtn' onClick={saveNote}>
+            Save note
+          </button>
+          <button
+            className='btn btn-danger cancelSaveNoteBtn'
+            onClick={() => navigate("/")}
+          >
+            Cancel
+          </button>
         </>
       ) : (
         <Navigate to='/' />

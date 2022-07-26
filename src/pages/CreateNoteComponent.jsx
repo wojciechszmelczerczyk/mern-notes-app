@@ -1,10 +1,11 @@
 import NoteService from "../services/noteService";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 export default function CreateNoteComponent() {
   const [title, setTitle] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   async function createNote(e) {
     e.preventDefault();
@@ -36,7 +37,13 @@ export default function CreateNoteComponent() {
               value={title}
               onChange={handleTitle}
             ></input>
-            <button type='submit' className='createNoteButton'>
+            <button
+              onClick={() => navigate("/")}
+              className='btn btn-danger cancelCreateNoteButton'
+            >
+              Cancel
+            </button>
+            <button type='submit' className='btn btn-success createNoteButton'>
               Create note
             </button>
           </form>

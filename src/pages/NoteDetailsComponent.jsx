@@ -48,12 +48,18 @@ export default function NoteDetailsComponent() {
         value={noteContent}
         onChange={updateNoteContent}
       />
-      <button className='updateNoteBtn' onClick={updateNote}>
+      <button
+        className='btn btn-danger cancelNoteBtn'
+        onClick={() => navigate("/")}
+      >
+        Cancel
+      </button>
+      <button className='btn btn-success updateNoteBtn' onClick={updateNote}>
         Save
       </button>
       <div className='dropdown'>
         <button
-          className='btn btn-secondary dropdown-toggle'
+          className='btn btn-primary dropdown-toggle'
           type='button'
           id='dropdownMenuButton'
           data-bs-toggle='dropdown'

@@ -203,7 +203,13 @@ main-container {
 }
 
 .createNoteButton {
-  font-size: 40px;
+  font-size: 38px;
+  float: right;
+}
+
+.cancelCreateNoteButton {
+  font-size: 38px;
+  float: right;
 }
 
 .noteTitleInput {
@@ -260,7 +266,61 @@ main-container {
 
 /* Save Note Component */
 .app-container {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.saveNoteBtn {
+  position: absolute;
+  top: 102%;
+  left: 0%;
+}
+
+.cancelSaveNoteBtn {
+  position: absolute;
+  top: 102%;
+  left: 8%;
+}
+
+/* Note Details Component */
+
+.singleNoteTitle {
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  transform: translate(-50%, -7%);
+}
+
+.singleNoteContent {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  height: 70%;
+  min-height: 70%;
+  max-height: 70%;
+  width: 40%;
+  transform: translate(-50%, -70%);
+}
+
+.cancelNoteBtn {
+  position: absolute;
+  left: 60%;
+  top: 90%;
+  transform: translate(-60%, -90%);
+}
+
+.updateNoteBtn {
+  position: absolute;
+  left: 69%;
+  top: 90%;
+  transform: translate(-69%, -90%);
+}
+
+.dropdown {
+  position: absolute;
+  left: 65%;
+  top: 90%;
+  transform: translate(-65%, -90%);
 }
