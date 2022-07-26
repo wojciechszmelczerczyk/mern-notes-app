@@ -58,7 +58,8 @@ main-container {
   overflow-y: scroll;
   white-space: normal;
   word-break: break-all;
-  background-color: grey;
+  background-color: lightgrey;
+  border-radius: 9%;
   height: auto;
   max-height: 350px;
   width: auto;
@@ -68,6 +69,59 @@ main-container {
 #buffer .bufferText {
   margin-top: 10px;
   margin-left: 10px;
+  margin-right: 10px;
+}
+
+.searchInput {
+  position: absolute;
+  top: 45%;
+  left: 70%;
+  font-size: 25px;
+  width: 250px;
+}
+
+@media screen and (max-width: 2560px) {
+  .searchInput {
+    left: 65%;
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  .searchInput {
+    left: 73%;
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .searchInput {
+    width: 250px;
+  }
+}
+
+@media screen and (max-height: 980px) {
+  .searchInput {
+    top: 42%;
+  }
+}
+
+@media screen and (max-height: 900px) {
+  .searchInput {
+    top: 35%;
+  }
+}
+
+@media screen and (max-height: 765px) {
+  .searchInput {
+    top: 32%;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .searchInput {
+    top: 25%;
+  }
 }
 
 .note {
