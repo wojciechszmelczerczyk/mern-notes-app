@@ -44,6 +44,8 @@ export default class RegisterComponent extends Component {
       <>
         {!redirect ? (
           <Form
+            accountExist={false}
+            name='Sign Up'
             email={this.state.email}
             password={this.state.password}
             handleEmail={this.handleEmail}

@@ -1,25 +1,53 @@
-const Form = ({ email, password, handleEmail, handlePassword, userOp }) => {
+import { NavLink } from "react-router-dom";
+
+const Form = ({
+  accountExist,
+  name,
+  email,
+  password,
+  handleEmail,
+  handlePassword,
+  userOp,
+}) => {
   return (
     <>
-      <form>
-        <label>email:</label>
-        <input
-          type='email'
-          name='email'
-          placeholder='email'
-          value={email}
-          onChange={handleEmail}
-        ></input>
-        <label>password:</label>
-        <input
-          type='password'
-          name='password'
-          placeholder='password'
-          value={password}
-          onChange={handlePassword}
-        ></input>
+      <form className='userForm'>
+        <h1 className='formTitle'>Speech Notes</h1>
+        <div className='form-group'>
+          <label className='formLabel'>Email</label>
+          <input
+            className='form-control'
+            type='email'
+            name='email'
+            placeholder='email'
+            value={email}
+            onChange={handleEmail}
+          ></input>
+        </div>
+        <div className='form-group'>
+          <label className='formLabel'>Password</label>
+          <input
+            className='form-control'
+            type='password'
+            name='password'
+            placeholder='password'
+            value={password}
+            onChange={handlePassword}
+          ></input>
+        </div>
+        {accountExist ? (
+          <NavLink className='formLink' to='/register'>
+            Don't have account? Sign Up!
+          </NavLink>
+        ) : (
+          <NavLink className='formLink' to='/login'>
+            Already have an account? Login!
+          </NavLink>
+        )}
       </form>
-      <button onClick={userOp}>Submit</button>
+      <button className='userBtn btn btn-primary' onClick={userOp}>
+        {name}
+      </button>
     </>
   );
 };

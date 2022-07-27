@@ -50,6 +50,8 @@ export default class LoginComponent extends Component {
       <>
         {!redirect ? (
           <Form
+            accountExist={true}
+            name='Login'
             email={this.state.email}
             password={this.state.password}
             handleEmail={this.handleEmail}
