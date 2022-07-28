@@ -1,25 +1,32 @@
+import UserService from "../services/userService.js";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
   faArrowAltCircleRight,
-  fa1,
-  fa2,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = ({ isLoggedIn }) => {
+  // logout function
+  // const logout = async function () {
+  //   await UserService.logout();
+  //   localStorage.removeItem("at");
+  //   localStorage.removeItem("rt");
+  // };
+
   return (
     <>
       {isLoggedIn ? (
         <div className='d-flex flex-row-reverse'>
-          <NavLink to='/logout'>
-            {/* <FontAwesomeIcon
+          {/* <NavLink onClick={logout} to='/login'>
+            <FontAwesomeIcon
               className='logoutIcon'
               icon={faArrowAltCircleRight}
               color='black'
               size='3x'
-            /> */}
-          </NavLink>
+            />
+          </NavLink> */}
+
           <NavLink to='/createNote'>
             <FontAwesomeIcon
               className='loginIcon'
@@ -32,12 +39,13 @@ const Navbar = ({ isLoggedIn }) => {
       ) : (
         <div className='d-flex flex-row-reverse'>
           <NavLink to='/login'>
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               className='logoutIcon'
               icon={fa1}
               color='black'
               size='3x'
-            />
+            /> */}
+            Login
           </NavLink>
           <NavLink to='/register'>
             {/* <FontAwesomeIcon
@@ -46,6 +54,7 @@ const Navbar = ({ isLoggedIn }) => {
               color='black'
               size='3x'
             /> */}
+            Sign Up
           </NavLink>
         </div>
       )}

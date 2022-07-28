@@ -1,4 +1,3 @@
-// import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 const pdf = require("pdf-lib");
 const Note = require("../models/Note.js");
 const extractIdFromToken = require("../token/extractId");

@@ -1,5 +1,4 @@
 import axios from "axios";
-// import axiosInstance from "../../server/token/rtInterceptor";
 
 class NoteService {
   createNote(at, title) {

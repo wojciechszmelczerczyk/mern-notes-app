@@ -21,9 +21,7 @@ export default function NoteListComponent() {
         setNotes(res.data);
         setFilteredNotes(res.data);
       })
-      .catch((err) => {
-        setIsLoggedIn(false);
-      });
+      .catch((err) => {});
   }, []);
 
   const handleUserInput = function (search) {

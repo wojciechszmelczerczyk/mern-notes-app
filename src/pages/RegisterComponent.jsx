@@ -1,61 +1,48 @@
-import { Component } from "react";
+import { useState } from "react";
 import UserService from "../services/userService";
 import Form from "../components/Form";
 import { Navigate } from "react-router-dom";
 
-export default class RegisterComponent extends Component {
-  constructor(props) {
-    super(props);
+export default function RegisterComponent() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-    this.createUser = this.createUser.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-  }
-
-  state = {
-    email: "",
-    password: "",
-    redirect: false,
-  };
-
-  async createUser() {
+  const createUser = async function () {
     const newUser = await UserService.register(
       this.state.email,
       this.state.password
     );
     if (newUser) {
-      this.setState({ redirect: true });
+      setRedirect(true);
     } else {
       // some handler...
     }
-  }
+  };
 
-  handleEmail(e) {
-    this.setState({ email: e.target.value });
-  }
+  const handleEmail = function (e) {
+    setEmail(e.target.value);
+  };
 
-  handlePassword(e) {
-    this.setState({ password: e.target.value });
-  }
+  const handlePassword = function (e) {
+    setPassword(e.target.value);
+  };
 
-  render() {
-    let { redirect } = this.state;
-    return (
-      <>
-        {!redirect ? (
-          <Form
-            accountExist={false}
-            name='Sign Up'
-            email={this.state.email}
-            password={this.state.password}
-            handleEmail={this.handleEmail}
-            handlePassword={this.handlePassword}
-            userOp={this.createUser}
-          />
-        ) : (
-          <Navigate to='/login' />
-        )}
-      </>
-    );
-  }
+  return (
+    <>
+      {!redirect ? (
+        <Form
+          accountExist={false}
+          name='Sign Up'
+          email={email}
+          password={password}
+          handleEmail={handleEmail}
+          handlePassword={handlePassword}
+          userOp={createUser}
+        />
+      ) : (
+        <Navigate to='/login' />
+      )}
+    </>
+  );
 }

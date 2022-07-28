@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import CreateNoteComponent from "./pages/CreateNoteComponent";
 import SaveNoteComponent from "./pages/SaveNoteComponent";
 import LoginComponent from "./pages/LoginComponent";
@@ -11,7 +12,7 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Navbar isLoggedIn />
+        <Navbar />
         <Routes>
           <Route path='/' element={<NoteListComponent />} />
           <Route path='/register' element={<RegisterComponent />} />
