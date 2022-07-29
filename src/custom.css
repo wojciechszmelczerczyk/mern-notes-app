@@ -389,3 +389,13 @@ main-container {
   top: 90%;
   transform: translate(-65%, -90%);
 }
+
+/* Single Note */
+
+.emailError {
+  color: red;
+}
+
+.passwordError {
+  color: red;
+}

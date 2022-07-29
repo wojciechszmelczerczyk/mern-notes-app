@@ -8,6 +8,8 @@ const Form = ({
   handleEmail,
   handlePassword,
   userOp,
+  emailError,
+  passwordError,
 }) => {
   return (
     <>
@@ -23,6 +25,9 @@ const Form = ({
             value={email}
             onChange={handleEmail}
           ></input>
+          <div className='emailError'>
+            {emailError ? emailError.match("Please enter a valid email") : ""}
+          </div>
         </div>
         <div className='form-group'>
           <label className='formLabel'>Password</label>
@@ -34,7 +39,11 @@ const Form = ({
             value={password}
             onChange={handlePassword}
           ></input>
+          <div className='passwordError'>
+            {passwordError ? passwordError.match("Password is too short") : ""}
+          </div>
         </div>
+
         {accountExist ? (
           <NavLink className='formLink' to='/register'>
             Don't have account? Sign Up!

@@ -7,24 +7,26 @@ export default function RegisterComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const createUser = async function () {
-    const newUser = await UserService.register(
-      this.state.email,
-      this.state.password
-    );
-    if (newUser) {
+    const { data } = await UserService.register(email, password);
+    if (data["errors"] === undefined) {
       setRedirect(true);
     } else {
-      // some handler...
+      setEmailError(data.errors.find((err) => err.includes("email")));
+      setPasswordError(data.errors.find((err) => err.includes("password")));
     }
   };
 
   const handleEmail = function (e) {
+    setEmailError("");
     setEmail(e.target.value);
   };
 
   const handlePassword = function (e) {
+    setPasswordError("");
     setPassword(e.target.value);
   };
 
@@ -39,6 +41,8 @@ export default function RegisterComponent() {
           handleEmail={handleEmail}
           handlePassword={handlePassword}
           userOp={createUser}
+          emailError={emailError}
+          passwordError={passwordError}
         />
       ) : (
         <Navigate to='/login' />

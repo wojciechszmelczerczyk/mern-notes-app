@@ -13,13 +13,13 @@ const register = async (req, res) => {
     res.json(newUser);
   } catch (err) {
     errors = err.message.split(", ");
-    // return register errors
-    res.status(400).json({ errors });
+    res.json({ errors });
   }
 };
 
 const authenticate = async (req, res) => {
   const { email, password } = req.body;
+  let errors;
   try {
     // compare input data and data from database
     const user = await User.login(email, password);
@@ -43,11 +43,10 @@ const authenticate = async (req, res) => {
 
     // populate cookie with jwt
     res.status(201).json({ accessToken, refreshToken });
-
-    // return jwt
   } catch (err) {
-    res.status(400).json({ error: err.message });
-    return err;
+    errors = err.message.split(", ");
+    console.log(errors);
+    res.json({ errors });
   }
 };
 
