@@ -349,6 +349,12 @@ main-container {
   left: 8%;
 }
 
+.saveDropdownContainer {
+  position: absolute;
+  top: 112%;
+  left: 18.5%;
+}
+
 /* Note Details Component */
 
 .singleNoteTitle {
@@ -388,6 +394,17 @@ main-container {
   left: 65%;
   top: 90%;
   transform: translate(-65%, -90%);
+}
+
+.dropdown-menu-lang {
+  position: absolute;
+  left: 65%;
+  top: 90%;
+  transform: translate(-65%, -90%);
+}
+
+.dropdown-lang {
+  text-decoration: none;
 }
 
 /* Single Note */

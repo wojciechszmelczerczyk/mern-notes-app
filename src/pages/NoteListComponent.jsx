@@ -12,7 +12,6 @@ export default function NoteListComponent() {
   const [filteredNotes, setFilteredNotes] = useState([]);
 
   const [isLoggedIn] = useContext(AuthContext);
-  console.log(isLoggedIn);
   const navigate = useNavigate();
 
   useEffect(() => {

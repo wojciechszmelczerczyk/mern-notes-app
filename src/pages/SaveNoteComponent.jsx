@@ -6,22 +6,23 @@ import { useNavigate, Navigate } from "react-router-dom";
 import NoteService from "../services/noteService.js";
 import React from "react";
 import Buffer from "../components/Buffer";
-import axios from "axios";
+import { languages } from "../data/languages";
+
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 export default function SaveNoteComponent() {
   const [text, setText] = useState("Listening on changes...");
   const [redirect, setRedirect] = useState(false);
   const [recognizingText, setRecognizingText] = useState("");
-  let [noteTitle, setNoteTitle] = useState("");
-  let [isListening, setListening] = useState(false);
-  let [stopRecognizing, setStopRecognizing] = React.useState(() => noop);
-
+  const [noteTitle, setNoteTitle] = useState("");
+  const [isListening, setListening] = useState(false);
+  const [stopRecognizing, setStopRecognizing] = React.useState(() => noop);
+  const [language, setLanguage] = useState("en-US");
   function noop() {}
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  let at = localStorage.getItem("at");
+  const at = localStorage.getItem("at");
 
   useEffect(() => {
     // // check for valid speech key/region
@@ -33,13 +34,14 @@ export default function SaveNoteComponent() {
     // get current note title
     let noteId = localStorage.getItem("note_id");
 
-    axios
-      .get(`http://localhost:3000/note/${noteId}`, {
-        headers: { Authorization: `Bearer ${at}` },
-        withCredentials: true,
-      })
-      .then((res) => setNoteTitle(res["data"]["title"]));
+    NoteService.getSingleNote(at, noteId).then((res) =>
+      setNoteTitle(res["data"]["title"])
+    );
   }, []);
+
+  function handleLanguage(lang) {
+    setLanguage(lang);
+  }
 
   async function createRecognizer() {
     const tokenObj = await getTokenOrRefresh();
@@ -47,6 +49,7 @@ export default function SaveNoteComponent() {
       tokenObj.authToken,
       tokenObj.region
     );
+    speechConfig.speechRecognitionLanguage = language;
     const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
     const recognizer = new speechsdk.SpeechRecognizer(
       speechConfig,
@@ -75,6 +78,7 @@ export default function SaveNoteComponent() {
       setText("speak into your microphone...");
       let text = "";
       const recognizer = await createRecognizer();
+
       recognizer.startContinuousRecognitionAsync(
         () => {
           console.log("start listening");
@@ -97,7 +101,6 @@ export default function SaveNoteComponent() {
         setRecognizingText("");
         if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
           text += e.result.text;
-          console.log(text);
           setText(text);
         } else if (e.result.reason === speechsdk.ResultReason.NoMatch) {
           setText(text);
@@ -131,7 +134,6 @@ export default function SaveNoteComponent() {
       {!redirect ? (
         <>
           <h1 className='display-4 mb-3'>{noteTitle}</h1>
-
           <div className='row main-container'>
             <div className='col-6'>
               <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
@@ -144,6 +146,34 @@ export default function SaveNoteComponent() {
           <button className='btn btn-success saveNoteBtn' onClick={saveNote}>
             Save note
           </button>
+          <div className='saveDropdownContainer'>
+            <div className='dropdown'>
+              <button
+                className='btn btn-primary dropdown-toggle'
+                type='button'
+                id='dropdownLangButton'
+                data-bs-toggle='dropdown'
+                aria-expanded='false'
+              >
+                {language}
+              </button>
+              <ul
+                className='dropdown-menu'
+                aria-labelledby='dropdownLangButton'
+              >
+                {languages.map((lang) => (
+                  <li key={lang}>
+                    <a
+                      onClick={(e) => handleLanguage(e.currentTarget.innerText)}
+                      className='dropdown-lang'
+                    >
+                      {lang}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <button
             className='btn btn-danger cancelSaveNoteBtn'
             onClick={() => navigate("/")}

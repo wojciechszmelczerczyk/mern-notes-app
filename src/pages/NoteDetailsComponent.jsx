@@ -11,8 +11,6 @@ export default function NoteDetailsComponent() {
   const [noteContent, setNoteContent] = useState("");
   const [isLoggedIn] = useContext(AuthContext);
 
-  console.log(isLoggedIn);
-
   let { id } = useParams();
   let navigate = useNavigate();
   let at = localStorage.getItem("at");
