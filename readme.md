@@ -206,17 +206,30 @@ REFRESH_TOKEN_SCOPE=/user/refresh-token
 ```javascript
 const validateToken = (req, res, next) => {
   try {
-    let token = req.cookies.jwt;
-    if (token) {
-      verify(token, process.env.JWT_SECRET, (err) => {
-        if (err) throw new Error("Jwt is not valid");
+    // retrieve jwt from auth header
+    let authHeader = req.headers["authorization"];
+
+    let token = authHeader && authHeader.split(" ")[1];
+
+    // if token doesn't exist throw error
+    if (token === undefined) throw new Error("Jwt doesn't exist");
+
+    // otherwise check if token expired
+    verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
+      if (error) {
+        if (error.name === "JsonWebTokenError") {
+          res.status(403).json({ error: error.message });
+        }
+      } else {
+        req.user = user;
         next();
-      });
-    } else if (token === undefined) {
-      throw new Error("Jwt doesn't exists");
-    }
-  } catch (err) {
-    res.status(401).json({ jwt_error: err.message });
+      }
+    });
+  } catch (error) {
+    res.status(403).json({
+      fail: true,
+      error: error.message,
+    });
   }
 };
 ```
@@ -226,15 +239,14 @@ const validateToken = (req, res, next) => {
 #### Function sign new token with user id.
 
 ```javascript
-
-const createToken = (id) => {
+const createToken = (id, secret, exp) => {
   return sign(
     {
       id,
     },
-    process.env.JWT_SECRET
+    secret,
     {
-      expiresIn: maxAge,
+      expiresIn: exp,
     }
   );
 };
@@ -283,24 +295,28 @@ test("when jwt doesn't exists", async () => {
 
 ```javascript
 test("when jwt is incorrect", async () => {
-  const notes = await request(app).get("/note").set("Cookie", "jwt=ssss;");
+  const notes = await request(app)
+    .get("/note")
+    .set("Authorization", "Bearer ssss");
 
-  expect(notes.status).toEqual(401);
-  expect(notes.body.jwt_error).toEqual("Jwt is not valid");
+  expect(notes.status).toEqual(403);
+  expect(notes.body.error).toEqual("jwt malformed");
 });
 ```
 
 </details>
 
 <details>
-<summary>when jwt is correct</summary>
+<summary>when jwt is expired</summary>
 
 ```javascript
-test("when jwt is correct", async () => {
-  const notes = await request(app).get("/note").set("Cookie", `jwt=${jwt};`);
+test("when jwt is expired", async () => {
+  const notes = await request(app)
+    .get("/note")
+    .set("Authorization", `Bearer ${jwt};`);
 
-  expect(notes.body).toBeTruthy();
-  expect(notes.status).toEqual(200);
+  expect(notes.status).toEqual(403);
+  expect(notes.body.error).toEqual("invalid token");
 });
 ```
 
@@ -318,8 +334,8 @@ test("when jwt doesn't exists", async () => {
   const newNote = await request(app)
     .post("/note")
     .send({ title: "new note added in jest", content: "" });
-  expect(newNote.status).toBe(401);
-  expect(newNote.body.jwt_error).toBe("Jwt doesn't exists");
+  expect(newNote.status).toBe(403);
+  expect(newNote.body.error).toBe("Jwt doesn't exist");
 });
 ```
 
@@ -333,23 +349,24 @@ test("when jwt is incorrect", async () => {
   const newNote = await request(app)
     .post("/note")
     .send({ title: "new note added in jest", content: "" })
-    .set("Cookie", "jwt=false-token;");
-  expect(newNote.status).toBe(401);
-  expect(newNote.body.jwt_error).toBe("Jwt is not valid");
+    .set("Authorization", "Bearer falseToken");
+
+  expect(newNote.status).toBe(403);
+  expect(newNote.body.error).toBe("jwt malformed");
 });
 ```
 
 </details>
 
 <details>
-<summary>when jwt is correct</summary>
+<summary>when jwt is expired</summary>
 
 ```javascript
-test("when jwt is correct", async () => {
+test("when jwt is expired", async () => {
   const newNote = await request(app)
     .post("/note")
     .send({ title: "just next note added in jest", content: "" })
-    .set("Cookie", `jwt=${jwt};`);
+    .set("Authorization", `Bearer ${jwt}`);
 
   expect(newNote.status).toBe(201);
   expect(newNote.body.title).toBe("just next note added in jest");
