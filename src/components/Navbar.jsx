@@ -3,61 +3,42 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
-  faArrowAltCircleRight,
+  faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
-const Navbar = ({ isLoggedIn }) => {
+const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
   // logout function
-  // const logout = async function () {
-  //   await UserService.logout();
-  //   localStorage.removeItem("at");
-  //   localStorage.removeItem("rt");
-  // };
+  const logout = async function () {
+    let at = localStorage.getItem("at");
+    await UserService.logout(at);
+    localStorage.removeItem("at");
+    localStorage.removeItem("rt");
+    setIsLoggedIn(false);
+  };
 
   return (
     <>
-      {isLoggedIn ? (
-        <div className='d-flex flex-row-reverse'>
-          {/* <NavLink onClick={logout} to='/login'>
-            <FontAwesomeIcon
-              className='logoutIcon'
-              icon={faArrowAltCircleRight}
-              color='black'
-              size='3x'
-            />
-          </NavLink> */}
-
-          <NavLink to='/createNote'>
-            <FontAwesomeIcon
-              className='loginIcon'
-              icon={faPlus}
-              color='black'
-              size='3x'
-            />
-          </NavLink>
-        </div>
-      ) : (
-        <div className='d-flex flex-row-reverse'>
-          <NavLink to='/login'>
-            {/* <FontAwesomeIcon
-              className='logoutIcon'
-              icon={fa1}
-              color='black'
-              size='3x'
-            /> */}
-            Login
-          </NavLink>
-          <NavLink to='/register'>
-            {/* <FontAwesomeIcon
-              className='registerIcon'
-              icon={fa2}
-              color='black'
-              size='3x'
-            /> */}
-            Sign Up
-          </NavLink>
-        </div>
-      )}
+      <div className='d-flex flex-row-reverse'>
+        <NavLink onClick={logout} to='/login'>
+          <FontAwesomeIcon
+            className='logoutIcon'
+            icon={faArrowRightFromBracket}
+            color='black'
+            size='2x'
+          />
+        </NavLink>
+        <NavLink to='/createNote'>
+          <FontAwesomeIcon
+            className='createNoteIcon'
+            icon={faPlus}
+            color='black'
+            size='2x'
+          />
+        </NavLink>
+      </div>
     </>
   );
 };

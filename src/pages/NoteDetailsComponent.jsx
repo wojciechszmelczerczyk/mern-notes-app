@@ -3,16 +3,24 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import NoteService from "../services/noteService";
 import download from "js-file-download";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 export default function NoteDetailsComponent() {
   const [noteTitle, setNoteTitle] = useState("");
   const [noteContent, setNoteContent] = useState("");
+  const [isLoggedIn] = useContext(AuthContext);
+
+  console.log(isLoggedIn);
 
   let { id } = useParams();
   let navigate = useNavigate();
   let at = localStorage.getItem("at");
 
   useEffect(() => {
+    // check global state of app if auth if not redirect to login
+    if (!isLoggedIn) navigate("/login");
+
     NoteService.getSingleNote(at, id)
       .then((res) => {
         setNoteTitle(res.data["title"]);

@@ -3,13 +3,16 @@ import noteService from "../services/noteService";
 import Note from "../components/Note";
 import { Navigate, useNavigate } from "react-router-dom";
 import Search from "../components/Search";
+import Navbar from "../components/Navbar";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
+  const [isLoggedIn] = useContext(AuthContext);
+  console.log(isLoggedIn);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +39,8 @@ export default function NoteListComponent() {
     <div>
       {isLoggedIn ? (
         <>
+          <Navbar />
+
           <h1 className='noteListTitle'>Speech Notes</h1>
           <Search handleUserInput={handleUserInput} />
           {filteredNotes.length === 0 ? (

@@ -248,14 +248,14 @@ main-container {
   transform: translate(-50%, -50%);
 }
 
-.addNoteIcon {
-  margin-top: 20px;
-  margin-right: 35px;
+.createNoteIcon {
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .logoutIcon {
-  margin-top: 20px;
-  margin-right: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 /* Create Note Component */

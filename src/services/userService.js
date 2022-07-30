@@ -18,8 +18,12 @@ class UserService {
     );
   }
 
-  logout() {
-    return axios.delete("http://localhost:3000/user");
+  logout(at) {
+    return axios.delete("http://localhost:3000/user", {
+      headers: {
+        Authorization: `Bearer ${at}`,
+      },
+    });
   }
 }
 

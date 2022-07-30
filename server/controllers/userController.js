@@ -81,7 +81,7 @@ const logout = async (req, res) => {
   // reset cookie
 
   // invalidate RT in db
-  await User.findOneAndUpdate({ _id: id }, { refreshToken: "" });
+  await User.findByIdAndUpdate(id, { refreshToken: "" });
 
   res.status(200).json({ rtInvalidate: "rt deleted" });
 };
