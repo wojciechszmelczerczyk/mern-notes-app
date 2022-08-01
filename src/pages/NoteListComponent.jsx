@@ -12,6 +12,8 @@ export default function NoteListComponent() {
   const [filteredNotes, setFilteredNotes] = useState([]);
 
   const [isLoggedIn] = useContext(AuthContext);
+  const [refreshFlag, setRefreshFlag] = useState(false);
+  const value = [refreshFlag, setRefreshFlag];
 
   useEffect(() => {
     const at = localStorage.getItem("at");
@@ -25,7 +27,7 @@ export default function NoteListComponent() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [filteredNotes]);
+  }, [refreshFlag]);
 
   const handleUserInput = function (search) {
     const filteredNoteArray = notes.filter((note) =>
@@ -52,6 +54,7 @@ export default function NoteListComponent() {
                 {filteredNotes?.map((note) => (
                   <div className='col-sm-12 col-md-6 col-lg-4' key={note._id}>
                     <Note
+                      value={value}
                       id={note._id}
                       title={note.title}
                       content={note.content}

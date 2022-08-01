@@ -4,14 +4,21 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import noteService from "../services/noteService";
 
-const Note = ({ id, title, content, updatedAt, key }) => {
+const Note = ({ value, id, title, content, updatedAt, key }) => {
   // change date format
-  let updated = updatedAt.replace(/T|Z/g, " ").substr(0, updatedAt.length - 5);
-  let navigate = useNavigate();
-  let at = localStorage.getItem("at");
+  const updated = updatedAt
+    .replace(/T|Z/g, " ")
+    .substr(0, updatedAt.length - 5);
+
+  const navigate = useNavigate();
+
+  const at = localStorage.getItem("at");
+
+  const [refreshFlag, setRefreshFlag] = value;
 
   const deleteNote = async function (id) {
     await noteService.deleteNote(at, id);
+    setRefreshFlag(!refreshFlag);
   };
   return (
     <>
