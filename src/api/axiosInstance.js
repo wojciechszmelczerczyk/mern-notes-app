@@ -18,6 +18,7 @@ axiosInstance.interceptors.response.use(
       prevRequest.sent = true;
       try {
         const { data } = await userService.refreshToken(rt);
+        prevRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
         localStorage.setItem("at", data.accessToken);
         return axiosInstance(prevRequest);
       } catch (err) {
