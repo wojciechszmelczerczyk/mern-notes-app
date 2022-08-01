@@ -37,15 +37,20 @@ export default function CreateNoteComponent() {
               value={title}
               onChange={handleTitle}
             ></input>
-            <button
-              onClick={() => navigate("/")}
-              className='btn btn-danger cancelCreateNoteButton'
-            >
-              Cancel
-            </button>
-            <button type='submit' className='btn btn-success createNoteButton'>
-              Create note
-            </button>
+            <div className='buttonContainer'>
+              <button
+                onClick={() => navigate("/")}
+                className='btn btn-danger cancelCreateNoteButton'
+              >
+                Cancel
+              </button>
+              <button
+                type='submit'
+                className='btn btn-success createNoteButton'
+              >
+                Create note
+              </button>
+            </div>
           </form>
         </div>
       ) : (

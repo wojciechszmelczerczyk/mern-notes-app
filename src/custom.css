@@ -265,53 +265,64 @@ main-container {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  /* width: 55vw; */
+}
+
+.buttonContainer {
+  float: right;
 }
 
 .createNoteButton {
-  font-size: 38px;
-  float: right;
+  font-size: 32px;
 }
 
 .cancelCreateNoteButton {
-  font-size: 38px;
-  float: right;
+  font-size: 32px;
 }
 
 .noteTitleInput {
   margin-left: 10px;
-  font-size: 40px;
+  font-size: 32px;
 }
 
 .createNoteLabel {
-  font-size: 40px;
+  font-size: 32px;
 }
 
 @media screen and (max-width: 1750px) {
   .createNoteButton {
-    font-size: 30px;
+    font-size: 28px;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 28px;
   }
 
   .noteTitleInput {
-    margin-left: 10px;
-    font-size: 30px;
+    /* margin-left: 10px; */
+    font-size: 28px;
   }
 
   .createNoteLabel {
-    font-size: 30px;
+    font-size: 28px;
   }
 }
 
 @media screen and (max-width: 1395px) {
   .createNoteButton {
-    font-size: 25px;
+    font-size: 23px;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 23px;
   }
 
   .noteTitleInput {
-    font-size: 25px;
+    font-size: 23px;
   }
 
   .createNoteLabel {
-    font-size: 25px;
+    font-size: 23px;
   }
 }
 
@@ -320,12 +331,52 @@ main-container {
     font-size: 20px;
   }
 
+  .cancelCreateNoteButton {
+    font-size: 20px;
+  }
+
   .noteTitleInput {
     font-size: 20px;
   }
 
   .createNoteLabel {
     font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .createNoteButton {
+    font-size: 13px;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 13px;
+  }
+
+  .noteTitleInput {
+    font-size: 13px;
+  }
+
+  .createNoteLabel {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .createNoteButton {
+    font-size: 11px;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 11px;
+  }
+
+  .noteTitleInput {
+    font-size: 11px;
+  }
+
+  .createNoteLabel {
+    font-size: 11px;
   }
 }
 
