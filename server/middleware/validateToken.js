@@ -7,15 +7,14 @@ const validateToken = (req, res, next) => {
     let authHeader = req.headers["authorization"];
 
     let token = authHeader && authHeader.split(" ")[1];
-
     // if token doesn't exist throw error
     if (token === undefined) throw new Error("Jwt doesn't exist");
 
     // otherwise check if token expired
     verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
       if (error) {
-        if (error.name === "JsonWebTokenError") {
-          res.status(403).json({ error: error.message });
+        if (error.name === "TokenExpiredError") {
+          res.status(403).json({ err: error.message });
         }
       } else {
         req.user = user;

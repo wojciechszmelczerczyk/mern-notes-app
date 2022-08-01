@@ -52,11 +52,10 @@ const authenticate = async (req, res) => {
 
 const refreshToken = async (req, res) => {
   try {
-    const authHeader = req.headers.rt;
-
+    const authHeader = req.headers["authorization"];
     const rt = authHeader && authHeader.split(" ")[1];
 
-    if (rt === undefined) return res.json("rt doesn't exist");
+    if (rt === undefined) res.json("rt doesn't exist");
 
     const { id } = verify(rt, process.env.REFRESH_TOKEN_SECRET);
 
@@ -66,7 +65,7 @@ const refreshToken = async (req, res) => {
       process.env.ACCESS_TOKEN_EXP
     );
 
-    res.json({ accessToken: jwt, rt });
+    res.json({ accessToken: jwt, refreshToken: rt });
   } catch (err) {
     res.json({
       fail: true,

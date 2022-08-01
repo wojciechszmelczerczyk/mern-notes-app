@@ -7,6 +7,7 @@ class UserService {
       password,
     });
   }
+
   auth(email, password) {
     return axios.post(
       "http://localhost:3000/user/authenticate",
@@ -23,6 +24,15 @@ class UserService {
       headers: {
         Authorization: `Bearer ${at}`,
       },
+    });
+  }
+
+  refreshToken(rt) {
+    return axios.get("http://localhost:3000/user/refresh-token", {
+      headers: {
+        Authorization: `Bearer ${rt}`,
+      },
+      withCredentials: true,
     });
   }
 }

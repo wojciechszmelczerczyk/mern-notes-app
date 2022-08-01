@@ -1,9 +1,9 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 class NoteService {
   createNote(at, title) {
-    return axios.post(
-      "http://localhost:3000/note",
+    return axiosInstance.post(
+      "/note",
       {
         title,
       },
@@ -11,35 +11,32 @@ class NoteService {
         headers: {
           Authorization: `Bearer ${at}`,
         },
-        withCredentials: true,
       }
     );
   }
 
   saveNote(at, content, id) {
-    return axios.post(
-      "http://localhost:3000/note/save",
+    return axiosInstance.post(
+      "/note/save",
       { content, id },
       {
         headers: {
           Authorization: `Bearer ${at}`,
         },
-        withCredentials: true,
       }
     );
   }
 
   getNotes(at) {
-    return axios.get("http://localhost:3000/note", {
+    return axiosInstance.get("/note", {
       headers: {
         Authorization: `Bearer ${at}`,
       },
-      withCredentials: true,
     });
   }
 
   getSingleNote(at, id) {
-    return axios.get(`http://localhost:3000/note/${id}`, {
+    return axiosInstance.get(`/note/${id}`, {
       headers: {
         Authorization: `Bearer ${at}`,
       },
@@ -47,8 +44,8 @@ class NoteService {
   }
 
   updateNote(at, id, noteContent) {
-    return axios.put(
-      `http://localhost:3000/note/${id}`,
+    return axiosInstance.put(
+      `/note/${id}`,
       { content: noteContent },
       {
         headers: {
@@ -67,8 +64,8 @@ class NoteService {
       responseType = "text";
     }
 
-    return axios.post(
-      `http://localhost:3000/note/${id}/file`,
+    return axiosInstance.post(
+      `/note/${id}/file`,
       { format },
       {
         headers: {

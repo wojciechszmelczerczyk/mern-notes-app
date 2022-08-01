@@ -23,13 +23,16 @@ export default function NoteListComponent() {
         setNotes(res.data);
         setFilteredNotes(res.data);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err.message);
+      });
   }, []);
 
   const handleUserInput = function (search) {
     const filteredNoteArray = notes.filter((note) =>
       note.title.includes(search)
     );
+    console.log(filteredNoteArray);
     setFilteredNotes(filteredNoteArray);
     if (search.length === 0) setFilteredNotes(notes);
   };
@@ -42,12 +45,12 @@ export default function NoteListComponent() {
 
           <h1 className='noteListTitle'>Speech Notes</h1>
           <Search handleUserInput={handleUserInput} />
-          {filteredNotes.length === 0 ? (
+          {filteredNotes?.length === 0 ? (
             <div className='emptyNoteListInfo'>No notes add some!✍️</div>
           ) : (
             <div className='container noteList'>
               <div className='row justify-content-start'>
-                {filteredNotes.map((note) => (
+                {filteredNotes?.map((note) => (
                   <div
                     className='col-sm-12 col-md-6 col-lg-4'
                     key={note._id}
