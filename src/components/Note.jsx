@@ -4,7 +4,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import noteService from "../services/noteService";
 
-const Note = ({ value, id, title, content, updatedAt, key }) => {
+const Note = ({ refresh, id, title, content, updatedAt, key }) => {
   // change date format
   const updated = updatedAt
     .replace(/T|Z/g, " ")
@@ -14,7 +14,7 @@ const Note = ({ value, id, title, content, updatedAt, key }) => {
 
   const at = localStorage.getItem("at");
 
-  const [refreshFlag, setRefreshFlag] = value;
+  const [refreshFlag, setRefreshFlag] = refresh;
 
   const deleteNote = async function (id) {
     await noteService.deleteNote(at, id);

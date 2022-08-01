@@ -10,10 +10,12 @@ import { useContext } from "react";
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
+  const [isFocus, setIsFocus] = useState(false);
+  const focus = [isFocus, setIsFocus];
 
   const [isLoggedIn] = useContext(AuthContext);
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const value = [refreshFlag, setRefreshFlag];
+  const refresh = [refreshFlag, setRefreshFlag];
 
   useEffect(() => {
     const at = localStorage.getItem("at");
@@ -33,7 +35,6 @@ export default function NoteListComponent() {
     const filteredNoteArray = notes.filter((note) =>
       note.title.includes(search)
     );
-    console.log(filteredNoteArray);
     setFilteredNotes(filteredNoteArray);
     if (search.length === 0) setFilteredNotes(notes);
   };
@@ -43,27 +44,39 @@ export default function NoteListComponent() {
       {isLoggedIn ? (
         <>
           <Navbar />
-
           <h1 className='noteListTitle'>Speech Notes</h1>
-          <Search handleUserInput={handleUserInput} />
-          {filteredNotes?.length === 0 ? (
-            <div className='emptyNoteListInfo'>No notes add some!✍️</div>
+          {filteredNotes?.length === 0 && !isFocus ? (
+            ""
           ) : (
-            <div className='container noteList'>
-              <div className='row justify-content-start'>
-                {filteredNotes?.map((note) => (
-                  <div className='col-sm-12 col-md-6 col-lg-4' key={note._id}>
-                    <Note
-                      value={value}
-                      id={note._id}
-                      title={note.title}
-                      content={note.content}
-                      updatedAt={note.updatedAt}
-                    />
-                  </div>
-                ))}
+            <Search focus={focus} handleUserInput={handleUserInput} />
+          )}
+
+          {filteredNotes?.length === 0 ? (
+            <>
+              {!isFocus ? (
+                <div className='emptyNoteListInfo'>No notes add some!✍️</div>
+              ) : (
+                <div className='emptyNoteListInfo'>Note not found❌</div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className='container noteList'>
+                <div className='row justify-content-start'>
+                  {filteredNotes?.map((note) => (
+                    <div className='col-sm-12 col-md-6 col-lg-4' key={note._id}>
+                      <Note
+                        refresh={refresh}
+                        id={note._id}
+                        title={note.title}
+                        content={note.content}
+                        updatedAt={note.updatedAt}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </>
           )}
         </>
       ) : (
