@@ -43,6 +43,7 @@ Client side will be created in `React` using `Javascript` language.
   - [Middleware](#middleware)
   - [Create token](#create-token-helper-function)
   - [Extract user id](#extract-user-id-helper-function)
+  - [Refresh token](#refresh-token)
 
 - [Tests](#tests)
 
@@ -261,6 +262,36 @@ const extractIdFromToken = (token) => {
   const { id } = decode(token);
   return id;
 };
+```
+
+### Refresh token
+
+#### When middleware respond with `403` status Axios response interceptor will catch response, send API request to `/user/refresh-token` and update expired at with new one.
+
+```javascript
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const prevRequest = error?.config;
+
+    if (error?.response.status === 403 && !prevRequest?.sent) {
+      prevRequest.sent = true;
+
+      try {
+        const { data } = await userService.refreshToken(rt);
+
+        prevRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
+
+        localStorage.setItem("at", data.accessToken);
+
+        return axiosInstance(prevRequest);
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
+  },
+  (err) => Promise.reject(err)
+);
 ```
 
 ## Tests
