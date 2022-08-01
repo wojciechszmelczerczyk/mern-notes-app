@@ -183,7 +183,7 @@ REFRESH_TOKEN_SCOPE=/user/refresh-token
 | `/note/save`     |  POST  |      \*       | Fill note content via speech-to-text api  |
 | `/note/:id`      |  GET   |      \*       | Get single note if owned by the auth user |
 | `/note/:id`      |  PUT   |      \*       | Update note                               |
-| `/note/:id`      | DELETE |      \*       | Delete                                    |
+| `/note/:id`      | DELETE |      \*       | Delete note                               |
 | `/note/:id/file` |  POST  |      \*       | Download Note in pdf/txt format           |
 
 ### Speech-to-text:

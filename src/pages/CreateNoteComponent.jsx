@@ -13,11 +13,9 @@ export default function CreateNoteComponent() {
     const newNote = await NoteService.createNote(at, title);
     if (newNote) {
       const newNoteId = newNote["data"]["_id"];
-      console.log(newNoteId);
       localStorage.setItem("note_id", newNoteId);
       setRedirect(true);
     } else {
-      // some handler
     }
   }
 

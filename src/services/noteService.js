@@ -75,6 +75,14 @@ class NoteService {
       }
     );
   }
+
+  deleteNote(at, id) {
+    return axiosInstance.delete(`/note/${id}`, {
+      headers: {
+        Authorization: `Bearer ${at}`,
+      },
+    });
+  }
 }
 
 export default new NoteService();

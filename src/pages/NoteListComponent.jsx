@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import noteService from "../services/noteService";
 import Note from "../components/Note";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Search from "../components/Search";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../context/AuthContext";
@@ -12,7 +12,6 @@ export default function NoteListComponent() {
   const [filteredNotes, setFilteredNotes] = useState([]);
 
   const [isLoggedIn] = useContext(AuthContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const at = localStorage.getItem("at");
@@ -26,7 +25,7 @@ export default function NoteListComponent() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [filteredNotes]);
 
   const handleUserInput = function (search) {
     const filteredNoteArray = notes.filter((note) =>
@@ -51,13 +50,9 @@ export default function NoteListComponent() {
             <div className='container noteList'>
               <div className='row justify-content-start'>
                 {filteredNotes?.map((note) => (
-                  <div
-                    className='col-sm-12 col-md-6 col-lg-4'
-                    key={note._id}
-                    onClick={() => navigate(`note/${note._id}`)}
-                    style={{ cursor: "pointer" }}
-                  >
+                  <div className='col-sm-12 col-md-6 col-lg-4' key={note._id}>
                     <Note
+                      id={note._id}
                       title={note.title}
                       content={note.content}
                       updatedAt={note.updatedAt}

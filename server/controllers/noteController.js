@@ -60,8 +60,8 @@ const fillNoteContent = async (req, res) => {
 
 const deleteNote = async (req, res) => {
   const { id } = req.params;
-  const deletedNote = await Note.findOneAndDelete({ id });
-  res.status(200).json(deletedNote);
+  await Note.findByIdAndDelete(id);
+  res.send("note deleted").status(204);
 };
 
 const downloadNote = async (req, res) => {
