@@ -1,6 +1,7 @@
 body {
   background-color: var(--background);
   color: var(--text);
+  transition: 0.5s;
 }
 
 main-container {
@@ -137,6 +138,7 @@ main-container {
 }
 
 #buffer .bufferText {
+  color: black !important;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
@@ -479,13 +481,4 @@ main-container {
 
 .noteContent {
   color: black !important;
-}
-
-/* Navbar */
-
-.fa-plus {
-}
-
-.fa-arrow-right-from-bracket {
-  color: black;
 }
