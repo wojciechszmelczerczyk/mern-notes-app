@@ -7,6 +7,7 @@ import NoteService from "../services/noteService.js";
 import React from "react";
 import Buffer from "../components/Buffer";
 import { languages } from "../data/languages";
+import noteService from "../services/noteService.js";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
@@ -24,15 +25,15 @@ export default function SaveNoteComponent() {
 
   const at = localStorage.getItem("at");
 
+  // get current note title
+  let noteId = localStorage.getItem("note_id");
+
   useEffect(() => {
     // // check for valid speech key/region
     const tokenRes = getTokenOrRefresh().then((res) => res);
     if (tokenRes.authToken === null) {
       setText(`FATAL_ERROR: ${tokenRes.error}`);
     }
-
-    // get current note title
-    let noteId = localStorage.getItem("note_id");
 
     NoteService.getSingleNote(at, noteId).then((res) =>
       setNoteTitle(res["data"]["title"])
@@ -41,6 +42,12 @@ export default function SaveNoteComponent() {
 
   function handleLanguage(lang) {
     setLanguage(lang);
+  }
+
+  async function cancel() {
+    await noteService.deleteNote(at, noteId);
+    localStorage.removeItem("note_id");
+    navigate("/");
   }
 
   async function createRecognizer() {
@@ -174,10 +181,7 @@ export default function SaveNoteComponent() {
               </ul>
             </div>
           </div>
-          <button
-            className='btn btn-danger cancelSaveNoteBtn'
-            onClick={() => navigate("/")}
-          >
+          <button className='btn btn-danger cancelSaveNoteBtn' onClick={cancel}>
             Cancel
           </button>
         </>
