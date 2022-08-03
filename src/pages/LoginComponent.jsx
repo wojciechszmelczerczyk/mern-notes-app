@@ -7,7 +7,6 @@ import { AuthContext } from "../context/AuthContext";
 export default function LoginComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [isLoggedIn, setIsLoggedIn] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);

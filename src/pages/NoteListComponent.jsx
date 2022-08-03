@@ -14,6 +14,7 @@ export default function NoteListComponent() {
   const focus = [isFocus, setIsFocus];
 
   const [isLoggedIn] = useContext(AuthContext);
+
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
 
@@ -63,14 +64,14 @@ export default function NoteListComponent() {
             <>
               <div className='container noteList'>
                 <div className='row justify-content-start'>
-                  {filteredNotes?.map((note) => (
-                    <div className='col-sm-12 col-md-6 col-lg-4' key={note._id}>
+                  {filteredNotes?.map(({ _id, title, content, updatedAt }) => (
+                    <div className='col-sm-12 col-md-6 col-lg-4' key={_id}>
                       <Note
                         refresh={refresh}
-                        id={note._id}
-                        title={note.title}
-                        content={note.content}
-                        updatedAt={note.updatedAt}
+                        id={_id}
+                        title={title}
+                        content={content}
+                        updatedAt={updatedAt}
                       />
                     </div>
                   ))}

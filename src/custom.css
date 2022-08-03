@@ -1,3 +1,8 @@
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
 main-container {
   margin-top: 100px;
 }
@@ -258,6 +263,11 @@ main-container {
   margin-right: 10px;
 }
 
+.themeButton {
+  margin-top: 12px;
+  margin-right: 23px;
+}
+
 /* Create Note Component */
 
 .createFormContainer {
@@ -265,7 +275,6 @@ main-container {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* width: 55vw; */
 }
 
 .buttonContainer {
@@ -466,4 +475,17 @@ main-container {
 
 .passwordError {
   color: red;
+}
+
+.noteContent {
+  color: black !important;
+}
+
+/* Navbar */
+
+.fa-plus {
+}
+
+.fa-arrow-right-from-bracket {
+  color: black;
 }
