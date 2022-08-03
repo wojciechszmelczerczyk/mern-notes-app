@@ -102,6 +102,10 @@ main-container {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.form-control.dark:focus {
+  box-shadow: rgba(255, 255, 255, 0.45) 0px 5px 15px;
+}
+
 .formLink {
   position: absolute;
   top: 70%;
@@ -204,6 +208,7 @@ main-container {
   background-color: white;
   border-radius: 6%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 0.5s;
   filter: blur(0);
 }
 

@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Form = ({
   accountExist,
@@ -11,14 +13,23 @@ const Form = ({
   emailError,
   passwordError,
 }) => {
+  const [isDarkDefault] = useContext(ThemeContext);
+
   return (
     <>
-      <form className='userForm'>
+      <form
+        className='userForm'
+        style={{
+          boxShadow: isDarkDefault
+            ? "rgba(255, 255, 255, 0.45) 0px 5px 15px"
+            : "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+        }}
+      >
         <h1 className='formTitle'>Speech Notes</h1>
         <div className='form-group'>
           <label className='formLabel'>Email</label>
           <input
-            className='form-control'
+            className={`form-control ${isDarkDefault ? "dark" : ""} `}
             type='email'
             name='email'
             placeholder='email'
@@ -32,7 +43,7 @@ const Form = ({
         <div className='form-group'>
           <label className='formLabel'>Password</label>
           <input
-            className='form-control'
+            className={`form-control ${isDarkDefault ? "dark" : ""} `}
             type='password'
             name='password'
             placeholder='password'

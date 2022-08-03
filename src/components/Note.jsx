@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import noteService from "../services/noteService";
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Note = ({ refresh, id, title, content, updatedAt, key }) => {
   // change date format
@@ -16,6 +18,8 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
 
   const [refreshFlag, setRefreshFlag] = refresh;
 
+  const [isDarkDefault] = useContext(ThemeContext);
+
   const deleteNote = async function (id) {
     await noteService.deleteNote(at, id);
     setRefreshFlag(!refreshFlag);
@@ -24,7 +28,12 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
     <>
       <div
         onClick={() => navigate(`note/${id}`)}
-        style={{ cursor: "pointer" }}
+        style={{
+          cursor: "pointer",
+          boxShadow: isDarkDefault
+            ? "rgba(255, 255, 255, 0.45) 0px 5px 15px"
+            : "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+        }}
         className='note'
         key={key}
       >
