@@ -54,8 +54,11 @@ Client side will be created in `React` using `Javascript` language.
 - `Express.js`
 - `MongoDB`
 - `Mongoose`
+- `Redis`
 - `Jest`
 - `Supertest`
+- `Cypress`
+- `Docker`
 
 ## Requirements
 
