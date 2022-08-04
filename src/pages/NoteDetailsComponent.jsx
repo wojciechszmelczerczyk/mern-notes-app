@@ -54,7 +54,6 @@ export default function NoteDetailsComponent() {
         value={noteContent}
         onChange={updateNoteContent}
       />
-      {/* <div className=' d-flex justify-content-between'> */}
       <button
         className='btn btn-danger cancelNoteBtn'
         onClick={() => navigate("/")}
@@ -93,7 +92,6 @@ export default function NoteDetailsComponent() {
           </li>
         </ul>
       </div>
-      {/* </div> */}
     </>
   );
 }

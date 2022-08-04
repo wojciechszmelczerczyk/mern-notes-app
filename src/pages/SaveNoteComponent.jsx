@@ -19,6 +19,7 @@ export default function SaveNoteComponent() {
   const [isListening, setListening] = useState(false);
   const [stopRecognizing, setStopRecognizing] = React.useState(() => noop);
   const [language, setLanguage] = useState("en-US");
+
   function noop() {}
 
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ export default function SaveNoteComponent() {
     );
     speechConfig.speechRecognitionLanguage = language;
     const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
+    console.log(audioConfig);
     const recognizer = new speechsdk.SpeechRecognizer(
       speechConfig,
       audioConfig
@@ -146,7 +148,6 @@ export default function SaveNoteComponent() {
               <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
               Convert speech to text from your mic.
             </div>
-
             <textarea rows='10' cols='50' value={text} onChange={handleText} />
             <Buffer text={recognizingText} />
           </div>

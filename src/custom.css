@@ -487,3 +487,13 @@ main-container {
 .noteContent {
   color: black !important;
 }
+
+/* Navbar */
+
+.fa-plus {
+  transition: 0.5s;
+}
+
+.fa-right-from-bracket {
+  transition: 0.5s;
+}
