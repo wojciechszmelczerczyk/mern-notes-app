@@ -5,6 +5,8 @@ import LoginComponent from "./pages/LoginComponent";
 import RegisterComponent from "./pages/RegisterComponent";
 import NoteListComponent from "./pages/NoteListComponent";
 import NoteDetailsComponent from "./pages/NoteDetailsComponent";
+import NotFoundComponent from "./pages/NotFoundComponent";
+
 import { AuthContext } from "./context/AuthContext";
 import { ThemeContext } from "./context/ThemeContext";
 
@@ -29,6 +31,7 @@ function App() {
               <Route path='/createNote' element={<CreateNoteComponent />} />
               <Route path='/note/:id' element={<NoteDetailsComponent />} />
               <Route path='/saveNote' element={<SaveNoteComponent />} />
+              <Route path='*' element={<NotFoundComponent />} />
             </Routes>
           </BrowserRouter>
         </ThemeContext.Provider>
