@@ -83,25 +83,27 @@ const downloadNote = async (req, res) => {
     const page = pdfDoc.addPage();
 
     // Get the height of the page
-    const { height } = page.getSize();
+    const { height, width } = page.getSize();
 
     // Draw a string of text toward the top of the page
     const fontSize = 30;
 
     page.drawText(title, {
-      x: 235,
+      x: width / 2,
       y: height - 4 * fontSize,
-      size: fontSize + 10,
+      size: fontSize,
       font: timesRomanFont,
-      color: pdf.rgb(0, 0.53, 0.71),
+      color: pdf.rgb(0, 0, 0),
     });
 
     page.drawText(content, {
       x: 50,
       y: height - 8 * fontSize,
-      size: fontSize,
+      maxWidth: width - 100,
+      lineHeight: 50,
+      size: fontSize - 10,
       font: timesRomanFont,
-      color: pdf.rgb(0, 0.53, 0.71),
+      color: pdf.rgb(0, 0, 0),
     });
 
     // Serialize the PDFDocument to bytes (a Uint8Array)
