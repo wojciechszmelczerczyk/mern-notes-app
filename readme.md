@@ -155,7 +155,7 @@ REFRESH_TOKEN_SCOPE=/user/refresh-token
 
 ## Client routing
 
-| Endpoint      | Authenticated |      Component       | Describtion                    |
+| Endpoint      | Authenticated |      Component       | Description                    |
 | :------------ | :-----------: | :------------------: | ------------------------------ |
 | `/`           |      \*       |  NoteListComponent   | Note list of current auth user |
 | `/register`   |       -       |  RegisterComponent   | Register form                  |
