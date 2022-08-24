@@ -2,9 +2,9 @@ import "../custom.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import noteService from "../services/noteService";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import Dialog from "./Dialog";
 
 const Note = ({ refresh, id, title, content, updatedAt, key }) => {
   // change date format
@@ -14,15 +14,14 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
 
   const navigate = useNavigate();
 
-  const at = localStorage.getItem("at");
-
   const [refreshFlag, setRefreshFlag] = refresh;
+
+  const [dialog, setDialog] = useState(false);
 
   const [isDarkDefault] = useContext(ThemeContext);
 
   const deleteNote = async function (id) {
-    await noteService.deleteNote(at, id);
-    setRefreshFlag(!refreshFlag);
+    setDialog(true);
   };
   return (
     <>
@@ -41,6 +40,13 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
       </div>
       <div>
         <h1 className='noteTitle'>{title}</h1>
+        <Dialog
+          show={dialog}
+          setShow={setDialog}
+          id={id}
+          refresh={refresh}
+          setRefreshFlag={setRefreshFlag}
+        />
         <FontAwesomeIcon
           onClick={() => deleteNote(id)}
           style={{ cursor: "pointer" }}

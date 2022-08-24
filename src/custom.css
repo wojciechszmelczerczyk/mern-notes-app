@@ -497,3 +497,8 @@ main-container {
 .fa-right-from-bracket {
   transition: 0.5s;
 }
+
+.dialog {
+  background-color: beige;
+  border-radius: 5%;
+}
