@@ -1,4 +1,4 @@
-import "../custom.css";
+import "../css/custom.css";
 
 const Buffer = ({ text }) => {
   return (

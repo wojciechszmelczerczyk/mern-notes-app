@@ -4,7 +4,7 @@ const { path } = require("app-root-path");
 require("dotenv").config({ path: `${path}/.env` });
 
 // express
-const createServer = require("../server/util/createServer");
+const createServer = require("../server/utils/createServer");
 
 // db connection
 const { dbConnection } = require("../server/db/connection");

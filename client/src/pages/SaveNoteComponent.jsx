@@ -1,6 +1,6 @@
-import "../custom.css";
+import "../css/custom.css";
 import { Container } from "reactstrap";
-import { getTokenOrRefresh } from "../tokenUtil";
+import { getTokenOrRefresh } from "../utils/tokenUtil";
 import { useEffect, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import NoteService from "../services/noteService.js";
