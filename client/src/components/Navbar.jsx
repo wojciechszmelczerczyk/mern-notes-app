@@ -1,7 +1,7 @@
 import UserService from "../services/userService.js";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -41,7 +41,7 @@ const Navbar = () => {
         <NavLink onClick={logout} to='/login'>
           <FontAwesomeIcon
             className='logoutIcon'
-            icon={faRightFromBracket}
+            icon={faAngleRight}
             color={isDarkDefault ? "white" : "black"}
             size='2x'
           />

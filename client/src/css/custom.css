@@ -152,8 +152,11 @@ main-container {
   position: absolute;
   top: 45%;
   left: 70%;
-  font-size: 25px;
+  font-size: 20px;
   width: 250px;
+  border: none; /* <-- This thing here */
+  border: solid 1px #ccc;
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 2560px) {
@@ -494,7 +497,7 @@ main-container {
   transition: 0.5s;
 }
 
-.fa-right-from-bracket {
+.fa-angle-right {
   transition: 0.5s;
 }
 
