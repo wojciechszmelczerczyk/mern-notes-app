@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
 // display message depends on db connection status
 
@@ -12,13 +12,12 @@ mongoose.connection.on("disconnected", () =>
 
 const dbConnection = async (uri: string) => {
   try {
-    await mongoose.connect(uri, {
+    mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    });
+    } as ConnectOptions);
   } catch (err) {
     // if error occured kill process
-    console.log(err.message);
     process.exit(1);
   }
 };

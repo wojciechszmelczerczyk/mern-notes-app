@@ -1,24 +1,18 @@
 import pdf from "pdf-lib";
 
 import Note from "../models/Note";
-import extractIdFromToken from "../token/extractId";
+
 import { writeFile } from "fs/promises";
 
 const getAllNotes = async (req, res) => {
-  let id =
-    req.user?.id === undefined
-      ? extractIdFromToken(req.cookies.jwt)
-      : req.user.id;
+  let id = req.user?.id;
 
   const notes = await Note.find({ user_id: id });
   res.status(200).json(notes);
 };
 
 const getSingleNote = async (req, res) => {
-  let userId =
-    req.user?.id === undefined
-      ? extractIdFromToken(req.cookies.jwt)
-      : req.user.id;
+  let userId = req.user?.id;
 
   const { id } = req.params;
   const note = await Note.findOne({ _id: id, user_id: userId });
@@ -28,10 +22,7 @@ const getSingleNote = async (req, res) => {
 const createNote = async (req, res) => {
   let { title, content = "" } = req.body;
 
-  let id =
-    req.user?.id === undefined
-      ? extractIdFromToken(req.cookies.jwt)
-      : req.user.id;
+  let id = req.user?.id;
 
   // create note
   const newNote = await Note.create({ title, content, user_id: id });
@@ -89,7 +80,7 @@ const downloadNote = async (req, res) => {
     // Draw a string of text toward the top of the page
     const fontSize = 30;
 
-    page.drawText(title, {
+    page.drawText(title as string, {
       x: width / 2,
       y: height - 4 * fontSize,
       size: fontSize,
@@ -97,7 +88,7 @@ const downloadNote = async (req, res) => {
       color: pdf.rgb(0, 0, 0),
     });
 
-    page.drawText(content, {
+    page.drawText(content as string, {
       x: 50,
       y: height - 8 * fontSize,
       maxWidth: width - 100,

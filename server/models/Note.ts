@@ -1,19 +1,26 @@
 import { Schema, model } from "mongoose";
 
-const status = {
-  draft: "DRAFT",
-  visible: "VISIBLE",
-  deleted: "DELETED",
-};
+interface INote {
+  user_id: String;
+  status: String;
+  title: String;
+  content: String;
+}
 
-const noteSchema = new Schema(
+enum Status {
+  "DRAFT",
+  "VISIBLE",
+  "DELETED",
+}
+
+const noteSchema = new Schema<INote>(
   {
     user_id: {
       type: String,
     },
     status: {
       type: String,
-      enum: Object.freeze(status),
+      enum: Status,
     },
     title: {
       type: String,
@@ -28,6 +35,6 @@ const noteSchema = new Schema(
   { timestamps: true }
 );
 
-const Note = model("note", noteSchema);
+const Note = model<INote>("note", noteSchema);
 
 export default Note;

@@ -1,14 +1,25 @@
-import { Schema, model } from "mongoose";
+import { Schema, Model, model } from "mongoose";
+import { compare, hash, genSalt } from "bcrypt";
 
 import isEmail from "validator";
-import { compare, hash, genSalt } from "bcrypt";
-const userSchema = new Schema({
+
+interface IUser {
+  email: string;
+  password: string;
+  refreshToken: string;
+}
+
+interface UserModel extends Model<IUser> {
+  login(email: string, password: string): Object;
+}
+
+const userSchema = new Schema<IUser, UserModel>({
   email: {
     type: String,
     required: [true, "Please enter an email"],
     unique: true,
     lowercase: true,
-    validate: [isEmail, "Please enter a valid email"],
+    // validate: [isEmail, "Please enter a valid email"],
   },
   password: {
     type: String,
@@ -29,7 +40,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // login user
-userSchema.statics.login = async function (email, password) {
+userSchema.static("login", async function login(email, password) {
   // find user with passed email
   const user = await this.findOne({
     email,
@@ -44,8 +55,8 @@ userSchema.statics.login = async function (email, password) {
     throw Error("Password is too short");
   }
   throw Error("Please enter a valid email");
-};
+});
 
-const User = model("user", userSchema);
+const User = model<IUser, UserModel>("user", userSchema);
 
 export default User;

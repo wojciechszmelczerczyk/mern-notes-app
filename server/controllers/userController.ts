@@ -1,11 +1,13 @@
 import { config } from "dotenv";
-config();
 
-import User from "../models/User";
+config();
 
 import createToken from "../token/createToken";
 
 import { verify } from "jsonwebtoken";
+import User from "../models/User";
+// import { UserType } from "../types/User";
+import { JWT } from "../types/Jwt";
 
 const register = async (req, res) => {
   let { email, password, refreshToken = "" } = req.body;
@@ -26,7 +28,7 @@ const authenticate = async (req, res) => {
   let errors;
   try {
     // compare input data and data from database
-    const user = await User.login(email, password);
+    const user: any = User.login(email, password);
 
     // create refresh token
     const refreshToken = createToken(
@@ -34,7 +36,6 @@ const authenticate = async (req, res) => {
       process.env.REFRESH_TOKEN_SECRET,
       process.env.REFRESH_TOKEN_EXP
     );
-
     // create access token
     const accessToken = createToken(
       user._id,
@@ -45,7 +46,6 @@ const authenticate = async (req, res) => {
     // update jwt in database with new refresh token
     await User.findOneAndUpdate({ email }, { refreshToken });
 
-    // populate cookie with jwt
     res.status(201).json({ accessToken, refreshToken });
   } catch (err) {
     errors = err.message.split(", ");
@@ -61,7 +61,7 @@ const refreshToken = async (req, res) => {
 
     if (rt === undefined) res.json("rt doesn't exist");
 
-    const { id } = verify(rt, process.env.REFRESH_TOKEN_SECRET);
+    const { id } = verify(rt, process.env.REFRESH_TOKEN_SECRET) as JWT;
 
     let jwt = createToken(
       id,
