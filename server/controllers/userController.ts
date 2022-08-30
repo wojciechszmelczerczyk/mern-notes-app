@@ -1,7 +1,11 @@
-require("dotenv").config();
-const User = require("../models/User.js");
-const createToken = require("../token/createToken.js");
-const { verify } = require("jsonwebtoken");
+import { config } from "dotenv";
+config();
+
+import User from "../models/User";
+
+import createToken from "../token/createToken";
+
+import { verify } from "jsonwebtoken";
 
 const register = async (req, res) => {
   let { email, password, refreshToken = "" } = req.body;
@@ -103,7 +107,7 @@ const updateUser = async (req, res) => {
   res.status(201).json({ updated_user: updatedUser });
 };
 
-module.exports = {
+export {
   register,
   authenticate,
   refreshToken,

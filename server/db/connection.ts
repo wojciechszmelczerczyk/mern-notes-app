@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // display message depends on db connection status
 
@@ -10,7 +10,7 @@ mongoose.connection.on("disconnected", () =>
   console.log("Database connection off")
 );
 
-const dbConnection = async (uri) => {
+const dbConnection = async (uri: string) => {
   try {
     await mongoose.connect(uri, {
       useNewUrlParser: true,
@@ -28,4 +28,4 @@ const dbDisconnect = async () => {
   await mongoose.disconnect();
 };
 
-module.exports = { dbConnection, dbDisconnect };
+export { dbConnection, dbDisconnect };

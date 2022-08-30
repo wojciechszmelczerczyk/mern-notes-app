@@ -1,16 +1,15 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const validateToken = require("../middleware/validateToken");
-const cors = require("cors")({
-  origin: "http://localhost:5000",
-  credentials: true,
-});
+import express from "express";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import validateToken from "../middleware/validateToken";
+import cors from "cors";
+
+cors({ origin: "http://localhost:5000", credentials: true });
 
 // routes
-const user = require("../routes/user");
-const note = require("../routes/note");
-const speechRecognition = require("../routes/speechRecognition");
+import user from "../routes/user";
+import note from "../routes/note";
+import speechRecognition from "../routes/speechRecognition";
 
 function createServer() {
   const app = express();
@@ -44,4 +43,4 @@ function createServer() {
   return app;
 }
 
-module.exports = createServer;
+export default createServer;

@@ -1,7 +1,8 @@
-const pdf = require("pdf-lib");
-const Note = require("../models/Note.js");
-const extractIdFromToken = require("../token/extractId");
-const { writeFile } = require("fs/promises");
+import pdf from "pdf-lib";
+
+import Note from "../models/Note";
+import extractIdFromToken from "../token/extractId";
+import { writeFile } from "fs/promises";
 
 const getAllNotes = async (req, res) => {
   let id =
@@ -118,7 +119,7 @@ const downloadNote = async (req, res) => {
   res.download(`${process.cwd()}/${noteFile}`, noteFile);
 };
 
-module.exports = {
+export {
   getAllNotes,
   getSingleNote,
   createNote,

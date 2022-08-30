@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import { Schema, model } from "mongoose";
 
 const status = {
   draft: "DRAFT",
@@ -29,6 +28,6 @@ const noteSchema = new Schema(
   { timestamps: true }
 );
 
-const Note = mongoose.model("note", noteSchema);
+const Note = model("note", noteSchema);
 
-module.exports = Note;
+export default Note;

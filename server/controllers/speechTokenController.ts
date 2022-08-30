@@ -1,4 +1,4 @@
-const axios = require("axios");
+import axios from "axios";
 
 const speechTokenController = async (req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -32,4 +32,4 @@ const speechTokenController = async (req, res) => {
   }
 };
 
-module.exports = speechTokenController;
+export default speechTokenController;

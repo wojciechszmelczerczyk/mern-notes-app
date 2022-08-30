@@ -1,5 +1,6 @@
-require("dotenv").config({ path: `${process.cwd()}/.env` });
-const { verify } = require("jsonwebtoken");
+import { config } from "dotenv";
+import { verify } from "jsonwebtoken";
+config({ path: `${process.cwd()}/.env` });
 
 const validateToken = (req, res, next) => {
   try {
@@ -31,4 +32,4 @@ const validateToken = (req, res, next) => {
 
 validateToken.unless = require("express-unless");
 
-module.exports = validateToken;
+export default validateToken;

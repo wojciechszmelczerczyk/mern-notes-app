@@ -1,9 +1,9 @@
-const express = require("express");
+import { Router } from "express/lib/router";
 
-const router = express.Router();
+const router = Router();
 
 // controllers
-const {
+import {
   getAllNotes,
   getSingleNote,
   createNote,
@@ -11,7 +11,7 @@ const {
   updateNote,
   deleteNote,
   downloadNote,
-} = require("../controllers/noteController");
+} from "../controllers/noteController";
 
 router.route("/note").get(getAllNotes).post(createNote);
 
@@ -21,4 +21,4 @@ router.route("/note/:id").get(getSingleNote).delete(deleteNote).put(updateNote);
 
 router.post("/note/:id/file", downloadNote);
 
-module.exports = router;
+export default router;
