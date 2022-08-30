@@ -49,9 +49,9 @@ Client side will be created in `React` using `Javascript` language.
 
 ## Techstack
 
-- `React.js`
-- `JavaScript`
-- `Express.js`
+- `React`
+- `TypeScript`
+- `Express`
 - `MongoDB`
 - `Mongoose`
 - `Redis`
@@ -76,7 +76,7 @@ git clone https://github.com/wojciechszmelczerczyk/express-notes-app.git
 ### Navigate to project folder
 
 ```sh
-cd /express-notes-app
+cd /mern-notes-app
 ```
 
 ### Install dependencies
