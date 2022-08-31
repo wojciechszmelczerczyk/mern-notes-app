@@ -28,7 +28,7 @@ const authenticate = async (req, res) => {
   let errors;
   try {
     // compare input data and data from database
-    const user: any = User.login(email, password);
+    const user: any = await User.login(email, password);
 
     // create refresh token
     const refreshToken = createToken(
