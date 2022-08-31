@@ -65,8 +65,9 @@ export default function NoteListComponent() {
               <div className='container noteList'>
                 <div className='row justify-content-start'>
                   {filteredNotes?.map(({ _id, title, content, updatedAt }) => (
-                    <div className='col-sm-12 col-md-6 col-lg-4' key={_id}>
+                    <div className='col-sm-12 col-md-6 col-lg-4'>
                       <Note
+                        key={_id}
                         refresh={refresh}
                         id={_id}
                         title={title}

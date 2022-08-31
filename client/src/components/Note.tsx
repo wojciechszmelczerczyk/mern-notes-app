@@ -44,7 +44,7 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
           show={dialog}
           setShow={setDialog}
           id={id}
-          refresh={refresh}
+          refreshFlag={refreshFlag}
           setRefreshFlag={setRefreshFlag}
         />
         <FontAwesomeIcon

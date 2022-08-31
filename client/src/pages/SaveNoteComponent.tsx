@@ -3,13 +3,11 @@ import { Container } from "reactstrap";
 import { getTokenOrRefresh } from "../utils/tokenUtil";
 import { useEffect, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import NoteService from "../services/noteService.js";
-import React from "react";
+import NoteService from "../services/noteService";
 import Buffer from "../components/Buffer";
 import { languages } from "../data/languages";
-import noteService from "../services/noteService.js";
 
-const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
+import * as speechsdk from "microsoft-cognitiveservices-speech-sdk";
 
 export default function SaveNoteComponent() {
   const [text, setText] = useState("Listening on changes...");
@@ -17,7 +15,7 @@ export default function SaveNoteComponent() {
   const [recognizingText, setRecognizingText] = useState("");
   const [noteTitle, setNoteTitle] = useState("");
   const [isListening, setListening] = useState(false);
-  const [stopRecognizing, setStopRecognizing] = React.useState(() => noop);
+  const [stopRecognizing, setStopRecognizing] = useState(() => noop);
   const [language, setLanguage] = useState("en-US");
 
   function noop() {}
@@ -31,10 +29,11 @@ export default function SaveNoteComponent() {
 
   useEffect(() => {
     // // check for valid speech key/region
-    const tokenRes = getTokenOrRefresh().then((res) => res);
-    if (tokenRes.authToken === null) {
-      setText(`FATAL_ERROR: ${tokenRes.error}`);
-    }
+    getTokenOrRefresh().then((res) => {
+      if (res.authToken === null) {
+        setText(`FATAL_ERROR: ${res.error}`);
+      }
+    });
 
     NoteService.getSingleNote(at, noteId).then((res) =>
       setNoteTitle(res["data"]["title"])
@@ -46,7 +45,7 @@ export default function SaveNoteComponent() {
   }
 
   async function cancel() {
-    await noteService.deleteNote(at, noteId);
+    await NoteService.deleteNote(at, noteId);
     localStorage.removeItem("note_id");
     navigate("/");
   }
@@ -148,7 +147,7 @@ export default function SaveNoteComponent() {
               <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
               Convert speech to text from your mic.
             </div>
-            <textarea rows='10' cols='50' value={text} onChange={handleText} />
+            <textarea rows={10} cols={50} value={text} onChange={handleText} />
             <Buffer text={recognizingText} />
           </div>
           <button className='btn btn-success saveNoteBtn' onClick={saveNote}>

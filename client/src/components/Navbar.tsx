@@ -1,4 +1,4 @@
-import UserService from "../services/userService.js";
+import UserService from "../services/userService";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,7 @@ import { ThemeContext } from "../context/ThemeContext";
 
 import { useContext } from "react";
 import DarkTheme from "react-dark-theme";
-import { lightTheme, darkTheme } from "../data/themes.js";
+import { lightTheme, darkTheme } from "../data/themes";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);

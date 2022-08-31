@@ -17,10 +17,16 @@ const Dialog = ({ show, setShow, id, setRefreshFlag, refreshFlag }) => {
       {show ? (
         <div className='dialog'>
           <p>Do you want to delete note?</p>
-          <button onClick={(e) => deleteDialog(e.target.value)} value='yes'>
+          <button
+            onClick={(e) => deleteDialog(e.currentTarget.value)}
+            value='yes'
+          >
             yes
           </button>
-          <button onClick={(e) => deleteDialog(e.target.value)} value='no'>
+          <button
+            onClick={(e) => deleteDialog(e.currentTarget.value)}
+            value='no'
+          >
             no
           </button>
         </div>
