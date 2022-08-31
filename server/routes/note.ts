@@ -13,12 +13,12 @@ import {
   downloadNote,
 } from "../controllers/noteController";
 
-router.route("/note").get(getAllNotes).post(createNote);
+router.route("/").get(getAllNotes).post(createNote);
 
-router.route("/note/save").post(fillNoteContent);
+router.route("/save").post(fillNoteContent);
 
-router.route("/note/:id").get(getSingleNote).delete(deleteNote).put(updateNote);
+router.route("/:id").get(getSingleNote).delete(deleteNote).put(updateNote);
 
-router.post("/note/:id/file", downloadNote);
+router.post("/:id/file", downloadNote);
 
 export default router;

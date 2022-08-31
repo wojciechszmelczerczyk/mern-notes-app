@@ -102,7 +102,11 @@ const updateUser = async (req, res) => {
 
   const id = req.user.id;
 
-  const updatedUser = await User.findOneAndUpdate({ _id: id }, { email });
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: id },
+    { email },
+    { new: true }
+  );
 
   res.status(201).json({ updated_user: updatedUser });
 };

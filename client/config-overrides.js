@@ -1,5 +1,5 @@
-const paths = require("react-scripts/config/paths");
-const path = require("path");
+import paths from "react-scripts/config/paths";
+import path from "path";
 
 // "src" -> "client/src"
 paths.appSrc = path.resolve(__dirname, "src");

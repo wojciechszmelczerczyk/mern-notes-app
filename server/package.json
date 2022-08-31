@@ -6,6 +6,7 @@
   "description": "CRUD application with speech-to-text cognitive service.",
   "keywords": [
     "express",
+    "typescript",
     "restful api",
     "react",
     "api-testing",
@@ -34,13 +35,17 @@
   },
   "scripts": {
     "client": "PORT=5000 react-app-rewired start",
-    "server": "ts-node index.ts",
+    "server": "ts-node-dev index.ts",
     "app": "concurrently \"npm run client\" \"npm run server\""
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/body-parser": "^1.19.2",
+    "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.13",
+    "@types/express-unless": "^0.5.3",
     "@types/jsonwebtoken": "^8.5.9",
-    "@types/validator": "^13.7.6"
+    "@types/validator": "^13.7.6",
+    "ts-node-dev": "^2.0.0"
   }
 }

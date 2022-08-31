@@ -40,7 +40,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // login user
-userSchema.static("login", async function login(email, password) {
+userSchema.static("login", async function (email, password) {
   // find user with passed email
   const user = await this.findOne({
     email,

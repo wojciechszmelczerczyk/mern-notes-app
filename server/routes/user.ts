@@ -13,14 +13,14 @@ import {
 } from "../controllers/userController";
 
 router
-  .route("/user")
+  .route("/")
   .get(getCurrentUser)
   .post(register)
   .put(updateUser)
   .delete(logout);
 
-router.post("/user/authenticate", authenticate);
+router.post("/authenticate", authenticate);
 
-router.get("/user/refresh-token", refreshToken);
+router.get("/refresh-token", refreshToken);
 
 export default router;

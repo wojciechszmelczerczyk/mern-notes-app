@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import { verify } from "jsonwebtoken";
+import unless from "express-unless";
 config({ path: `${process.cwd()}/.env` });
 
 const validateToken = (req, res, next) => {
@@ -31,6 +32,6 @@ const validateToken = (req, res, next) => {
   }
 };
 
-validateToken.unless = require("express-unless");
+validateToken.unless = unless;
 
 export default validateToken;

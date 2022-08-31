@@ -6,6 +6,6 @@ config();
 
 const router = Router();
 
-router.get("/api/get-speech-token", speechTokenController);
+router.get("/get-speech-token", speechTokenController);
 
 export default router;

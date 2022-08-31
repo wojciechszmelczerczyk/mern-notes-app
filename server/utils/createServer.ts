@@ -1,20 +1,18 @@
-import express from "express";
+import express, { Application } from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import validateToken from "../middleware/validateToken";
 import cors from "cors";
-
-cors({ origin: "http://localhost:5000", credentials: true });
 
 // routes
 import user from "../routes/user";
 import note from "../routes/note";
 import speechRecognition from "../routes/speechRecognition";
 
-function createServer() {
+function createServer(): Application {
   const app = express();
 
-  app.use(cors);
+  app.use(cors({ origin: "http://localhost:5000", credentials: true }));
   app.use(express.json());
   app.use(
     express.urlencoded({
@@ -34,11 +32,9 @@ function createServer() {
     })
   );
 
-  app.use(express.json());
-
-  app.use(user);
-  app.use(note);
-  app.use(speechRecognition);
+  app.use("/user", user);
+  app.use("/note", note);
+  app.use("/api", speechRecognition);
 
   return app;
 }
