@@ -27,12 +27,11 @@ class NoteService {
     );
   }
 
-  getNotes(at, sort) {
+  getNotes(at) {
     return axiosInstance.get("/note", {
       headers: {
         Authorization: `Bearer ${at}`,
       },
-      params: { sort },
     });
   }
 

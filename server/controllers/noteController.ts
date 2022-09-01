@@ -7,16 +7,7 @@ import { writeFile } from "fs/promises";
 const getAllNotes = async (req, res) => {
   let id: string = req.user?.id;
 
-  let order: any = req.query?.sort;
-  let tmp: any;
-
-  if (order === "true") {
-    tmp = 1;
-  } else if (order === "false") {
-    tmp = -1;
-  }
-
-  const notes = await Note.find({ user_id: id }).sort({ createdAt: tmp });
+  const notes = await Note.find({ user_id: id });
   res.status(200).json(notes);
 };
 

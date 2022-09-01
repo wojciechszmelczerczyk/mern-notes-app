@@ -308,97 +308,6 @@ main-container {
   font-size: 32px;
 }
 
-@media screen and (max-width: 1750px) {
-  .createNoteButton {
-    font-size: 28px;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 28px;
-  }
-
-  .noteTitleInput {
-    /* margin-left: 10px; */
-    font-size: 28px;
-  }
-
-  .createNoteLabel {
-    font-size: 28px;
-  }
-}
-
-@media screen and (max-width: 1395px) {
-  .createNoteButton {
-    font-size: 23px;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 23px;
-  }
-
-  .noteTitleInput {
-    font-size: 23px;
-  }
-
-  .createNoteLabel {
-    font-size: 23px;
-  }
-}
-
-@media screen and (max-width: 1174px) {
-  .createNoteButton {
-    font-size: 20px;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 20px;
-  }
-
-  .noteTitleInput {
-    font-size: 20px;
-  }
-
-  .createNoteLabel {
-    font-size: 20px;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .createNoteButton {
-    font-size: 13px;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 13px;
-  }
-
-  .noteTitleInput {
-    font-size: 13px;
-  }
-
-  .createNoteLabel {
-    font-size: 13px;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .createNoteButton {
-    font-size: 11px;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 11px;
-  }
-
-  .noteTitleInput {
-    font-size: 11px;
-  }
-
-  .createNoteLabel {
-    font-size: 11px;
-  }
-}
-
 /* Save Note Component */
 .app-container {
   position: absolute;
@@ -504,4 +413,113 @@ main-container {
 .dialog {
   background-color: beige;
   border-radius: 5%;
+}
+
+.orderIcon {
+  position: absolute;
+  top: 46%;
+  left: 64%;
+}
+
+@media screen and (max-width: 1750px) {
+  .createNoteButton {
+    font-size: 28px;
+  }
+
+  .orderIcon {
+    position: absolute;
+    top: 46%;
+    left: 70%;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 28px;
+  }
+
+  .noteTitleInput {
+    /* margin-left: 10px; */
+    font-size: 28px;
+  }
+
+  .createNoteLabel {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 1395px) {
+  .createNoteButton {
+    font-size: 23px;
+  }
+
+  .orderIcon {
+    position: absolute;
+    top: 46%;
+    left: 70%;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 23px;
+  }
+
+  .noteTitleInput {
+    font-size: 23px;
+  }
+
+  .createNoteLabel {
+    font-size: 23px;
+  }
+}
+
+@media screen and (max-width: 1174px) {
+  .createNoteButton {
+    font-size: 20px;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 20px;
+  }
+
+  .noteTitleInput {
+    font-size: 20px;
+  }
+
+  .createNoteLabel {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .createNoteButton {
+    font-size: 13px;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 13px;
+  }
+
+  .noteTitleInput {
+    font-size: 13px;
+  }
+
+  .createNoteLabel {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .createNoteButton {
+    font-size: 11px;
+  }
+
+  .cancelCreateNoteButton {
+    font-size: 11px;
+  }
+
+  .noteTitleInput {
+    font-size: 11px;
+  }
+
+  .createNoteLabel {
+    font-size: 11px;
+  }
 }

@@ -6,12 +6,12 @@ import Search from "../components/Search";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSortAlphaAsc,
   faSortAlphaDesc,
 } from "@fortawesome/free-solid-svg-icons";
-import { SortContext } from "../context/SortContext";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
@@ -19,15 +19,14 @@ export default function NoteListComponent() {
   const [isFocus, setIsFocus] = useState(false);
   const focus = [isFocus, setIsFocus];
   const [isLoggedIn] = useContext(AuthContext);
-  const [isSort, setIsSort] = useContext(SortContext);
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
+  const [order, setOrder] = useState("asc") as any;
 
   useEffect(() => {
     const at = localStorage.getItem("at");
-
     noteService
-      .getNotes(at, isSort)
+      .getNotes(at)
       .then((res) => {
         setNotes(res.data);
         setFilteredNotes(res.data);
@@ -35,7 +34,7 @@ export default function NoteListComponent() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [refreshFlag, isSort]);
+  }, [refreshFlag]);
 
   const handleUserInput = function (search) {
     const filteredNoteArray = notes.filter((note) =>
@@ -46,7 +45,18 @@ export default function NoteListComponent() {
   };
 
   const handleSort = function () {
-    setIsSort(!isSort);
+    if (order === "asc") {
+      setOrder("desc");
+    } else if (order === "desc") {
+      setOrder("asc");
+    }
+    const updatedNotes = _.forEach(filteredNotes, function (note) {
+      return _.set(note, "createdAt", Date.parse(note.createdAt));
+    });
+
+    const orderedNotes = _.orderBy(updatedNotes, "createdAt", order);
+
+    setFilteredNotes(orderedNotes);
   };
 
   return (
@@ -55,25 +65,22 @@ export default function NoteListComponent() {
         <>
           <Navbar />
           <h1 className='noteListTitle'>Speech Notes</h1>
-          {filteredNotes?.length === 0 && !isFocus ? (
-            ""
+          {notes?.length === 0 ? (
+            <div className='emptyNoteListInfo'>No notes add some!✍️</div>
           ) : (
             <>
               <Search focus={focus} handleUserInput={handleUserInput} />
               <FontAwesomeIcon
+                className='orderIcon'
                 onClick={handleSort}
-                icon={isSort ? faSortAlphaAsc : faSortAlphaDesc}
+                icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
               />
             </>
           )}
 
-          {filteredNotes?.length === 0 ? (
+          {filteredNotes?.length === 0 && isFocus ? (
             <>
-              {!isFocus ? (
-                <div className='emptyNoteListInfo'>No notes add some!✍️</div>
-              ) : (
-                <div className='emptyNoteListInfo'>Note not found❌</div>
-              )}
+              <div className='emptyNoteListInfo'>Note not found❌</div>
             </>
           ) : (
             <>
