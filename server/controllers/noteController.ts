@@ -5,9 +5,18 @@ import Note from "../models/Note";
 import { writeFile } from "fs/promises";
 
 const getAllNotes = async (req, res) => {
-  let id = req.user?.id;
+  let id: string = req.user?.id;
 
-  const notes = await Note.find({ user_id: id });
+  let order: any = req.query?.sort;
+  let tmp: any;
+
+  if (order === "true") {
+    tmp = 1;
+  } else if (order === "false") {
+    tmp = -1;
+  }
+
+  const notes = await Note.find({ user_id: id }).sort({ createdAt: tmp });
   res.status(200).json(notes);
 };
 

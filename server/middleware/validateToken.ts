@@ -21,7 +21,6 @@ const validateToken = (req, res, next) => {
         }
       } else {
         req.user = user;
-        console.log(req.user);
         next();
       }
     });
