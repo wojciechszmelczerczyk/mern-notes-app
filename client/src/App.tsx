@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateNoteComponent from "./pages/CreateNoteComponent";
-import SaveNoteComponent from "./pages/SaveNoteComponent";
 import LoginComponent from "./pages/LoginComponent";
 import RegisterComponent from "./pages/RegisterComponent";
 import NoteListComponent from "./pages/NoteListComponent";
@@ -30,7 +29,6 @@ function App() {
               <Route path='/login' element={<LoginComponent />} />
               <Route path='/createNote' element={<CreateNoteComponent />} />
               <Route path='/note/:id' element={<NoteDetailsComponent />} />
-              <Route path='/saveNote' element={<SaveNoteComponent />} />
               <Route path='*' element={<NotFoundComponent />} />
             </Routes>
           </BrowserRouter>

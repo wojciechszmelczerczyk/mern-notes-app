@@ -8,7 +8,7 @@ const Search = ({ focus, handleUserInput }) => {
         onChange={(e) => handleUserInput(e.target.value)}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
-      />
+      ></input>
     </>
   );
 };

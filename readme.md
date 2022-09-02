@@ -155,14 +155,13 @@ REFRESH_TOKEN_SCOPE=/user/refresh-token
 
 ## Client routing
 
-| Endpoint      | Authenticated |      Component       | Description                    |
-| :------------ | :-----------: | :------------------: | ------------------------------ |
-| `/`           |      \*       |  NoteListComponent   | Note list of current auth user |
-| `/register`   |       -       |  RegisterComponent   | Register form                  |
-| `/login`      |       -       |    LoginComponent    | Login form                     |
-| `/note/:id`   |      \*       | NoteDetailsComponent | Single note details            |
-| `/createNote` |      \*       | CreateNoteComponent  | Set note title                 |
-| `/saveNote`   |      \*       |  SaveNoteComponent   | Speech-to-text component       |
+| Endpoint      | Authenticated |      Component       | Description                                 |
+| :------------ | :-----------: | :------------------: | ------------------------------------------- |
+| `/`           |      \*       |  NoteListComponent   | Note list of current auth user              |
+| `/register`   |       -       |  RegisterComponent   | Register form                               |
+| `/login`      |       -       |    LoginComponent    | Login form                                  |
+| `/note/:id`   |      \*       | NoteDetailsComponent | Single note details, speech-to-text service |
+| `/createNote` |      \*       | CreateNoteComponent  | Set note title                              |
 
 ## API Endpoints
 

@@ -47,15 +47,16 @@ export default function NoteListComponent() {
   const handleSort = function () {
     if (order === "asc") {
       setOrder("desc");
-    } else if (order === "desc") {
+    } else {
       setOrder("asc");
     }
+
     const updatedNotes = _.forEach(filteredNotes, function (note) {
       return _.set(note, "createdAt", Date.parse(note.createdAt));
     });
 
     const orderedNotes = _.orderBy(updatedNotes, "createdAt", order);
-
+    console.log(order, orderedNotes);
     setFilteredNotes(orderedNotes);
   };
 
@@ -71,6 +72,7 @@ export default function NoteListComponent() {
             <>
               <Search focus={focus} handleUserInput={handleUserInput} />
               <FontAwesomeIcon
+                style={{ cursor: "pointer" }}
                 className='orderIcon'
                 onClick={handleSort}
                 icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}

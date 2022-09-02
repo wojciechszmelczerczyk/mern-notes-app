@@ -1,10 +1,9 @@
 import NoteService from "../services/noteService";
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateNoteComponent() {
   const [title, setTitle] = useState("");
-  const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
 
   async function createNote(e) {
@@ -14,7 +13,8 @@ export default function CreateNoteComponent() {
     if (newNote) {
       const newNoteId = newNote["data"]["_id"];
       localStorage.setItem("note_id", newNoteId);
-      setRedirect(true);
+      console.log(localStorage.getItem("note_id"));
+      navigate(`/note/${newNoteId}`);
     } else {
     }
   }
@@ -24,36 +24,29 @@ export default function CreateNoteComponent() {
   }
   return (
     <div className='create-note-container'>
-      {!redirect ? (
-        <div className='createFormContainer'>
-          <form onSubmit={createNote}>
-            <label className='createNoteLabel'>Note title: </label>
-            <input
-              className='noteTitleInput'
-              name='title'
-              placeholder='title'
-              value={title}
-              onChange={handleTitle}
-            ></input>
-            <div className='buttonContainer'>
-              <button
-                onClick={() => navigate("/")}
-                className='btn btn-danger cancelCreateNoteButton'
-              >
-                Cancel
-              </button>
-              <button
-                type='submit'
-                className='btn btn-success createNoteButton'
-              >
-                Create note
-              </button>
-            </div>
-          </form>
-        </div>
-      ) : (
-        <Navigate to='/saveNote' />
-      )}
+      <div className='createFormContainer'>
+        <form onSubmit={createNote}>
+          <label className='createNoteLabel'>Note title: </label>
+          <input
+            className='noteTitleInput'
+            name='title'
+            placeholder='title'
+            value={title}
+            onChange={handleTitle}
+          ></input>
+          <div className='buttonContainer'>
+            <button
+              onClick={() => navigate("/")}
+              className='btn btn-danger cancelCreateNoteButton'
+            >
+              Cancel
+            </button>
+            <button type='submit' className='btn btn-success createNoteButton'>
+              Create note
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -19,7 +19,6 @@ export async function getTokenOrRefresh() {
       );
       const token = res.data.token;
       const region = res.data.region;
-      console.log(token, region);
       cookie.set("speech-token", region + ":" + token, {
         maxAge: 540,
         path: "/",
