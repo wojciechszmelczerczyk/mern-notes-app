@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import "../css/custom.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Navigate } from "react-router-dom";
 import NoteService from "../services/noteService";
 import download from "js-file-download";
@@ -15,6 +15,8 @@ import { languages } from "../data/languages";
 export default function NoteDetailsComponent() {
   const [isLoggedIn] = useContext(AuthContext);
   let [text, setText] = useState("Listening on changes...");
+  const textStateRef = useRef();
+  textStateRef.current = text as any;
   const [recognizingText, setRecognizingText] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
@@ -89,7 +91,6 @@ export default function NoteDetailsComponent() {
   async function mic() {
     if (!isListening) {
       const recognizer = await createRecognizer();
-
       recognizer.startContinuousRecognitionAsync(
         () => {
           console.log("start listening");
@@ -112,9 +113,8 @@ export default function NoteDetailsComponent() {
         setRecognizingText("");
 
         if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
-          console.log(text);
-          text += e.result.text;
-          setText(text);
+          textStateRef.current += e.result.text as any;
+          setText(textStateRef.current);
         } else if (e.result.reason === speechsdk.ResultReason.NoMatch) {
         }
       };

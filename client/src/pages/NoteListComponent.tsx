@@ -21,7 +21,7 @@ export default function NoteListComponent() {
   const [isLoggedIn] = useContext(AuthContext);
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
-  const [order, setOrder] = useState("asc") as any;
+  const [order, setOrder] = useState("desc") as any;
 
   useEffect(() => {
     const at = localStorage.getItem("at");
