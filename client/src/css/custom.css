@@ -227,12 +227,6 @@ main-container {
   text-align: center;
 }
 
-#dropdownMenuButton {
-  position: absolute;
-  top: 80%;
-  left: 10%;
-}
-
 .note .noteContent {
   font-size: 20px;
   padding-left: 15px;
@@ -430,6 +424,12 @@ main-container {
   position: absolute;
   top: 46%;
   left: 64%;
+}
+
+.downloadButtonContainer {
+  position: absolute;
+  top: 112%;
+  left: 27%;
 }
 
 @media screen and (max-width: 1750px) {

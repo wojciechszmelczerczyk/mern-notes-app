@@ -211,9 +211,9 @@ export default function NoteDetailsComponent() {
             >
               Cancel
             </button>
-            <div className='dropdown'>
+            <div className='downloadButtonContainer dropdown'>
               <button
-                className='btn btn-primary dropdown-toggle'
+                className='btn btn-warning dropdown-toggle'
                 type='button'
                 id='dropdownMenuButton'
                 data-bs-toggle='dropdown'

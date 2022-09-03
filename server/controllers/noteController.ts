@@ -1,4 +1,4 @@
-import pdf from "pdf-lib";
+import * as pdf from "pdf-lib";
 
 import Note from "../models/Note";
 
