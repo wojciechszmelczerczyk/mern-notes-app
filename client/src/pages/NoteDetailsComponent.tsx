@@ -88,6 +88,11 @@ export default function NoteDetailsComponent() {
     setText(e.value);
   }
 
+  async function cancel() {
+    await NoteService.deleteNote(at, id);
+    navigate("/");
+  }
+
   async function mic() {
     if (!isListening) {
       const recognizer = await createRecognizer();
@@ -207,13 +212,13 @@ export default function NoteDetailsComponent() {
             </div>
             <button
               className='btn btn-danger cancelSaveNoteBtn'
-              onClick={() => navigate("/")}
+              onClick={cancel}
             >
               Cancel
             </button>
             <div className='downloadButtonContainer dropdown'>
               <button
-                className='btn btn-warning dropdown-toggle'
+                className='btn btn- dropdown-toggle'
                 type='button'
                 id='dropdownMenuButton'
                 data-bs-toggle='dropdown'
