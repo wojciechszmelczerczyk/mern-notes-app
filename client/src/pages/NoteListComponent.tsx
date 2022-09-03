@@ -52,12 +52,16 @@ export default function NoteListComponent() {
     }
 
     const updatedNotes = _.forEach(filteredNotes, function (note) {
-      return _.set(note, "createdAt", Date.parse(note.createdAt));
+      return _.set(note, "updatedAt", Date.parse(note.updatedAt));
     });
 
-    const orderedNotes = _.orderBy(updatedNotes, "createdAt", order);
-    console.log(order, orderedNotes);
-    setFilteredNotes(orderedNotes);
+    const orderedNotes = _.orderBy(updatedNotes, "updatedAt", order);
+
+    const notes = _.forEach(orderedNotes, function (note) {
+      return _.set(note, "updatedAt", new Date(note.updatedAt).toISOString());
+    });
+
+    setFilteredNotes(notes);
   };
 
   return (

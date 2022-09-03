@@ -18,7 +18,7 @@ Server side of application will be made in `Node` using `Express` framework.
 
 Data will be saved to `Mongo` database.
 
-Client side will be created in `React` using `Javascript` language.
+Client side will be created in `React` using `TypeScript` language.
 
 <br/>
 

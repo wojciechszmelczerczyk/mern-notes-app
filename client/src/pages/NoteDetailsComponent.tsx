@@ -15,8 +15,8 @@ import { languages } from "../data/languages";
 export default function NoteDetailsComponent() {
   const [isLoggedIn] = useContext(AuthContext);
   let [text, setText] = useState("Listening on changes...");
-  const [redirect, setRedirect] = useState(false);
   const [recognizingText, setRecognizingText] = useState("");
+  const [redirect, setRedirect] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [isListening, setListening] = useState(false);
   const [stopRecognizing, setStopRecognizing] = useState(() => noop);
@@ -33,6 +33,7 @@ export default function NoteDetailsComponent() {
   useEffect(() => {
     // check global state of app if auth if not redirect to login
     if (!isLoggedIn) navigate("/login");
+
     localStorage.setItem("note_id", id);
 
     let noteId = localStorage.getItem("note_id");
@@ -62,7 +63,7 @@ export default function NoteDetailsComponent() {
     );
     speechConfig.speechRecognitionLanguage = language;
     const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
-    console.log(audioConfig);
+
     const recognizer = new speechsdk.SpeechRecognizer(
       speechConfig,
       audioConfig
@@ -83,15 +84,10 @@ export default function NoteDetailsComponent() {
 
   function handleText(e) {
     setText(e.value);
-    console.log(e.selectionStart);
   }
 
   async function mic() {
     if (!isListening) {
-      if (text === "Listening on changes...") {
-        text = "";
-      }
-
       const recognizer = await createRecognizer();
 
       recognizer.startContinuousRecognitionAsync(
@@ -114,6 +110,7 @@ export default function NoteDetailsComponent() {
 
       recognizer.recognized = (s, e) => {
         setRecognizingText("");
+
         if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
           console.log(text);
           text += e.result.text;
