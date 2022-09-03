@@ -218,7 +218,7 @@ export default function NoteDetailsComponent() {
             </button>
             <div className='downloadButtonContainer dropdown'>
               <button
-                className='btn btn- dropdown-toggle'
+                className='btn btn-warning dropdown-toggle'
                 type='button'
                 id='dropdownMenuButton'
                 data-bs-toggle='dropdown'
