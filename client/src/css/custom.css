@@ -127,8 +127,8 @@ main-container {
   display: inline-block;
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 15%;
+  transform: translate(-50%, -15%);
   scroll-behavior: smooth;
   overflow-y: scroll;
   white-space: normal;
@@ -136,7 +136,7 @@ main-container {
   background-color: lightgrey;
   border-radius: 9%;
   height: auto;
-  max-height: 350px;
+  max-height: 75px;
   width: auto;
   max-width: 300px;
 }
@@ -162,6 +162,30 @@ main-container {
   border: none; /* <-- This thing here */
   border: solid 1px #ccc;
   border-radius: 10px;
+}
+
+.themeTogglerContainer {
+  position: absolute;
+  top: 1%;
+  left: 0.4%;
+}
+
+.speechWaveIcon {
+  transition: 0.5s;
+}
+
+.titleVisualizerContainer {
+  display: flex;
+  /* align-items: center; */
+}
+
+.titleVisualizerContainer > #waveform {
+  height: 80px;
+  flex-grow: 4;
+}
+
+#waveform > * {
+  height: 80px !important;
 }
 
 @media screen and (max-width: 2560px) {

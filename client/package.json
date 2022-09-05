@@ -75,6 +75,8 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.184",
-    "lodash": "^4.17.21"
+    "@types/wavesurfer.js": "^6.0.3",
+    "lodash": "^4.17.21",
+    "wavesurfer.js": "^6.2.0"
   }
 }

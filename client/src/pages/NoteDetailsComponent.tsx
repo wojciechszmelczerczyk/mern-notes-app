@@ -11,6 +11,8 @@ import { Container } from "reactstrap";
 import { getTokenOrRefresh } from "../utils/tokenUtil";
 import Buffer from "../components/Buffer";
 import { languages } from "../data/languages";
+import WaveSurfer from "wavesurfer.js";
+import MicrophonePlugin from "wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js";
 
 export default function NoteDetailsComponent() {
   const [isLoggedIn] = useContext(AuthContext);
@@ -24,10 +26,22 @@ export default function NoteDetailsComponent() {
   const [stopRecognizing, setStopRecognizing] = useState(() => noop);
   const [language, setLanguage] = useState("en-US");
   let textarea = document.querySelector("textarea");
+  const xxx = document.querySelector(".titleVisualizerContainer");
 
   let { id } = useParams();
   let navigate = useNavigate();
   let at = localStorage.getItem("at");
+
+  let placeholder = `Tipsℹ️
+
+  1. Toggle on/off voice recognition by clicking microphone icon.
+  
+  2. Change recognizing language by clicking blue button.
+
+  3. Save note by clicking green button.
+
+  4. Download note with format pdf/txt by clicking yellow button.
+  `;
 
   function noop() {}
 
@@ -74,14 +88,30 @@ export default function NoteDetailsComponent() {
     return recognizer;
   }
 
+  function createVisualizer() {
+    const visualizerContainer = document.createElement("div");
+
+    visualizerContainer.id = "waveform";
+
+    xxx.appendChild(visualizerContainer);
+
+    return WaveSurfer.create({
+      container: "#waveform",
+      waveColor: "red",
+      barWidth: 2,
+      barRadius: 3,
+      barGap: 3,
+      cursorWidth: 0,
+      interact: false,
+      plugins: [MicrophonePlugin.create()],
+    });
+  }
+
   async function saveNote() {
     const noteId = localStorage.getItem("note_id");
     const savedNote = await NoteService.saveNote(at, text, noteId);
     if (savedNote) {
-      // localStorage.removeItem("note_id");
       setRedirect(true);
-    } else {
-      // some handler
     }
   }
 
@@ -106,6 +136,8 @@ export default function NoteDetailsComponent() {
   async function mic() {
     if (!isListening) {
       const recognizer = await createRecognizer();
+      const waveVisualizer = createVisualizer();
+
       recognizer.startContinuousRecognitionAsync(
         () => {
           console.log("start listening");
@@ -114,6 +146,8 @@ export default function NoteDetailsComponent() {
 
           // toggle listening to true
           setListening(true);
+
+          waveVisualizer.microphone.start();
         },
         (err) => {
           console.log(err);
@@ -129,7 +163,7 @@ export default function NoteDetailsComponent() {
         setRecognizingText("");
 
         if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
-          textStateRef.current += e.result.text as any;
+          textStateRef.current += (e.result.text + " ") as any;
           setText(textStateRef.current);
           caretPositionLoad();
         } else if (e.result.reason === speechsdk.ResultReason.NoMatch) {
@@ -148,6 +182,8 @@ export default function NoteDetailsComponent() {
 
       setStopRecognizing(() => () => {
         recognizer.stopContinuousRecognitionAsync();
+        waveVisualizer.microphone.stopDevice();
+        document.getElementById("waveform").remove();
         recognizer.close();
       });
     } else {
@@ -174,14 +210,16 @@ export default function NoteDetailsComponent() {
       <Container className='app-container'>
         {!redirect ? (
           <>
-            <h1 className='display-4 mb-3'>{noteTitle}</h1>
+            <div className='titleVisualizerContainer'>
+              <h1 className='saveNoteTitle display-4 mb-3'>{noteTitle}</h1>
+            </div>
             <div className='row main-container'>
               <div className='col-6'>
                 <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
                 Convert speech to text from your mic.
               </div>
               <textarea
-                placeholder='Click microphone button to start recording'
+                placeholder={placeholder}
                 rows={10}
                 cols={50}
                 value={text}

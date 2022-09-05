@@ -12,6 +12,7 @@ import {
   faSortAlphaAsc,
   faSortAlphaDesc,
 } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
@@ -19,6 +20,7 @@ export default function NoteListComponent() {
   const [isFocus, setIsFocus] = useState(false);
   const focus = [isFocus, setIsFocus];
   const [isLoggedIn] = useContext(AuthContext);
+  const [isDarkDefault] = useContext(ThemeContext);
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
   const [order, setOrder] = useState("desc") as any;
@@ -69,7 +71,62 @@ export default function NoteListComponent() {
       {isLoggedIn ? (
         <>
           <Navbar />
-          <h1 className='noteListTitle'>Speech Notes</h1>
+          <h1 className='noteListTitle'>
+            Speech
+            <svg
+              className='speechWaveIcon'
+              version='1.0'
+              xmlns='http://www.w3.org/2000/svg'
+              width='50.000000pt'
+              height='50.000000pt'
+              viewBox='0 0 50.000000 50.000000'
+              preserveAspectRatio='xMidYMid meet'
+            >
+              <g
+                transform='translate(0.000000,50.000000) scale(0.100000,-0.100000)'
+                fill={isDarkDefault ? "white" : "black"}
+                stroke='none'
+              >
+                <path
+                  d='M120 250 c0 -120 4 -190 10 -190 6 0 10 70 10 190 0 120 -4 190 -10
+190 -6 0 -10 -70 -10 -190z'
+                />
+                <path
+                  d='M360 250 c0 -120 4 -190 10 -190 6 0 10 70 10 190 0 120 -4 190 -10
+190 -6 0 -10 -70 -10 -190z'
+                />
+                <path
+                  d='M60 250 c0 -60 4 -100 10 -100 6 0 10 40 10 100 0 60 -4 100 -10 100
+-6 0 -10 -40 -10 -100z'
+                />
+                <path
+                  d='M420 250 c0 -60 4 -100 10 -100 6 0 10 40 10 100 0 60 -4 100 -10
+100 -6 0 -10 -40 -10 -100z'
+                />
+                <path
+                  d='M180 250 c0 -53 4 -90 10 -90 6 0 10 37 10 90 0 53 -4 90 -10 90 -6
+0 -10 -37 -10 -90z'
+                />
+                <path
+                  d='M300 250 c0 -53 4 -90 10 -90 6 0 10 37 10 90 0 53 -4 90 -10 90 -6
+0 -10 -37 -10 -90z'
+                />
+                <path
+                  d='M0 250 c0 -22 5 -40 10 -40 6 0 10 18 10 40 0 22 -4 40 -10 40 -5 0
+-10 -18 -10 -40z'
+                />
+                <path
+                  d='M240 250 c0 -22 5 -40 10 -40 6 0 10 18 10 40 0 22 -4 40 -10 40 -5
+0 -10 -18 -10 -40z'
+                />
+                <path
+                  d='M480 250 c0 -22 5 -40 10 -40 6 0 10 18 10 40 0 22 -4 40 -10 40 -5
+0 -10 -18 -10 -40z'
+                />
+              </g>
+            </svg>
+            Notes
+          </h1>
           {notes?.length === 0 ? (
             <div className='emptyNoteListInfo'>No notes add some!✍️</div>
           ) : (
