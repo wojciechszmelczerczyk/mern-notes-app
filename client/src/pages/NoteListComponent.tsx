@@ -12,7 +12,6 @@ import {
   faSortAlphaAsc,
   faSortAlphaDesc,
 } from "@fortawesome/free-solid-svg-icons";
-import { ThemeContext } from "../context/ThemeContext";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
@@ -20,7 +19,6 @@ export default function NoteListComponent() {
   const [isFocus, setIsFocus] = useState(false);
   const focus = [isFocus, setIsFocus];
   const [isLoggedIn] = useContext(AuthContext);
-  const [isDarkDefault] = useContext(ThemeContext);
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
   const [order, setOrder] = useState("desc") as any;
@@ -84,7 +82,7 @@ export default function NoteListComponent() {
             >
               <g
                 transform='translate(0.000000,50.000000) scale(0.100000,-0.100000)'
-                fill={isDarkDefault ? "white" : "black"}
+                fill={"red"}
                 stroke='none'
               >
                 <path

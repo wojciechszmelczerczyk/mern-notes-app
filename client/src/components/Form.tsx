@@ -38,7 +38,7 @@ const Form = ({
           >
             <g
               transform='translate(0.000000,50.000000) scale(0.100000,-0.100000)'
-              fill={isDarkDefault ? "white" : "black"}
+              fill={"red"}
               stroke='none'
             >
               <path

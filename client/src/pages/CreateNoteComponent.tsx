@@ -13,7 +13,6 @@ export default function CreateNoteComponent() {
     if (newNote) {
       const newNoteId = newNote["data"]["_id"];
       localStorage.setItem("note_id", newNoteId);
-      console.log(localStorage.getItem("note_id"));
       navigate(`/note/${newNoteId}`);
     } else {
     }

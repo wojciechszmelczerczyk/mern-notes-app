@@ -176,60 +176,16 @@ main-container {
 
 .titleVisualizerContainer {
   display: flex;
-  /* align-items: center; */
 }
 
 .titleVisualizerContainer > #waveform {
+  margin-left: 5px;
   height: 80px;
   flex-grow: 4;
 }
 
 #waveform > * {
   height: 80px !important;
-}
-
-@media screen and (max-width: 2560px) {
-  .searchInput {
-    left: 65%;
-    width: 250px;
-  }
-}
-
-@media screen and (max-width: 1920px) {
-  .searchInput {
-    left: 73%;
-    width: 250px;
-  }
-}
-
-@media screen and (max-width: 1366px) {
-  .searchInput {
-    width: 250px;
-  }
-}
-
-@media screen and (max-height: 980px) {
-  .searchInput {
-    top: 42%;
-  }
-}
-
-@media screen and (max-height: 900px) {
-  .searchInput {
-    top: 35%;
-  }
-}
-
-@media screen and (max-height: 765px) {
-  .searchInput {
-    top: 32%;
-  }
-}
-
-@media screen and (max-height: 700px) {
-  .searchInput {
-    top: 25%;
-  }
 }
 
 .note {
@@ -359,7 +315,7 @@ main-container {
 
 .saveDropdownContainer {
   position: absolute;
-  top: 112%;
+  top: 111.5%;
   left: 18.5%;
 }
 
@@ -452,8 +408,22 @@ main-container {
 
 .downloadButtonContainer {
   position: absolute;
-  top: 112%;
+  top: 111.5%;
   left: 27%;
+}
+
+@media screen and (max-width: 2560px) {
+  .searchInput {
+    left: 65%;
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  .searchInput {
+    left: 73%;
+    width: 250px;
+  }
 }
 
 @media screen and (max-width: 1750px) {
@@ -472,7 +442,6 @@ main-container {
   }
 
   .noteTitleInput {
-    /* margin-left: 10px; */
     font-size: 28px;
   }
 
@@ -481,7 +450,22 @@ main-container {
   }
 }
 
-@media screen and (max-width: 1395px) {
+@media screen and (max-width: 1398px) {
+  .cancelSaveNoteBtn {
+    left: 9%;
+  }
+
+  .saveDropdownContainer {
+    left: 21%;
+  }
+
+  .downloadButtonContainer {
+    left: 30.8%;
+  }
+
+  .save {
+    left: 12%;
+  }
   .createNoteButton {
     font-size: 23px;
   }
@@ -505,7 +489,19 @@ main-container {
   }
 }
 
-@media screen and (max-width: 1174px) {
+@media screen and (max-width: 1198px) {
+  .cancelSaveNoteBtn {
+    left: 10.6%;
+  }
+
+  .saveDropdownContainer {
+    left: 24.5%;
+  }
+
+  .downloadButtonContainer {
+    left: 35.8%;
+  }
+
   .createNoteButton {
     font-size: 20px;
   }
@@ -524,6 +520,18 @@ main-container {
 }
 
 @media screen and (max-width: 992px) {
+  .cancelSaveNoteBtn {
+    left: 14.2%;
+  }
+
+  .saveDropdownContainer {
+    left: 32.7%;
+  }
+
+  .downloadButtonContainer {
+    left: 48%;
+  }
+
   .createNoteButton {
     font-size: 13px;
   }
@@ -538,6 +546,10 @@ main-container {
 
   .createNoteLabel {
     font-size: 13px;
+  }
+
+  .searchInput {
+    top: 35%;
   }
 }
 
@@ -556,5 +568,137 @@ main-container {
 
   .createNoteLabel {
     font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .cancelSaveNoteBtn {
+    left: 19.2%;
+  }
+
+  .saveDropdownContainer {
+    left: 44%;
+  }
+
+  .downloadButtonContainer {
+    left: 64%;
+  }
+}
+
+@media screen and (max-height: 977px) {
+  .saveNoteBtn {
+    top: 105%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 105%;
+  }
+
+  .saveDropdownContainer {
+    top: 111.5%;
+  }
+
+  .downloadButtonContainer {
+    top: 111.5%;
+  }
+}
+
+@media screen and (max-height: 925px) {
+  .saveNoteBtn {
+    top: 109%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 109%;
+  }
+
+  .saveDropdownContainer {
+    top: 119.5%;
+  }
+
+  .downloadButtonContainer {
+    top: 119.5%;
+  }
+}
+
+@media screen and (max-height: 900px) {
+  .saveNoteBtn {
+    top: 115%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 115%;
+  }
+
+  .saveDropdownContainer {
+    top: 125.5%;
+  }
+
+  .downloadButtonContainer {
+    top: 125.5%;
+  }
+}
+
+@media screen and (max-height: 855px) {
+  .saveNoteBtn {
+    top: 122%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 122%;
+  }
+
+  .saveDropdownContainer {
+    top: 132.5%;
+  }
+
+  .downloadButtonContainer {
+    top: 132.5%;
+  }
+}
+
+@media screen and (max-height: 805px) {
+  .saveNoteBtn {
+    top: 125%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 125%;
+  }
+
+  .saveDropdownContainer {
+    top: 137%;
+  }
+
+  .downloadButtonContainer {
+    top: 137%;
+  }
+}
+
+@media screen and (max-height: 784px) {
+  .saveNoteBtn {
+    top: 130%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 130%;
+  }
+
+  .saveDropdownContainer {
+    top: 142%;
+  }
+
+  .downloadButtonContainer {
+    top: 142%;
+  }
+
+  .searchInput {
+    top: 32%;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .searchInput {
+    top: 25%;
   }
 }
