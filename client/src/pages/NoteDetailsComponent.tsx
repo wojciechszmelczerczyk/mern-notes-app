@@ -23,6 +23,7 @@ export default function NoteDetailsComponent() {
   const [isListening, setListening] = useState(false);
   const [stopRecognizing, setStopRecognizing] = useState(() => noop);
   const [language, setLanguage] = useState("en-US");
+  let textarea = document.querySelector("textarea");
 
   let { id } = useParams();
   let navigate = useNavigate();
@@ -88,6 +89,20 @@ export default function NoteDetailsComponent() {
     setText(e.value);
   }
 
+  function caretPositionSave() {
+    window.localStorage.setItem(
+      "caretPosition",
+      textarea.selectionStart.toString()
+    );
+  }
+
+  function caretPositionLoad() {
+    if (localStorage.getItem("caretPosition")) {
+      textarea.selectionStart = parseInt(localStorage.getItem("caretPosition"));
+      textarea.selectionEnd = parseInt(localStorage.getItem("caretPosition"));
+    }
+  }
+
   async function mic() {
     if (!isListening) {
       const recognizer = await createRecognizer();
@@ -106,6 +121,7 @@ export default function NoteDetailsComponent() {
       );
 
       recognizer.recognizing = (s, e) => {
+        caretPositionSave();
         setRecognizingText(e.result.text);
       };
 
@@ -115,6 +131,7 @@ export default function NoteDetailsComponent() {
         if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
           textStateRef.current += e.result.text as any;
           setText(textStateRef.current);
+          caretPositionLoad();
         } else if (e.result.reason === speechsdk.ResultReason.NoMatch) {
         }
       };
