@@ -24,27 +24,26 @@ export default function CreateNoteComponent() {
   return (
     <div className='create-note-container'>
       <div className='createFormContainer'>
-        <form onSubmit={createNote}>
-          <label className='createNoteLabel'>Note title: </label>
-          <input
-            className='noteTitleInput'
-            name='title'
-            placeholder='title'
-            value={title}
-            onChange={handleTitle}
-          ></input>
-          <div className='buttonContainer'>
-            <button
-              onClick={() => navigate("/")}
-              className='btn btn-danger cancelCreateNoteButton'
-            >
-              Cancel
-            </button>
-            <button type='submit' className='btn btn-success createNoteButton'>
-              Create note
-            </button>
-          </div>
-        </form>
+        <label className='createNoteLabel'>Note title: </label>
+        <input
+          className='noteTitleInput'
+          name='title'
+          placeholder='title'
+          value={title}
+          onChange={handleTitle}
+        ></input>
+        <button
+          onClick={() => navigate("/")}
+          className='btn btn-danger cancelCreateNoteButton'
+        >
+          Cancel
+        </button>
+        <button
+          onClick={createNote}
+          className='btn btn-success createNoteButton'
+        >
+          Create note
+        </button>
       </div>
     </div>
   );

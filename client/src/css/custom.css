@@ -266,22 +266,12 @@ main-container {
 /* Create Note Component */
 
 .createFormContainer {
+  display: flex;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
-
-.buttonContainer {
-  float: right;
-}
-
-.createNoteButton {
-  font-size: 32px;
-}
-
-.cancelCreateNoteButton {
-  font-size: 32px;
+  align-items: stretch;
 }
 
 .noteTitleInput {
@@ -433,18 +423,10 @@ main-container {
 }
 
 @media screen and (max-width: 1750px) {
-  .createNoteButton {
-    font-size: 28px;
-  }
-
   .orderIcon {
     position: absolute;
     top: 46%;
     left: 70%;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 28px;
   }
 
   .noteTitleInput {
@@ -472,18 +454,11 @@ main-container {
   .save {
     left: 12%;
   }
-  .createNoteButton {
-    font-size: 23px;
-  }
 
   .orderIcon {
     position: absolute;
     top: 46%;
     left: 70%;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 23px;
   }
 
   .noteTitleInput {
@@ -506,14 +481,6 @@ main-container {
 
   .downloadButtonContainer {
     left: 35.8%;
-  }
-
-  .createNoteButton {
-    font-size: 20px;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 20px;
   }
 
   .noteTitleInput {
@@ -544,14 +511,6 @@ main-container {
     left: 48%;
   }
 
-  .createNoteButton {
-    font-size: 13px;
-  }
-
-  .cancelCreateNoteButton {
-    font-size: 13px;
-  }
-
   .noteTitleInput {
     font-size: 13px;
   }
@@ -567,10 +526,6 @@ main-container {
 
 @media screen and (max-width: 800px) {
   .createNoteButton {
-    font-size: 11px;
-  }
-
-  .cancelCreateNoteButton {
     font-size: 11px;
   }
 
