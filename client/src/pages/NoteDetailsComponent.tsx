@@ -26,7 +26,9 @@ export default function NoteDetailsComponent() {
   const [stopRecognizing, setStopRecognizing] = useState(() => noop);
   const [language, setLanguage] = useState("en-US");
   let textarea = document.querySelector("textarea");
-  const xxx = document.querySelector(".titleVisualizerContainer");
+  const titleVisualizerContainer = document.querySelector(
+    ".titleVisualizerContainer"
+  );
 
   let { id } = useParams();
   let navigate = useNavigate();
@@ -93,7 +95,7 @@ export default function NoteDetailsComponent() {
 
     visualizerContainer.id = "waveform";
 
-    xxx.appendChild(visualizerContainer);
+    titleVisualizerContainer.appendChild(visualizerContainer);
 
     return WaveSurfer.create({
       container: "#waveform",
