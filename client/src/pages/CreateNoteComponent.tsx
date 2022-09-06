@@ -4,21 +4,25 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreateNoteComponent() {
   const [title, setTitle] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   async function createNote(e) {
     e.preventDefault();
     const at = localStorage.getItem("at");
     const newNote = await NoteService.createNote(at, title);
-    if (newNote) {
+
+    if (!newNote.data.err) {
       const newNoteId = newNote["data"]["_id"];
       localStorage.setItem("note_id", newNoteId);
       navigate(`/note/${newNoteId}`);
-    } else {
+    } else if (newNote.data.err) {
+      setError(newNote.data.err);
     }
   }
 
   function handleTitle(e) {
+    setError("");
     setTitle(e.target.value);
   }
   return (
@@ -29,7 +33,7 @@ export default function CreateNoteComponent() {
           className='noteTitleInput'
           name='title'
           placeholder='title'
-          value={title}
+          value={error ? "" : title}
           onChange={handleTitle}
         ></input>
         <button
@@ -44,6 +48,9 @@ export default function CreateNoteComponent() {
         >
           Create note
         </button>
+      </div>
+      <div className='createNoteError' style={{ color: "red" }}>
+        {error ? error : ""}
       </div>
     </div>
   );

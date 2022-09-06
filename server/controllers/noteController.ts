@@ -3,6 +3,7 @@ import * as pdf from "pdf-lib";
 import Note from "../models/Note";
 
 import { writeFile } from "fs/promises";
+import { totalmem } from "os";
 
 const getAllNotes = async (req, res) => {
   let id: string = req.user?.id;
@@ -20,15 +21,25 @@ const getSingleNote = async (req, res) => {
 };
 
 const createNote = async (req, res) => {
-  let { title, content = "" } = req.body;
+  try {
+    let { title, content = "" } = req.body;
 
-  let id = req.user?.id;
+    if (title.length > 8) {
+      throw new Error("Note title is too long.");
+    } else if (title.length < 4) {
+      throw new Error("Note title is too short.");
+    }
 
-  // create note
-  const newNote = await Note.create({ title, content, user_id: id });
+    let id = req.user?.id;
 
-  // give response
-  res.status(201).json(newNote);
+    // create note
+    const newNote = await Note.create({ title, content, user_id: id });
+
+    // give response
+    res.status(201).json(newNote);
+  } catch (e) {
+    res.json({ err: e.message });
+  }
 };
 
 const updateNote = async (req, res) => {

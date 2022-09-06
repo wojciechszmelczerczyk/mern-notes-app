@@ -134,9 +134,9 @@ main-container {
   white-space: normal;
   word-break: break-all;
   background-color: lightgrey;
-  border-radius: 9%;
+  border-radius: 20px;
   height: auto;
-  max-height: 75px;
+  max-height: 50px;
   width: auto;
   max-width: 300px;
 }
@@ -159,7 +159,7 @@ main-container {
   padding-left: 25px;
   font-size: 20px;
   width: 250px;
-  border: none; /* <-- This thing here */
+  border: none;
   border: solid 1px #ccc;
   border-radius: 10px;
 }
@@ -272,6 +272,12 @@ main-container {
   top: 50%;
   transform: translate(-50%, -50%);
   align-items: stretch;
+}
+
+.createNoteError {
+  position: absolute;
+  top: 54%;
+  left: 41.5%;
 }
 
 .noteTitleInput {
@@ -416,6 +422,10 @@ main-container {
     left: 71.5%;
   }
 
+  .createNoteError {
+    left: 39.5%;
+  }
+
   .searchInput {
     left: 73%;
     width: 250px;
@@ -441,6 +451,10 @@ main-container {
 @media screen and (max-width: 1398px) {
   .cancelSaveNoteBtn {
     left: 9%;
+  }
+
+  .createNoteError {
+    left: 37.5%;
   }
 
   .saveDropdownContainer {

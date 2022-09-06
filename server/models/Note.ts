@@ -26,6 +26,8 @@ const noteSchema = new Schema<INote>(
       type: String,
       required: [true, "Please provide the note title"],
       lowercase: true,
+      minlength: [4, "Title is too short. Minimum length is 4 characters"],
+      maxlength: [8, "Title is too long. Maximum length is 8 characters"],
     },
     content: {
       type: String,
