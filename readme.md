@@ -301,7 +301,7 @@ axiosInstance.interceptors.response.use(
 
 [![](https://mermaid.ink/img/pako:eNpVkEtuwyAQhq8ymrVzAS8qxaYnSHd2FhSGGtWAw6OSFXL34PhRhRWa_-ObYe4onCSs8cfzaYAv1lso59y1oyYbr3A6fWRPt0QhZmi6C_k_8teVapYUShwmZwNlOL_VtQLr4JdmUC5ZWUGx-Bnkd4a2Y80maVd4zf5VzZvqkJDMwLqWi4G292wfIiZvQXlnQCzxodgahOg8HQ1AuGkGbXf29W-s0JA3XMuykPtS6TEOZKjHulwlKZ7G2GNvHwVNk-SRPqUuYqwVHwNVyFN0l9kKrKNPtENM87Jfs1GPJ2dveRA)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNpVkEtuwyAQhq8ymrVzAS8qxaYnSHd2FhSGGtWAw6OSFXL34PhRhRWa_-ObYe4onCSs8cfzaYAv1lso59y1oyYbr3A6fWRPt0QhZmi6C_k_8teVapYUShwmZwNlOL_VtQLr4JdmUC5ZWUGx-Bnkd4a2Y80maVd4zf5VzZvqkJDMwLqWi4G292wfIiZvQXlnQCzxodgahOg8HQ1AuGkGbXf29W-s0JA3XMuykPtS6TEOZKjHulwlKZ7G2GNvHwVNk-SRPqUuYqwVHwNVyFN0l9kKrKNPtENM87Jfs1GPJ2dveRA)
 
-### Search if key exist in Redis cache, if so return data, otherwise set new key value with 1 hour expiration time.
+#### Search if key exist in Redis cache, if so return data, otherwise set new key value with 1 hour expiration time.
 
 ```javascript
 if ((await client.get("notes")) === null) {
