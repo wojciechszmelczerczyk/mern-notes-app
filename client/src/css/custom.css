@@ -392,8 +392,9 @@ main-container {
 }
 
 .dialog {
-  background-color: beige;
-  border-radius: 5%;
+  color: black !important;
+  background-color: red;
+  border-radius: 20px;
 }
 
 .orderIcon {
