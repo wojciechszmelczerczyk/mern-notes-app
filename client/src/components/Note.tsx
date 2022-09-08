@@ -11,7 +11,7 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
   const updated = updatedAt
     .replace(/T|Z/g, " ")
     .substr(0, updatedAt.length - 5);
-  console.log(updated);
+
   const navigate = useNavigate();
 
   const [refreshFlag, setRefreshFlag] = refresh;

@@ -1,7 +1,7 @@
 import * as pdf from "pdf-lib";
 import Note from "../models/Note";
 import { writeFile } from "fs/promises";
-import client from "./cache/redisClient";
+import client from "../cache/redisClient";
 
 const getAllNotes = async (req, res) => {
   let id: string = req.user?.id;

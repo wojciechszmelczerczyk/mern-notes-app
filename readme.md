@@ -45,6 +45,8 @@ Client side will be created in `React` using `TypeScript` language.
   - [Extract user id](#extract-user-id-helper-function)
   - [Refresh token](#refresh-token)
 
+- [Cache](#cache)
+
 - [Tests](#tests)
 
 ## Techstack
@@ -134,9 +136,6 @@ ACCESS_TOKEN_EXP=
 
 # Refresh token expiration time
 REFRESH_TOKEN_EXP=
-
-# Refresh token cookie path
-REFRESH_TOKEN_SCOPE=/user/refresh-token
 ```
 
 ## Architectures
@@ -196,7 +195,7 @@ REFRESH_TOKEN_SCOPE=/user/refresh-token
 
 ## JWT
 
-### Basic token auth implementation.
+### Token auth implementation.
 
 #### If access token is valid get protected route resource, otherwise send refresh token and get new access token.
 
@@ -212,16 +211,16 @@ const validateToken = (req, res, next) => {
     // retrieve jwt from auth header
     let authHeader = req.headers["authorization"];
 
-    let token = authHeader && authHeader.split(" ")[1];
+    let at = authHeader && authHeader.split(" ")[1];
 
     // if token doesn't exist throw error
-    if (token === undefined) throw new Error("Jwt doesn't exist");
+    if (at === undefined) throw new Error("Jwt doesn't exist");
 
     // otherwise check if token expired
-    verify(token, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
+    verify(at, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
       if (error) {
-        if (error.name === "JsonWebTokenError") {
-          res.status(403).json({ error: error.message });
+        if (error.name === "TokenExpiredError") {
+          res.status(403).json({ err: error.message });
         }
       } else {
         req.user = user;
@@ -294,6 +293,24 @@ axiosInstance.interceptors.response.use(
   },
   (err) => Promise.reject(err)
 );
+```
+
+## Cache
+
+### Cache Architecture
+
+[![](https://mermaid.ink/img/pako:eNpVkEtuwyAQhq8ymrVzAS8qxaYnSHd2FhSGGtWAw6OSFXL34PhRhRWa_-ObYe4onCSs8cfzaYAv1lso59y1oyYbr3A6fWRPt0QhZmi6C_k_8teVapYUShwmZwNlOL_VtQLr4JdmUC5ZWUGx-Bnkd4a2Y80maVd4zf5VzZvqkJDMwLqWi4G292wfIiZvQXlnQCzxodgahOg8HQ1AuGkGbXf29W-s0JA3XMuykPtS6TEOZKjHulwlKZ7G2GNvHwVNk-SRPqUuYqwVHwNVyFN0l9kKrKNPtENM87Jfs1GPJ2dveRA)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNpVkEtuwyAQhq8ymrVzAS8qxaYnSHd2FhSGGtWAw6OSFXL34PhRhRWa_-ObYe4onCSs8cfzaYAv1lso59y1oyYbr3A6fWRPt0QhZmi6C_k_8teVapYUShwmZwNlOL_VtQLr4JdmUC5ZWUGx-Bnkd4a2Y80maVd4zf5VzZvqkJDMwLqWi4G292wfIiZvQXlnQCzxodgahOg8HQ1AuGkGbXf29W-s0JA3XMuykPtS6TEOZKjHulwlKZ7G2GNvHwVNk-SRPqUuYqwVHwNVyFN0l9kKrKNPtENM87Jfs1GPJ2dveRA)
+
+### Search if key exist in Redis cache, if so return data, otherwise set new key value with 1 hour expiration time.
+
+```javascript
+if ((await client.get("notes")) === null) {
+  const notes = await Note.find({ user_id: id });
+  await client.setEx("notes", 3600, JSON.stringify(notes));
+  res.status(200).json(notes);
+} else {
+  res.status(200).json(JSON.parse(await client.get("notes")));
+}
 ```
 
 ## Tests
