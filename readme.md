@@ -47,6 +47,8 @@ Client side will be created in `React` using `TypeScript` language.
 - [Cache](#cache)
 
 - [Tests](#tests)
+  - [E2E](#e2e)
+  - [API](#api)
 
 ## Techstack
 
@@ -304,11 +306,17 @@ if ((await client.get("notes")) === null) {
 
 ## Tests
 
-### Backend API
+### E2E
 
 ### To run tests:
 
-`npm run api-test`
+`npm run e2e`
+
+### API
+
+### To run tests:
+
+`npm run api`
 
 ### Note
 

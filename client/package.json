@@ -52,7 +52,6 @@
     "app": "concurrently \"npm run client\" \"npm run server\"",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "api-test": "jest --watchAll",
     "e2e": "cypress open",
     "eject": "react-app-rewired eject"
   },
