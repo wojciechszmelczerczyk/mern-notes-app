@@ -34,21 +34,21 @@ const Form = ({
         <div className='form-group'>
           <label className='formLabel'>Email</label>
           <input
-            className={`form-control ${isDarkDefault ? "dark" : ""} `}
+            className={`xxx form-control ${isDarkDefault ? "dark" : ""} `}
             type='email'
             name='email'
             placeholder='email'
             value={email}
             onChange={handleEmail}
           ></input>
-          <div className='emailError'>
+          <div className='zzz emailError'>
             {emailError ? emailError.match("Please enter a valid email") : ""}
           </div>
         </div>
         <div className='form-group'>
           <label className='formLabel'>Password</label>
           <input
-            className={`form-control ${isDarkDefault ? "dark" : ""} `}
+            className={`yyy form-control ${isDarkDefault ? "dark" : ""} `}
             type='password'
             name='password'
             placeholder='password'

@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"]
+  },
+  "include": ["**/*.ts"]
 }
