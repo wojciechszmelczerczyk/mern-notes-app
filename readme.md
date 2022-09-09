@@ -42,7 +42,6 @@ Client side will be created in `React` using `TypeScript` language.
 
   - [Middleware](#middleware)
   - [Create token](#create-token-helper-function)
-  - [Extract user id](#extract-user-id-helper-function)
   - [Refresh token](#refresh-token)
 
 - [Cache](#cache)
@@ -66,6 +65,7 @@ Client side will be created in `React` using `TypeScript` language.
 
 - install `node`
 - install `mongo`
+- install `redis`
 
 ## Usage
 
@@ -251,17 +251,6 @@ const createToken = (id, secret, exp) => {
       expiresIn: exp,
     }
   );
-};
-```
-
-### Extract user id helper function.
-
-#### Function take token as a parameter and return user id.
-
-```javascript
-const extractIdFromToken = (token) => {
-  const { id } = decode(token);
-  return id;
 };
 ```
 
