@@ -31,6 +31,7 @@ export default function CreateNoteComponent() {
         <label className='createNoteLabel'>Note title: </label>
         <input
           className='noteTitleInput'
+          data-cy='noteTitleInput'
           name='title'
           placeholder='title'
           value={error ? "" : title}
@@ -45,11 +46,16 @@ export default function CreateNoteComponent() {
         <button
           onClick={createNote}
           className='btn btn-success createNoteButton'
+          data-cy='createNoteButton'
         >
           Create note
         </button>
       </div>
-      <div className='createNoteError' style={{ color: "red" }}>
+      <div
+        className='createNoteError'
+        data-cy='createNoteError'
+        style={{ color: "red" }}
+      >
         {error ? error : ""}
       </div>
     </div>

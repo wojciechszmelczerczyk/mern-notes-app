@@ -34,28 +34,30 @@ const Form = ({
         <div className='form-group'>
           <label className='formLabel'>Email</label>
           <input
-            className={`xxx form-control ${isDarkDefault ? "dark" : ""} `}
+            className={`form-control ${isDarkDefault ? "dark" : ""} `}
             type='email'
+            data-cy='emailInput'
             name='email'
             placeholder='email'
             value={email}
             onChange={handleEmail}
           ></input>
-          <div className='zzz emailError'>
+          <div className='emailError' data-cy='emailError'>
             {emailError ? emailError.match("Please enter a valid email") : ""}
           </div>
         </div>
         <div className='form-group'>
           <label className='formLabel'>Password</label>
           <input
-            className={`yyy form-control ${isDarkDefault ? "dark" : ""} `}
+            className={`form-control ${isDarkDefault ? "dark" : ""} `}
             type='password'
+            data-cy='passwordInput'
             name='password'
             placeholder='password'
             value={password}
             onChange={handlePassword}
           ></input>
-          <div className='passwordError'>
+          <div className='passwordError' data-cy='passwordError'>
             {passwordError ? passwordError.match("Password is too short") : ""}
           </div>
         </div>
@@ -70,7 +72,11 @@ const Form = ({
           </NavLink>
         )}
       </form>
-      <button className='userBtn btn btn-primary' onClick={userOp}>
+      <button
+        className='userBtn btn btn-primary'
+        data-cy='userBtn'
+        onClick={userOp}
+      >
         {name}
       </button>
     </>
