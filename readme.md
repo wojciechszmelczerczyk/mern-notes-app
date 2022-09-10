@@ -18,6 +18,10 @@ Server side of application will be made in `Node` using `Express` framework.
 
 Data will be saved to `Mongo` database.
 
+Data will be cached in `Redis` cache.
+
+Tests will be written in `Cypress` **(E2E)** and `Jest`/`Supertest` **(API)**.
+
 Client side will be created in `React` using `TypeScript` language.
 
 <br/>
@@ -61,7 +65,6 @@ Client side will be created in `React` using `TypeScript` language.
 - `Jest`
 - `Supertest`
 - `Cypress`
-- `Docker`
 
 ## Requirements
 
@@ -311,6 +314,101 @@ if ((await client.get("notes")) === null) {
 ### To run tests:
 
 `npm run e2e`
+
+### Note
+
+<details>
+
+<summary>if note title is too short, prompt an error</summary>
+
+```javascript
+it("if note title is too short, prompt an error", () => {
+  localStorage.setItem("at", "");
+
+  cy.visit("http://localhost:5000/createNote");
+
+  cy.get('[data-cy="noteTitleInput"]').type("tes");
+
+  cy.get('[data-cy="createNoteButton"]').click();
+
+  cy.get('[data-cy="createNoteError"]').should(
+    "contain",
+    "Note title is too short."
+  );
+});
+```
+
+</details>
+
+<details>
+
+<summary>if note title is too long, prompt an error</summary>
+
+```javascript
+it("if note title is too long, prompt an error", () => {
+  localStorage.setItem("at", "");
+
+  cy.visit("http://localhost:5000/createNote");
+
+  cy.get('[data-cy="noteTitleInput"]').type("testtest1");
+
+  cy.get('[data-cy="createNoteButton"]').click();
+
+  cy.get('[data-cy="createNoteError"]').should(
+    "contain",
+    "Note title is too long."
+  );
+});
+```
+
+</details>
+
+### User
+
+<details>
+
+<summary>if user credentials are incorrect, prompt error</summary>
+
+```javascript
+it("if user credentials are incorrect, prompt error", () => {
+  cy.visit("http://localhost:5000/login");
+
+  cy.get('[data-cy="emailInput"]').type("user2404gmail.com");
+
+  cy.get('[data-cy="passwordInput"]').type("test404");
+
+  cy.get('[data-cy="userBtn"]').click();
+
+  cy.get("[data-cy='emailError']").should(
+    "contain",
+    "Please enter a valid email"
+  );
+});
+```
+
+</details>
+
+<details>
+
+<summary>if user credentials are correct, redirect to note list page</summary>
+
+```javascript
+it("if user credentials are correct, redirect to note list page", () => {
+  cy.visit("http://localhost:5000/login");
+
+  cy.get('[data-cy="emailInput"]').type("user2@gmail.com");
+
+  cy.get('[data-cy="passwordInput"]').type("test123");
+
+  cy.get('[data-cy="userBtn"]').click();
+
+  cy.location().should((loc) => {
+    expect(loc.href).to.eq("http://localhost:5000/");
+  });
+});
+```
+
+</details>
 
 ### API
 
