@@ -2,10 +2,7 @@ import { tooLongTitle, tooShortTitle } from "../fixtures/note.json";
 
 describe("Create note", () => {
   beforeEach(() => {
-    localStorage.setItem(
-      "at",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDhhMGJiNTczYjkyYzkyODYxMzgwYiIsImlhdCI6MTY2MjgxMTM2M30._v2W5haKOBtBtfW2qqfmQRRiQBObo1QZGTgCqShUzSA"
-    );
+    localStorage.setItem("at", process.env.REACT_APP_JWT);
   });
 
   it("if note title is too short, prompt an error", () => {

@@ -1,11 +1,21 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
     "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress", "node"],
-    "resolveJsonModule": true
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    // "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["cypress", "node"]
   },
-  "include": ["**/*.ts"]
+  "include": ["src", "**/*.ts"]
 }
