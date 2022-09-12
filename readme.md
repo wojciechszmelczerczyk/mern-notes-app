@@ -6,11 +6,11 @@ The project target is helping hearing impaired students during the lessons they 
 
 The project aims to introduce a speech to text system able to transcript the voice of the professor into a text on the screen of the student pc or mobile phone.
 
-Student can record teacher voice by clicking a button which will transcrypt voice to text for their better understandment.
+Students can record teacher voice by clicking a button which will transcrypt voice to text for their better understandment.
 
 Registered user will have premium feature to store the transcriptions online and save them to a file (txt or pdf format).
 
-Student will be able to change speech language.
+Students will be able to change speech language.
 
 Students will be able to search lessons by title they provide before transcryption to text.
 
@@ -20,7 +20,7 @@ Data will be saved to `Mongo` database.
 
 Data will be cached in `Redis` cache.
 
-Tests will be written in `Cypress` **(E2E)** and `Jest`/`Supertest` **(API)**.
+Tests will be written in `Cypress` and `Jest`/`Supertest`.
 
 Client side will be created in `React` using `TypeScript` language.
 
@@ -311,11 +311,11 @@ if ((await client.get("notes")) === null) {
 
 ### E2E
 
-### To run tests:
+#### To run tests:
 
 `npm run e2e`
 
-### Note
+#### Note
 
 <details>
 
@@ -363,7 +363,7 @@ it("if note title is too long, prompt an error", () => {
 
 </details>
 
-### User
+#### User
 
 <details>
 
@@ -412,11 +412,11 @@ it("if user credentials are correct, redirect to note list page", () => {
 
 ### API
 
-### To run tests:
+#### To run tests:
 
 `npm run api`
 
-### Note
+#### Note
 
 `GET /note`
 
@@ -520,7 +520,7 @@ test("when jwt is expired", async () => {
 
 </details>
 
-### User
+#### User
 
 `POST /user`
 

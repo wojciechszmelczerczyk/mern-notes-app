@@ -1,12 +1,15 @@
+import { tooLongTitle, tooShortTitle } from "../fixtures/note.json";
+
 describe("Create note", () => {
+  beforeEach(() => {
+    localStorage.setItem(
+      "at",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDhhMGJiNTczYjkyYzkyODYxMzgwYiIsImlhdCI6MTY2MjgxMTM2M30._v2W5haKOBtBtfW2qqfmQRRiQBObo1QZGTgCqShUzSA"
+    );
+  });
+
   it("if note title is too short, prompt an error", () => {
-    localStorage.setItem("at", "");
-
-    cy.visit("http://localhost:5000/createNote");
-
-    cy.get('[data-cy="noteTitleInput"]').type("tes");
-
-    cy.get('[data-cy="createNoteButton"]').click();
+    cy.createNote(tooShortTitle);
 
     cy.get('[data-cy="createNoteError"]').should(
       "contain",
@@ -15,13 +18,7 @@ describe("Create note", () => {
   });
 
   it("if note title is too long, prompt an error", () => {
-    localStorage.setItem("at", "");
-
-    cy.visit("http://localhost:5000/createNote");
-
-    cy.get('[data-cy="noteTitleInput"]').type("testtest1");
-
-    cy.get('[data-cy="createNoteButton"]').click();
+    cy.createNote(tooLongTitle);
 
     cy.get('[data-cy="createNoteError"]').should(
       "contain",
