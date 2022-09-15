@@ -14,7 +14,7 @@ function createServer(): Application {
 
   app.use(
     cors({
-      origin: ["http://localhost:5000", "http://192.168.0.103:5000"],
+      origin: ["http://localhost:5000"],
       credentials: true,
     })
   );
