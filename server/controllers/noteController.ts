@@ -6,19 +6,8 @@ import client from "../cache/redisClient";
 const getAllNotes = async (req, res) => {
   let id: string = req.user?.id;
 
-  // check cache
-  // if value doesn't exist in cache, query db, set cache
-  if ((await client.get("notes")) === null) {
-    // query db
-    const notes = await Note.find({ user_id: id });
-    // set cache
-    await client.setEx("notes", 3600, JSON.stringify(notes));
-    // response with data
-    res.status(200).json(notes);
-  } else {
-    // otherwise return data from redis cache, parse to JSON object
-    res.status(200).json(JSON.parse(await client.get("notes")));
-  }
+  const notes = await Note.find({ user_id: id });
+  res.status(200).json(notes);
 };
 
 const getSingleNote = async (req, res) => {

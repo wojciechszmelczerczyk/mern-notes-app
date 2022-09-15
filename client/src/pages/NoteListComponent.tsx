@@ -13,6 +13,8 @@ import {
   faSortAlphaDesc,
 } from "@fortawesome/free-solid-svg-icons";
 import speech from "../svg/speech.svg";
+import { SidebarContext } from "../context/SidebarContext";
+import Sidebar from "../components/mobile/Sidebar";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
@@ -20,6 +22,8 @@ export default function NoteListComponent() {
   const [isFocus, setIsFocus] = useState(false);
   const focus = [isFocus, setIsFocus];
   const [isLoggedIn] = useContext(AuthContext);
+  const [isSidebarActive] = useContext(SidebarContext);
+
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
   const [order, setOrder] = useState("desc") as any;
@@ -95,6 +99,7 @@ export default function NoteListComponent() {
             </>
           ) : (
             <>
+              {isSidebarActive ? <Sidebar /> : ""}
               <div className='container noteList'>
                 <div className='row justify-content-start'>
                   {filteredNotes?.map(({ _id, title, content, updatedAt }) => (

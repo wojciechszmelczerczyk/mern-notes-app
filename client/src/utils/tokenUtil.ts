@@ -9,7 +9,7 @@ export async function getTokenOrRefresh() {
     try {
       const at = localStorage.getItem("at");
       const res = await axios.get(
-        "http://localhost:3000/api/get-speech-token",
+        "http://192.168.0.103:3000/api/get-speech-token",
         {
           headers: {
             Authorization: `Bearer ${at}`,

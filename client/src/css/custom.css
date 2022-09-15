@@ -420,7 +420,7 @@ main-container {
   .orderIcon {
     position: absolute;
     top: 46%;
-    left: 71.5%;
+    left: 69.5%;
   }
 
   .createNoteError {
@@ -428,7 +428,7 @@ main-container {
   }
 
   .searchInput {
-    left: 73%;
+    left: 71%;
     width: 250px;
   }
 }
@@ -554,6 +554,43 @@ main-container {
 }
 
 @media screen and (max-width: 767px) {
+  .userForm {
+    height: 45vh;
+    width: 45vh;
+  }
+
+  .userForm > .formTitle {
+    font-size: 18px;
+  }
+
+  .searchInput {
+    left: 19%;
+  }
+
+  .orderIcon {
+    position: absolute;
+    top: 33.3%;
+    left: 13%;
+  }
+
+  .note {
+    margin-top: 10px;
+    height: 400px;
+    overflow: hidden;
+    width: 90%;
+    background-color: white;
+    border-radius: 6%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 0.5s;
+    filter: blur(0);
+  }
+
+  .noteListTitle {
+    margin-top: 10%;
+    font-family: "Taviraj", serif;
+    text-align: center;
+  }
+
   .cancelSaveNoteBtn {
     left: 19.2%;
   }
@@ -564,6 +601,13 @@ main-container {
 
   .downloadButtonContainer {
     left: 64%;
+  }
+
+  .sidebar * {
+    color: grey;
+    flex-grow: 1;
+    text-decoration: none;
+    text-transform: uppercase;
   }
 }
 

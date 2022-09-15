@@ -1,16 +1,16 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 class UserService {
   register(email, password) {
-    return axios.post("http://localhost:3000/user", {
+    return axiosInstance.post("/user", {
       email,
       password,
     });
   }
 
   auth(email, password) {
-    return axios.post(
-      "http://localhost:3000/user/authenticate",
+    return axiosInstance.post(
+      "/user/authenticate",
       {
         email,
         password,
@@ -20,7 +20,7 @@ class UserService {
   }
 
   logout(at) {
-    return axios.delete("http://localhost:3000/user", {
+    return axiosInstance.delete("/user", {
       headers: {
         Authorization: `Bearer ${at}`,
       },
@@ -28,7 +28,7 @@ class UserService {
   }
 
   refreshToken(rt) {
-    return axios.get("http://localhost:3000/user/refresh-token", {
+    return axiosInstance.get("/user/refresh-token", {
       headers: {
         Authorization: `Bearer ${rt}`,
       },

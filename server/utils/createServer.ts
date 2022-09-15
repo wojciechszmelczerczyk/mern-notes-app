@@ -12,7 +12,12 @@ import speechRecognition from "../routes/speechRecognition";
 function createServer(): Application {
   const app = express();
 
-  app.use(cors({ origin: "http://localhost:5000", credentials: true }));
+  app.use(
+    cors({
+      origin: ["http://localhost:5000", "http://192.168.0.103:5000"],
+      credentials: true,
+    })
+  );
   app.use(express.json());
   app.use(
     express.urlencoded({
