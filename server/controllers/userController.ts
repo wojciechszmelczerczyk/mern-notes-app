@@ -6,7 +6,6 @@ import createToken from "../token/createToken";
 
 import { verify } from "jsonwebtoken";
 import User from "../models/User";
-// import { UserType } from "../types/User";
 import { JWT } from "../types/Jwt";
 
 const register = async (req, res) => {
