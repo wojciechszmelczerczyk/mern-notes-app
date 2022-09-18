@@ -1,4 +1,4 @@
-# Notes App
+# Speech Notes App
 
 ## Project description
 

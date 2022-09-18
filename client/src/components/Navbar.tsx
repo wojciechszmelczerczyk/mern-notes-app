@@ -10,7 +10,7 @@ import {
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import DarkTheme from "react-dark-theme";
 import { lightTheme, darkTheme } from "../data/themes";
 import { SidebarContext } from "../context/SidebarContext";
@@ -19,7 +19,6 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
   const [isDarkDefault, setIsDarkDefault] = useContext(ThemeContext);
   const [isSidebarActive, setIsSidebarActive] = useContext(SidebarContext);
-
   const [width, setWidth] = useState(window.innerWidth);
 
   // logout function
@@ -36,7 +35,7 @@ const Navbar = () => {
   const toggleTheme = () => setIsDarkDefault(!isDarkDefault);
 
   return (
-    <>
+    <div>
       {width < 1000 ? (
         <div className='d-flex flex-row-reverse' style={{ zIndex: "10" }}>
           <div onClick={toggleSidebar}>
@@ -76,7 +75,7 @@ const Navbar = () => {
           dark={darkTheme}
         />
       </div>
-    </>
+    </div>
   );
 };
 

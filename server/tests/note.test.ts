@@ -1,15 +1,16 @@
-const { path } = require("app-root-path");
-require("dotenv").config({ path: `${path}/.env` });
-const createServer = require("../util/createServer");
+import { config } from "dotenv";
+config({ path: `${path}/.env` });
+import { path } from "app-root-path";
+import createServer from "../utils/createServer";
 const request = require("supertest");
-const { dbConnection } = require("../db/connection");
-const Note = require("../models/Note");
+// import request from "supertest"
+import { dbConnection } from "../db/connection";
+import Note from "../models/Note";
+import flush from "./hooks/flushDocument";
 
-const flush = require("./hooks/flushDocument");
+let app: Express.Application = createServer();
 
-let app = createServer();
-
-let jwt = process.env.JWT;
+let jwt: string = process.env.JWT;
 
 beforeAll(async () => await dbConnection(process.env.DB_URI));
 

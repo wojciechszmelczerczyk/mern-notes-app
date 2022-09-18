@@ -409,6 +409,10 @@ main-container {
   left: 27%;
 }
 
+/* MEDIA QUERIES WIDTH*/
+
+/*======================================*/
+
 @media screen and (max-width: 2560px) {
   .searchInput {
     left: 65%;
@@ -421,6 +425,10 @@ main-container {
     position: absolute;
     top: 46%;
     left: 69.5%;
+  }
+
+  .formTitle {
+    font-size: 22px;
   }
 
   .createNoteError {
@@ -470,10 +478,14 @@ main-container {
     left: 12%;
   }
 
-  .orderIcon {
-    position: absolute;
+  .searchInput {
     top: 46%;
     left: 70%;
+  }
+
+  .orderIcon {
+    top: 47%;
+    left: 68%;
   }
 
   .noteTitleInput {
@@ -535,7 +547,13 @@ main-container {
   }
 
   .searchInput {
-    top: 35%;
+    top: 46%;
+    left: 60%;
+  }
+
+  .orderIcon {
+    top: 47%;
+    left: 57.5%;
   }
 }
 
@@ -551,9 +569,158 @@ main-container {
   .createNoteLabel {
     font-size: 11px;
   }
+
+  .orderIcon {
+    top: 100%;
+  }
+
+  .searchInput {
+    top: 45%;
+    left: 100%;
+  }
+}
+/* MEDIA QUERIES HEIGHT
+
+/*======================================*/
+@media screen and (max-height: 977px) {
+  .saveNoteBtn {
+    top: 105%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 105%;
+  }
+
+  .saveDropdownContainer {
+    top: 115%;
+  }
+
+  .downloadButtonContainer {
+    top: 115%;
+  }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-height: 925px) {
+  .saveNoteBtn {
+    top: 109%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 109%;
+  }
+
+  .saveDropdownContainer {
+    top: 119.5%;
+  }
+
+  .downloadButtonContainer {
+    top: 119.5%;
+  }
+}
+
+@media screen and (max-height: 900px) {
+  .saveNoteBtn {
+    top: 115%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 115%;
+  }
+
+  .saveDropdownContainer {
+    top: 125.5%;
+  }
+
+  .downloadButtonContainer {
+    top: 125.5%;
+  }
+
+  .searchInput {
+    top: 38%;
+    left: 75%;
+  }
+  .orderIcon {
+    top: 39%;
+    left: 73%;
+  }
+}
+
+@media screen and (max-height: 855px) {
+  .saveNoteBtn {
+    top: 122%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 122%;
+  }
+
+  .saveDropdownContainer {
+    top: 132.5%;
+  }
+
+  .downloadButtonContainer {
+    top: 132.5%;
+  }
+}
+
+@media screen and (max-height: 805px) {
+  .saveNoteBtn {
+    top: 125%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 125%;
+  }
+
+  .saveDropdownContainer {
+    top: 137%;
+  }
+
+  .downloadButtonContainer {
+    top: 137%;
+  }
+
+  .searchInput {
+    top: 32%;
+  }
+  .orderIcon {
+    top: 33%;
+  }
+}
+@media screen and (max-height: 784px) {
+  .saveNoteBtn {
+    top: 130%;
+  }
+
+  .cancelSaveNoteBtn {
+    top: 130%;
+  }
+
+  .saveDropdownContainer {
+    top: 142%;
+  }
+
+  .downloadButtonContainer {
+    top: 142%;
+  }
+
+  .searchInput {
+    top: 32%;
+  }
+  .orderIcon {
+    top: 33%;
+    left: 73%;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .searchInput {
+    top: 32%;
+  }
+}
+
+/* MEDIA QUERIES MIXED */
+@media (orientation: portrait) and (max-width: 800px) {
   .userForm {
     height: 45vh;
     width: 45vh;
@@ -592,15 +759,15 @@ main-container {
   }
 
   .cancelSaveNoteBtn {
-    left: 19.2%;
+    left: 26%;
   }
 
   .saveDropdownContainer {
-    left: 44%;
+    left: 61%;
   }
 
   .downloadButtonContainer {
-    left: 64%;
+    left: 90%;
   }
 
   .sidebar * {
@@ -611,120 +778,19 @@ main-container {
   }
 }
 
-@media screen and (max-height: 977px) {
-  .saveNoteBtn {
-    top: 105%;
+@media (orientation: landscape) and (max-width: 800px) {
+  .noteList {
+    max-height: 200px;
   }
 
-  .cancelSaveNoteBtn {
-    top: 105%;
+  .noteListTitle {
+    margin-top: -3%;
   }
 
-  .saveDropdownContainer {
-    top: 111.5%;
-  }
-
-  .downloadButtonContainer {
-    top: 111.5%;
-  }
-}
-
-@media screen and (max-height: 925px) {
-  .saveNoteBtn {
-    top: 109%;
-  }
-
-  .cancelSaveNoteBtn {
-    top: 109%;
-  }
-
-  .saveDropdownContainer {
-    top: 119.5%;
-  }
-
-  .downloadButtonContainer {
-    top: 119.5%;
-  }
-}
-
-@media screen and (max-height: 900px) {
-  .saveNoteBtn {
-    top: 115%;
-  }
-
-  .cancelSaveNoteBtn {
-    top: 115%;
-  }
-
-  .saveDropdownContainer {
-    top: 125.5%;
-  }
-
-  .downloadButtonContainer {
-    top: 125.5%;
-  }
-}
-
-@media screen and (max-height: 855px) {
-  .saveNoteBtn {
-    top: 122%;
-  }
-
-  .cancelSaveNoteBtn {
-    top: 122%;
-  }
-
-  .saveDropdownContainer {
-    top: 132.5%;
-  }
-
-  .downloadButtonContainer {
-    top: 132.5%;
-  }
-}
-
-@media screen and (max-height: 805px) {
-  .saveNoteBtn {
-    top: 125%;
-  }
-
-  .cancelSaveNoteBtn {
-    top: 125%;
-  }
-
-  .saveDropdownContainer {
-    top: 137%;
-  }
-
-  .downloadButtonContainer {
-    top: 137%;
-  }
-}
-
-@media screen and (max-height: 784px) {
-  .saveNoteBtn {
-    top: 130%;
-  }
-
-  .cancelSaveNoteBtn {
-    top: 130%;
-  }
-
-  .saveDropdownContainer {
-    top: 142%;
-  }
-
-  .downloadButtonContainer {
-    top: 142%;
-  }
-
-  .searchInput {
-    top: 32%;
-  }
-}
-
-@media screen and (max-height: 700px) {
-  .searchInput {
-    top: 25%;
+  .note {
+    margin-top: 10px;
+    height: 150px;
+    width: 100%;
+    background-color: white;
   }
 }

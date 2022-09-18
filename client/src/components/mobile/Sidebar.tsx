@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { SidebarContext } from "../../context/SidebarContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import userService from "../../services/userService";
-import Navbar from "../Navbar";
+
 const Sidebar = () => {
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
   const [isDarkDefault, setIsDarkDefault] = useContext(ThemeContext);
