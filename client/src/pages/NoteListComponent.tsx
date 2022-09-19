@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSortAlphaAsc,
   faSortAlphaDesc,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import speech from "../svg/speech.svg";
 import { SidebarContext } from "../context/SidebarContext";
@@ -23,6 +24,8 @@ export default function NoteListComponent() {
   const focus = [isFocus, setIsFocus];
   const [isLoggedIn] = useContext(AuthContext);
   const [isSidebarActive] = useContext(SidebarContext);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
 
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
@@ -39,7 +42,18 @@ export default function NoteListComponent() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [refreshFlag]);
+
+    function handleResize() {
+      setHeight(window.innerHeight);
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [refreshFlag, height, width]);
 
   const handleUserInput = function (search) {
     const filteredNoteArray = notes.filter((note) =>
@@ -74,22 +88,36 @@ export default function NoteListComponent() {
       {isLoggedIn ? (
         <>
           <Navbar />
-          <h1 className='noteListTitle'>
-            Speech
-            <img src={speech} alt='' />
-            Notes
-          </h1>
+          {width < 1000 && height < 600 && width > height ? (
+            <h1 className='appTitleIcon'>
+              <img src={speech} alt='' />
+            </h1>
+          ) : (
+            <h1 className='noteListTitle'>
+              Speech
+              <img src={speech} alt='' />
+              Notes
+            </h1>
+          )}
+
           {notes?.length === 0 ? (
             <div className='emptyNoteListInfo'>No notes add some!✍️</div>
           ) : (
             <>
-              <Search focus={focus} handleUserInput={handleUserInput} />
-              <FontAwesomeIcon
-                style={{ cursor: "pointer" }}
-                className='orderIcon'
-                onClick={handleSort}
-                icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
-              />
+              {(width < 1000 && height < 800 && width < height) ||
+              (width < 1000 && height < 800 && width > height) ? (
+                ""
+              ) : (
+                <>
+                  <Search focus={focus} handleUserInput={handleUserInput} />
+                  <FontAwesomeIcon
+                    style={{ cursor: "pointer" }}
+                    className='orderIcon'
+                    onClick={handleSort}
+                    icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
+                  />
+                </>
+              )}
             </>
           )}
 

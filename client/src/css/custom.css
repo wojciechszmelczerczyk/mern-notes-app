@@ -770,6 +770,14 @@ main-container {
     left: 90%;
   }
 
+  .userBtn {
+    width: 20%;
+  }
+
+  .fa-search {
+    margin: 17px 15px 0 0;
+  }
+
   .sidebar * {
     color: grey;
     flex-grow: 1;
@@ -783,8 +791,18 @@ main-container {
     max-height: 200px;
   }
 
+  .themeTogglerContainer {
+    top: 90%;
+    left: 93%;
+    z-index: 3;
+  }
+
   .noteListTitle {
     margin-top: -3%;
+  }
+
+  .fa-search {
+    margin: 17px 15px 0 0;
   }
 
   .note {
@@ -792,5 +810,11 @@ main-container {
     height: 150px;
     width: 100%;
     background-color: white;
+  }
+
+  .appTitleIcon {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }

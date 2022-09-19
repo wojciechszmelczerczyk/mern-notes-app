@@ -13,9 +13,12 @@ import Buffer from "../components/Buffer";
 import { languages } from "../data/languages";
 import WaveSurfer from "wavesurfer.js";
 import MicrophonePlugin from "wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function NoteDetailsComponent() {
   const [isLoggedIn] = useContext(AuthContext);
+  const [isDarkDefault] = useContext(ThemeContext);
+
   let [text, setText] = useState("Listening on changes...");
   const textStateRef = useRef();
   textStateRef.current = text as any;
@@ -218,12 +221,18 @@ export default function NoteDetailsComponent() {
             <div className='row main-container'>
               <div className='col-6'>
                 <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
-                Convert speech to text from your mic.
               </div>
               <textarea
-                placeholder={placeholder}
                 rows={10}
                 cols={50}
+                style={{
+                  backgroundColor: isDarkDefault ? "black" : "white",
+                  color: isDarkDefault ? "white" : "black",
+                  border: "none",
+                  outline: "none",
+                  resize: "none",
+                }}
+                placeholder={placeholder}
                 value={text}
                 onChange={(e) => handleText(e.target)}
               />
