@@ -9,16 +9,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
+import { SearchContext } from "../context/SearchContext";
+import { SidebarContext } from "../context/SidebarContext";
 
 import { useContext, useEffect, useState } from "react";
 import DarkTheme from "react-dark-theme";
 import { lightTheme, darkTheme } from "../data/themes";
-import { SidebarContext } from "../context/SidebarContext";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
   const [isDarkDefault, setIsDarkDefault] = useContext(ThemeContext);
   const [isSidebarActive, setIsSidebarActive] = useContext(SidebarContext);
+  const [isSearchActive, setIsSearchActive] = useContext(SearchContext);
+
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
@@ -46,6 +49,8 @@ const Navbar = () => {
 
   const toggleSidebar = () => setIsSidebarActive(!isSidebarActive);
 
+  const toggleSearch = () => setIsSearchActive(!isSearchActive);
+
   const toggleTheme = () => setIsDarkDefault(!isDarkDefault);
 
   return (
@@ -55,6 +60,7 @@ const Navbar = () => {
           <div onClick={toggleSidebar}>
             <FontAwesomeIcon
               className='logoutIcon'
+              cursor={"pointer"}
               icon={faBars}
               color={isDarkDefault ? "white" : "black"}
               size='2x'
@@ -63,7 +69,13 @@ const Navbar = () => {
           <div>
             {(width < 1000 && height < 800 && width < height) ||
             (width < 1000 && height < 800 && width > height) ? (
-              <FontAwesomeIcon className='fa-search' icon={faSearch} />
+              <div onClick={toggleSearch}>
+                <FontAwesomeIcon
+                  className='fa-search'
+                  cursor={"pointer"}
+                  icon={faSearch}
+                />
+              </div>
             ) : (
               ""
             )}

@@ -11,19 +11,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSortAlphaAsc,
   faSortAlphaDesc,
-  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import speech from "../svg/speech.svg";
 import { SidebarContext } from "../context/SidebarContext";
 import Sidebar from "../components/mobile/Sidebar";
+import SearchPopup from "../components/mobile/SearchPopup";
+import { SearchContext } from "../context/SearchContext";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
+  const [notesCopy, setNotesCopy] = useState([]);
   const [isFocus, setIsFocus] = useState(false);
   const focus = [isFocus, setIsFocus];
   const [isLoggedIn] = useContext(AuthContext);
   const [isSidebarActive] = useContext(SidebarContext);
+  const [isSearchActive] = useContext(SearchContext);
+
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
@@ -57,10 +61,14 @@ export default function NoteListComponent() {
 
   const handleUserInput = function (search) {
     const filteredNoteArray = notes.filter((note) =>
-      note.title.includes(search)
+      note.title.includes(search.toLowerCase())
     );
     setFilteredNotes(filteredNoteArray);
-    if (search.length === 0) setFilteredNotes(notes);
+    setNotesCopy(filteredNoteArray);
+    if (search.length === 0) {
+      setFilteredNotes(notes);
+      setNotesCopy([]);
+    }
   };
 
   const handleSort = function () {
@@ -108,42 +116,64 @@ export default function NoteListComponent() {
               (width < 1000 && height < 800 && width > height) ? (
                 ""
               ) : (
-                <>
-                  <Search focus={focus} handleUserInput={handleUserInput} />
-                  <FontAwesomeIcon
-                    style={{ cursor: "pointer" }}
-                    className='orderIcon'
-                    onClick={handleSort}
-                    icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
-                  />
-                </>
+                <Search
+                  autoFocus={false}
+                  notesCopy={notesCopy}
+                  setNotesCopy={setNotesCopy}
+                  refresh={refresh}
+                  focus={focus}
+                  handleUserInput={handleUserInput}
+                />
               )}
+              <FontAwesomeIcon
+                style={{ cursor: "pointer" }}
+                className='orderIcon'
+                onClick={handleSort}
+                icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
+              />
             </>
           )}
 
-          {filteredNotes?.length === 0 && isFocus ? (
+          {filteredNotes?.length === 0 && isFocus && !isSearchActive ? (
             <>
               <div className='emptyNoteListInfo'>Note not found❌</div>
             </>
           ) : (
             <>
               {isSidebarActive ? <Sidebar /> : ""}
-              <div className='container noteList'>
-                <div className='row justify-content-start'>
-                  {filteredNotes?.map(({ _id, title, content, updatedAt }) => (
-                    <div className='col-sm-12 col-md-6 col-lg-4'>
-                      <Note
-                        key={_id}
-                        refresh={refresh}
-                        id={_id}
-                        title={title}
-                        content={content}
-                        updatedAt={updatedAt}
-                      />
-                    </div>
-                  ))}
+              {isSearchActive ? (
+                <SearchPopup
+                  notesCopy={notesCopy}
+                  setNotesCopy={setNotesCopy}
+                  refresh={refresh}
+                  focus={focus}
+                  handleUserInput={handleUserInput}
+                />
+              ) : (
+                ""
+              )}
+              {!isSidebarActive ? (
+                <div className='container noteList'>
+                  <div className='row justify-content-start'>
+                    {filteredNotes?.map(
+                      ({ _id, title, content, updatedAt }) => (
+                        <div className='col-sm-12 col-md-6 col-lg-4'>
+                          <Note
+                            key={_id}
+                            refresh={refresh}
+                            id={_id}
+                            title={title}
+                            content={content}
+                            updatedAt={updatedAt}
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                ""
+              )}
             </>
           )}
         </>

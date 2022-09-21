@@ -14,10 +14,12 @@ import { languages } from "../data/languages";
 import WaveSurfer from "wavesurfer.js";
 import MicrophonePlugin from "wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js";
 import { ThemeContext } from "../context/ThemeContext";
+import { SearchContext } from "../context/SearchContext";
 
 export default function NoteDetailsComponent() {
   const [isLoggedIn] = useContext(AuthContext);
   const [isDarkDefault] = useContext(ThemeContext);
+  const [isSearchActive, setIsSearchActive] = useContext(SearchContext);
 
   let [text, setText] = useState("Listening on changes...");
   const textStateRef = useRef();
@@ -116,6 +118,7 @@ export default function NoteDetailsComponent() {
     const noteId = localStorage.getItem("note_id");
     const savedNote = await NoteService.saveNote(at, text, noteId);
     if (savedNote) {
+      setIsSearchActive(false);
       setRedirect(true);
     }
   }
@@ -273,7 +276,10 @@ export default function NoteDetailsComponent() {
             </div>
             <button
               className='btn btn-danger cancelSaveNoteBtn'
-              onClick={() => navigate("/")}
+              onClick={() => {
+                setIsSearchActive(false);
+                navigate("/");
+              }}
             >
               Cancel
             </button>

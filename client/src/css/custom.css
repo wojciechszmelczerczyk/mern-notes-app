@@ -164,6 +164,10 @@ main-container {
   border-radius: 10px;
 }
 
+.searchInput:focus {
+  outline: none;
+}
+
 .themeTogglerContainer {
   position: absolute;
   top: 1%;
@@ -256,6 +260,7 @@ main-container {
 .logoutIcon {
   margin-top: 10px;
   margin-right: 10px;
+  transition: 0.5s;
 }
 
 .themeButton {
@@ -735,9 +740,8 @@ main-container {
   }
 
   .orderIcon {
-    position: absolute;
-    top: 33.3%;
-    left: 13%;
+    top: 2.5%;
+    right: 0;
   }
 
   .note {
@@ -803,6 +807,11 @@ main-container {
 
   .fa-search {
     margin: 17px 15px 0 0;
+  }
+
+  .orderIcon {
+    top: 6%;
+    left: 87%;
   }
 
   .note {

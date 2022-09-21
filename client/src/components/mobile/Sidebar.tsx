@@ -40,6 +40,7 @@ const Sidebar = () => {
           margin: "5px 10px 0 0",
           fontSize: 30,
           color: isDarkDefault ? "black" : "white",
+          cursor: "pointer",
         }}
         onClick={() => setIsSidebarVisible(!isSidebarVisible)}
       >
@@ -47,22 +48,18 @@ const Sidebar = () => {
       </div>
       <div
         className='sidebar'
-        style={
-          isSidebarVisible
-            ? {
-                position: "absolute",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                height: "90%",
-                width: "100%",
-                bottom: "0",
-                right: "0",
-                zIndex: "2",
-                backgroundColor: isDarkDefault ? "white" : "black",
-              }
-            : {}
-        }
+        style={{
+          position: "absolute",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          height: "90%",
+          width: "100%",
+          bottom: "0",
+          right: "0",
+          zIndex: "2",
+          backgroundColor: isDarkDefault ? "white" : "black",
+        }}
       >
         <NavLink to='/createNote'>Create Note</NavLink>
         <NavLink onClick={logout} to='/login'>
