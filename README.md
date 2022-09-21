@@ -20,9 +20,9 @@ Data will be saved to `Mongo` database.
 
 Data will be cached in `Redis` cache.
 
-Tests will be written in `Cypress` and `Jest`/`Supertest`.
+Tests will be written in `Cypress` and `Supertest`.
 
-Client side will be created in `React` using `TypeScript` language.
+Client side will be created in `React` using `Tailwindcss` framework.
 
 <br/>
 
@@ -57,6 +57,7 @@ Client side will be created in `React` using `TypeScript` language.
 ## Techstack
 
 - `React`
+- `Tailwindcss`
 - `TypeScript`
 - `Express`
 - `MongoDB`
