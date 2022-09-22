@@ -42,7 +42,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className='d-flex flex-row-reverse'>
+      <div>
         <NavLink onClick={logout} to='/login'>
           <FontAwesomeIcon
             className='logoutIcon'

@@ -11,7 +11,9 @@ export default function LoginComponent() {
   const [passwordError, setPasswordError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
 
-  const authUser = async function () {
+  const authUser = async function (e) {
+    e.preventDefault();
+
     const { data } = await UserService.auth(email, password);
 
     if (data["errors"] === undefined) {
@@ -46,7 +48,7 @@ export default function LoginComponent() {
           password={password}
           handleEmail={handleEmail}
           handlePassword={handlePassword}
-          userOp={authUser}
+          userOp={(e) => authUser(e)}
           emailError={emailError}
           passwordError={passwordError}
         />

@@ -83,7 +83,7 @@ export default function NoteListComponent() {
   };
 
   return (
-    <div>
+    <div className='grid grid-cols-4 gap-4'>
       {isLoggedIn ? (
         <>
           <Navbar />
@@ -112,21 +112,17 @@ export default function NoteListComponent() {
             </>
           ) : (
             <>
-              <div className='container noteList'>
-                <div className='row justify-content-start'>
-                  {filteredNotes?.map(({ _id, title, content, updatedAt }) => (
-                    <div className='col-sm-12 col-md-6 col-lg-4'>
-                      <Note
-                        key={_id}
-                        refresh={refresh}
-                        id={_id}
-                        title={title}
-                        content={content}
-                        updatedAt={updatedAt}
-                      />
-                    </div>
-                  ))}
-                </div>
+              <div className='noteList'>
+                {filteredNotes?.map(({ _id, title, content, updatedAt }) => (
+                  <Note
+                    key={_id}
+                    refresh={refresh}
+                    id={_id}
+                    title={title}
+                    content={content}
+                    updatedAt={updatedAt}
+                  />
+                ))}
               </div>
             </>
           )}

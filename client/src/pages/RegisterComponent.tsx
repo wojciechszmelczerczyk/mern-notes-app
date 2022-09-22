@@ -10,8 +10,11 @@ export default function RegisterComponent() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const createUser = async function () {
+  const createUser = async function (e) {
+    e.preventDefault();
+
     const { data } = await UserService.register(email, password);
+
     if (data["errors"] === undefined) {
       setRedirect(true);
     } else {
@@ -40,7 +43,7 @@ export default function RegisterComponent() {
           password={password}
           handleEmail={handleEmail}
           handlePassword={handlePassword}
-          userOp={createUser}
+          userOp={(e) => createUser(e)}
           emailError={emailError}
           passwordError={passwordError}
         />
