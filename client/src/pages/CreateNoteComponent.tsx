@@ -1,11 +1,13 @@
 import NoteService from "../services/noteService";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SidebarContext } from "../context/SidebarContext";
 
 export default function CreateNoteComponent() {
   const [title, setTitle] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [isSidebarActive, setIsSidebarActive] = useContext(SidebarContext);
 
   async function createNote(e) {
     e.preventDefault();
@@ -15,6 +17,7 @@ export default function CreateNoteComponent() {
     if (!newNote.data.err) {
       const newNoteId = newNote["data"]["_id"];
       localStorage.setItem("note_id", newNoteId);
+      setIsSidebarActive(false);
       navigate(`/note/${newNoteId}`);
     } else if (newNote.data.err) {
       setError(newNote.data.err);
@@ -26,11 +29,11 @@ export default function CreateNoteComponent() {
     setTitle(e.target.value);
   }
   return (
-    <div className='create-note-container'>
-      <div className='createFormContainer'>
-        <label className='createNoteLabel'>Note title: </label>
+    <div className='flex flex-row min-h-screen justify-center items-center'>
+      <div className=''>
+        <label className=''>Note title: </label>
         <input
-          className='noteTitleInput'
+          className='px-1 border rounded-lg'
           data-cy='noteTitleInput'
           name='title'
           placeholder='title'
@@ -39,15 +42,16 @@ export default function CreateNoteComponent() {
         ></input>
         <button
           onClick={() => {
+            setIsSidebarActive(false);
             navigate("/");
           }}
-          className='btn btn-danger cancelCreateNoteButton'
+          className='bg-red-600 px-2 py-2 rounded-lg text-white'
         >
           Cancel
         </button>
         <button
           onClick={createNote}
-          className='btn btn-success createNoteButton'
+          className='bg-green-600 px-2 py-2 rounded-lg text-white'
           data-cy='createNoteButton'
         >
           Create note

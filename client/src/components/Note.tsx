@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { ThemeContext } from "../context/ThemeContext";
 import Dialog from "./Dialog";
 
 const Note = ({ refresh, id, title, content, updatedAt, key }) => {
@@ -18,28 +17,22 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
 
   const [dialog, setDialog] = useState(false);
 
-  const [isDarkDefault] = useContext(ThemeContext);
-
   const deleteNote = async function (id) {
     setDialog(true);
   };
   return (
-    <>
+    <div>
       <div
+        className='w-64 h-80 lg:w-80 lg:h-96 xl:w-96 xl:h-128 cursor-pointer overflow-y-hidden shadow appearance-none border rounded my-1 py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
         onClick={() => navigate(`note/${id}`)}
-        style={{
-          cursor: "pointer",
-          boxShadow: isDarkDefault
-            ? "rgba(255, 255, 255, 0.45) 0px 5px 15px"
-            : "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-        }}
-        className='note'
         key={key}
       >
-        <h2 className='noteContent'>{content}</h2>
+        <h2>{content}</h2>
       </div>
       <div>
-        <h1 className='noteTitle'>{title}</h1>
+        <h1 className='text-center font-taviraj text-xl dark:text-white'>
+          {title}
+        </h1>
         <Dialog
           show={dialog}
           setShow={setDialog}
@@ -50,14 +43,13 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
         <FontAwesomeIcon
           onClick={() => deleteNote(id)}
           style={{ cursor: "pointer" }}
-          className='deleteNoteIcon'
           icon={faTrash}
           color='red'
           size='1x'
         />
       </div>
-      <h2 className='dou'>{updated}</h2>
-    </>
+      <h2 className='text-center font-taviraj dark:text-white'>{updated}</h2>
+    </div>
   );
 };
 

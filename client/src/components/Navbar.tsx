@@ -1,33 +1,27 @@
 import UserService from "../services/userService";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faAngleRight,
+  faBars,
+  faSortAlphaAsc,
+  faSortAlphaDesc,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
+import sun from "../svg/icons8-sun.svg";
+import moon from "../svg/moon-phases-svgrepo-com.svg";
+
 import { AuthContext } from "../context/AuthContext";
-import { ThemeContext } from "../context/ThemeContext";
+import { SidebarContext } from "../context/SidebarContext";
 
-import { useContext, useEffect, useState } from "react";
-import DarkTheme from "react-dark-theme";
-import { lightTheme, darkTheme } from "../data/themes";
+import { useContext } from "react";
+import { SearchContext } from "../context/SearchContext";
 
-const Navbar = () => {
+const Navbar = ({ order, handleSort, isDark, setIsDark }) => {
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
-  const [isDarkDefault, setIsDarkDefault] = useContext(ThemeContext);
-
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
-
-  useEffect(() => {
-    function handleResize() {
-      setHeight(window.innerHeight);
-      setWidth(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [height, width]);
+  const [isSidebarActive, setIsSidebarActive] = useContext(SidebarContext);
+  const [isSearchActive, setIsSearchActive] = useContext(SearchContext);
 
   // logout function
   const logout = async function () {
@@ -38,36 +32,67 @@ const Navbar = () => {
     setIsLoggedIn(false);
   };
 
-  const toggleTheme = () => setIsDarkDefault(!isDarkDefault);
+  const toggleSidebar = () => setIsSidebarActive(!isSidebarActive);
+
+  const toggleTheme = () => {
+    document.querySelector("html").classList.toggle("dark");
+    setIsDark(!isDark);
+  };
+
+  const toggleSearchbar = () => {
+    setIsSearchActive(!isSearchActive);
+  };
 
   return (
-    <div>
-      <div>
-        <NavLink onClick={logout} to='/login'>
-          <FontAwesomeIcon
-            className='logoutIcon'
-            icon={faAngleRight}
-            color={isDarkDefault ? "white" : "black"}
-            size='2x'
-          />
-        </NavLink>
-        <NavLink to='/createNote'>
-          <FontAwesomeIcon
-            className='createNoteIcon'
-            icon={faPlus}
-            color={isDarkDefault ? "white" : "black"}
-            size='2x'
-          />
-        </NavLink>
-      </div>
-      <div onClick={toggleTheme} className='themeTogglerContainer'>
-        <DarkTheme
-          className='themeToggler'
-          defaultDark={isDarkDefault}
-          light={lightTheme}
-          dark={darkTheme}
+    <div className='flex justify-end h-24 xl:h-32'>
+      <div onClick={toggleTheme}>
+        <img
+          className='absolute top-0 left-0 w-10 h-8 dark:my-2'
+          src={
+            document.querySelector("html").classList.contains("dark")
+              ? moon
+              : sun
+          }
+          alt=''
         />
       </div>
+      <div onClick={toggleSearchbar}>
+        <FontAwesomeIcon
+          className='block md:hidden mx-1 my-2 cursor-pointer dark:text-white'
+          icon={faSearch}
+        />
+      </div>
+      <div>
+        <FontAwesomeIcon
+          className='block md:hidden mx-1 my-2 cursor-pointer dark:text-white'
+          icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
+          onClick={handleSort}
+        />
+      </div>
+      <div onClick={toggleSidebar}>
+        <FontAwesomeIcon
+          className='inline-block md:hidden mx-1 my-1 cursor-pointer dark:text-white'
+          icon={faBars}
+          color='black'
+          size='2x'
+        />
+      </div>
+      <NavLink to='/createNote'>
+        <FontAwesomeIcon
+          className='hidden md:inline-block mx-1 my-1 cursor-pointer dark:text-white'
+          icon={faPlus}
+          color='black'
+          size='2x'
+        />
+      </NavLink>
+      <NavLink onClick={logout} to='/login'>
+        <FontAwesomeIcon
+          className='hidden md:inline-block mx-1 my-1 dark:text-white'
+          icon={faAngleRight}
+          color={"black"}
+          size='2x'
+        />
+      </NavLink>
     </div>
   );
 };

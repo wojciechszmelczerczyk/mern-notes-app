@@ -4,7 +4,12 @@ import Note from "../components/Note";
 import { Navigate } from "react-router-dom";
 import Search from "../components/Search";
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+import Searchbar from "../components/Searchbar";
 import { AuthContext } from "../context/AuthContext";
+import { SidebarContext } from "../context/SidebarContext";
+import { SearchContext } from "../context/SearchContext";
+
 import { useContext } from "react";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,14 +25,14 @@ export default function NoteListComponent() {
   const [isFocus, setIsFocus] = useState(false);
   const focus = [isFocus, setIsFocus];
   const [isLoggedIn] = useContext(AuthContext);
-
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
-
+  const [isSidebarActive] = useContext(SidebarContext);
+  const [isSearchActive] = useContext(SearchContext);
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
   const [order, setOrder] = useState("desc") as any;
-
+  const [isDark, setIsDark] = useState(
+    document.querySelector("html").classList.contains("dark")
+  );
   useEffect(() => {
     const at = localStorage.getItem("at");
     noteService
@@ -39,18 +44,7 @@ export default function NoteListComponent() {
       .catch((err) => {
         console.log(err.message);
       });
-
-    function handleResize() {
-      setHeight(window.innerHeight);
-      setWidth(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [refreshFlag, height, width]);
+  }, [isDark, refreshFlag]);
 
   const handleUserInput = function (search) {
     const filteredNoteArray = notes.filter((note) =>
@@ -83,53 +77,76 @@ export default function NoteListComponent() {
   };
 
   return (
-    <div className='grid grid-cols-4 gap-4'>
-      {isLoggedIn ? (
-        <>
-          <Navbar />
-          <h1 className='noteListTitle'>
-            Speech
-            <img src={speech} alt='' />
-            Notes
-          </h1>
-          {notes?.length === 0 ? (
-            <div className='emptyNoteListInfo'>No notes add some!✍️</div>
-          ) : (
-            <>
-              <Search focus={focus} handleUserInput={handleUserInput} />
-              <FontAwesomeIcon
-                style={{ cursor: "pointer" }}
-                className='orderIcon'
-                onClick={handleSort}
-                icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
-              />
-            </>
-          )}
-
-          {filteredNotes?.length === 0 && isFocus ? (
-            <>
-              <div className='emptyNoteListInfo'>Note not found❌</div>
-            </>
-          ) : (
-            <>
-              <div className='noteList'>
-                {filteredNotes?.map(({ _id, title, content, updatedAt }) => (
-                  <Note
-                    key={_id}
-                    refresh={refresh}
-                    id={_id}
-                    title={title}
-                    content={content}
-                    updatedAt={updatedAt}
-                  />
-                ))}
+    <div className='dark:bg-black transition ease-in-out duration-200'>
+      {isSidebarActive ? <Sidebar /> : ""}
+      {isSearchActive ? <Searchbar notes={notes} /> : ""}
+      <div
+        className={`${
+          isSidebarActive | isSearchActive
+            ? "invisible"
+            : "visible flex flex-col "
+        }`}
+      >
+        {isLoggedIn ? (
+          <>
+            <Navbar
+              order={order}
+              handleSort={handleSort}
+              isDark={isDark}
+              setIsDark={setIsDark}
+            />
+            <div className='flex lg:py-6 justify-center items-center'>
+              <h1 className='text-lg md:text-xl lg:text-2xl font-taviraj font-medium dark:text-white'>
+                Speech
+              </h1>
+              <img className='w-10 h-15' src={speech} alt='' />
+              <h1 className='text-lg md:text-xl lg:text-2xl font-taviraj font-medium dark:text-white'>
+                Notes
+              </h1>
+            </div>
+            {notes?.length === 0 ? (
+              <div className='text-center min-h-screen dark:bg-black dark:text-white'>
+                No notes add some!✍️
               </div>
-            </>
-          )}
-        </>
-      ) : (
-        <Navigate to='/login' />
-      )}
+            ) : (
+              <div className='flex flex-row-reverse h-64 items-end mx-20 my-2 2xl:items-center 2xl:mx-36'>
+                <Search focus={focus} handleUserInput={handleUserInput} />
+                <FontAwesomeIcon
+                  className='hidden md:block mx-3 dark:text-white'
+                  style={{ cursor: "pointer" }}
+                  onClick={handleSort}
+                  icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
+                />
+              </div>
+            )}
+
+            {filteredNotes?.length === 0 && isFocus ? (
+              <>
+                <div className='min-h-screen text-center dark:bg-black dark:text-white'>
+                  Note not found❌
+                </div>
+              </>
+            ) : (
+              <>
+                <div className='grid flex-row scroll-smooth items-start overflow-y-scroll min-h-screen max-h-screen no-scrollbar place-items-center md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-center -my-32 md:my-0'>
+                  {filteredNotes?.map(({ _id, title, content, updatedAt }) => (
+                    <Note
+                      key={_id}
+                      refresh={refresh}
+                      id={_id}
+                      title={title}
+                      content={content}
+                      updatedAt={updatedAt}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        ) : (
+          <Navigate to='/login' />
+        )}
+      </div>
     </div>
   );
 }

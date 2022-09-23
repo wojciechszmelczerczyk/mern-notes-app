@@ -5,19 +5,17 @@ import { useNavigate, useParams, Navigate } from "react-router-dom";
 import NoteService from "../services/noteService";
 import download from "js-file-download";
 import { AuthContext } from "../context/AuthContext";
+import { SearchContext } from "../context/SearchContext";
 import { useContext } from "react";
 import * as speechsdk from "microsoft-cognitiveservices-speech-sdk";
-import { Container } from "reactstrap";
 import { getTokenOrRefresh } from "../utils/tokenUtil";
 import Buffer from "../components/Buffer";
 import { languages } from "../data/languages";
 import WaveSurfer from "wavesurfer.js";
 import MicrophonePlugin from "wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js";
-import { ThemeContext } from "../context/ThemeContext";
 
 export default function NoteDetailsComponent() {
   const [isLoggedIn] = useContext(AuthContext);
-  const [isDarkDefault] = useContext(ThemeContext);
 
   let [text, setText] = useState("Listening on changes...");
   const textStateRef = useRef();
@@ -26,6 +24,7 @@ export default function NoteDetailsComponent() {
   const [redirect, setRedirect] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [isListening, setListening] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useContext(SearchContext);
   const [stopRecognizing, setStopRecognizing] = useState(() => noop);
   const [language, setLanguage] = useState("en-US");
   let textarea = document.querySelector("textarea");
@@ -116,6 +115,7 @@ export default function NoteDetailsComponent() {
     const noteId = localStorage.getItem("note_id");
     const savedNote = await NoteService.saveNote(at, text, noteId);
     if (savedNote) {
+      setIsSearchActive(false);
       setRedirect(true);
     }
   }
@@ -207,12 +207,13 @@ export default function NoteDetailsComponent() {
     } else {
       download(res.data, "note.txt");
     }
+    setIsSearchActive(false);
     navigate("/");
   }
 
   return (
     <>
-      <Container className='app-container'>
+      <div className='grid'>
         {!redirect ? (
           <>
             <div className='titleVisualizerContainer'>
@@ -226,8 +227,6 @@ export default function NoteDetailsComponent() {
                 rows={10}
                 cols={50}
                 style={{
-                  backgroundColor: isDarkDefault ? "black" : "white",
-                  color: isDarkDefault ? "white" : "black",
                   border: "none",
                   outline: "none",
                   resize: "none",
@@ -274,6 +273,7 @@ export default function NoteDetailsComponent() {
             <button
               className='btn btn-danger cancelSaveNoteBtn'
               onClick={() => {
+                setIsSearchActive(false);
                 navigate("/");
               }}
             >
@@ -315,7 +315,7 @@ export default function NoteDetailsComponent() {
         ) : (
           <Navigate to='/' />
         )}
-      </Container>
+      </div>
     </>
   );
 }
