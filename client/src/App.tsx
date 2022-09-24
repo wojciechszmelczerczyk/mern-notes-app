@@ -14,7 +14,6 @@ import { useState } from "react";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isDarkDefault, setIsDarkDefault] = useState(false);
   const [isSidebarActive, setIsSidebarActive] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
 

@@ -95,6 +95,8 @@ export default function NoteDetailsComponent() {
   function createVisualizer() {
     const visualizerContainer = document.createElement("div");
 
+    visualizerContainer.className = "grow";
+
     visualizerContainer.id = "waveform";
 
     titleVisualizerContainer.appendChild(visualizerContainer);
@@ -145,7 +147,6 @@ export default function NoteDetailsComponent() {
 
       recognizer.startContinuousRecognitionAsync(
         () => {
-          console.log("start listening");
           document.querySelector(".fa-microphone").className =
             "fas fa-microphone-slash";
 
@@ -213,18 +214,20 @@ export default function NoteDetailsComponent() {
 
   return (
     <>
-      <div className='grid'>
+      <div className='grid my-4'>
         {!redirect ? (
           <>
-            <div className='titleVisualizerContainer'>
-              <h1 className='saveNoteTitle display-4 mb-3'>{noteTitle}</h1>
+            <div className='flex flex-row titleVisualizerContainer'>
+              <h1 className='self-center saveNoteTitle display-4 mx-2 mb-3'>
+                {noteTitle}
+              </h1>
             </div>
-            <div className='row main-container'>
-              <div className='col-6'>
+            <div>
+              <div>
                 <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
               </div>
               <textarea
-                rows={10}
+                rows={15}
                 cols={50}
                 style={{
                   border: "none",
@@ -237,79 +240,84 @@ export default function NoteDetailsComponent() {
               />
               <Buffer text={recognizingText} />
             </div>
-            <button className='btn btn-success saveNoteBtn' onClick={saveNote}>
-              Save note
-            </button>
-            <div className='saveDropdownContainer'>
-              <div className='dropdown'>
+            <div className='flex mx-2 space-x-3'>
+              <button
+                className='px-2 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white'
+                onClick={saveNote}
+              >
+                Save note
+              </button>
+              <div className='saveDropdownContainer'>
+                <div className='dropdown'>
+                  <button
+                    className='bg-blue-500 hover:bg-blue-700 px-2 py-2 text-white rounded-lg dropdown-toggle'
+                    type='button'
+                    id='dropdownLangButton'
+                    data-bs-toggle='dropdown'
+                    aria-expanded='false'
+                  >
+                    {language}
+                  </button>
+                  <ul
+                    className='dropdown-menu'
+                    aria-labelledby='dropdownLangButton'
+                  >
+                    {languages.map((lang) => (
+                      <li key={lang}>
+                        <a
+                          onClick={(e) =>
+                            handleLanguage(e.currentTarget.innerText)
+                          }
+                          className='dropdown-lang'
+                        >
+                          {lang}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <button
+                className='py-2 px-3 bg-red-500 hover:bg-red-700 rounded-lg text-white'
+                onClick={() => {
+                  setIsSearchActive(false);
+                  navigate("/");
+                }}
+              >
+                Cancel
+              </button>
+              <div className='downloadButtonContainer dropdown'>
                 <button
-                  className='btn btn-primary dropdown-toggle'
+                  className='px-2 py-2 bg-yellow-500 hover:bg-yellow-700 rounded-lg text-white dropdown-toggle'
                   type='button'
-                  id='dropdownLangButton'
+                  id='dropdownMenuButton'
                   data-bs-toggle='dropdown'
                   aria-expanded='false'
                 >
-                  {language}
+                  Download
                 </button>
                 <ul
                   className='dropdown-menu'
-                  aria-labelledby='dropdownLangButton'
+                  aria-labelledby='dropdownMenuButton'
                 >
-                  {languages.map((lang) => (
-                    <li key={lang}>
-                      <a
-                        onClick={(e) =>
-                          handleLanguage(e.currentTarget.innerText)
-                        }
-                        className='dropdown-lang'
-                      >
-                        {lang}
-                      </a>
-                    </li>
-                  ))}
+                  <li>
+                    <a
+                      className='dropdown-item'
+                      onClick={(e) => downloadNote(e.currentTarget.innerText)}
+                    >
+                      pdf
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className='dropdown-item'
+                      onClick={(e) => downloadNote(e.currentTarget.innerText)}
+                    >
+                      txt
+                    </a>
+                  </li>
                 </ul>
               </div>
-            </div>
-            <button
-              className='btn btn-danger cancelSaveNoteBtn'
-              onClick={() => {
-                setIsSearchActive(false);
-                navigate("/");
-              }}
-            >
-              Cancel
-            </button>
-            <div className='downloadButtonContainer dropdown'>
-              <button
-                className='btn btn-warning dropdown-toggle'
-                type='button'
-                id='dropdownMenuButton'
-                data-bs-toggle='dropdown'
-                aria-expanded='false'
-              >
-                Download
-              </button>
-              <ul
-                className='dropdown-menu'
-                aria-labelledby='dropdownMenuButton'
-              >
-                <li>
-                  <a
-                    className='dropdown-item'
-                    onClick={(e) => downloadNote(e.currentTarget.innerText)}
-                  >
-                    pdf
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className='dropdown-item'
-                    onClick={(e) => downloadNote(e.currentTarget.innerText)}
-                  >
-                    txt
-                  </a>
-                </li>
-              </ul>
             </div>
           </>
         ) : (

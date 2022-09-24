@@ -27,13 +27,13 @@ const Sidebar = () => {
         <p className='cursor-pointer'>X</p>
       </div>
       <NavLink
-        className='hover:text-neutral-500 justify-self-center text-black dark:text-white'
+        className='justify-self-center text-black dark:text-white'
         to='/createNote'
       >
         Create note
       </NavLink>
       <NavLink
-        className='hover:text-neutral-500 justify-self-center text-black dark:text-white'
+        className='justify-self-center text-black dark:text-white'
         onClick={logout}
         to='/login'
       >

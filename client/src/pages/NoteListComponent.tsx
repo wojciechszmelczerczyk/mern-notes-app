@@ -77,7 +77,7 @@ export default function NoteListComponent() {
   };
 
   return (
-    <div className='dark:bg-black transition ease-in-out duration-200'>
+    <div className='h-screen dark:bg-black transition ease-in-out duration-200'>
       {isSidebarActive ? <Sidebar /> : ""}
       {isSearchActive ? <Searchbar notes={notes} /> : ""}
       <div
@@ -128,7 +128,7 @@ export default function NoteListComponent() {
               </>
             ) : (
               <>
-                <div className='grid flex-row scroll-smooth items-start overflow-y-scroll min-h-screen max-h-screen no-scrollbar place-items-center md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-center -my-32 md:my-0'>
+                <div className='grid scroll-smooth items-start overflow-y-auto min-h-fit h-96 no-scrollbar place-items-center md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-center -my-32 md:my-0'>
                   {filteredNotes?.map(({ _id, title, content, updatedAt }) => (
                     <Note
                       key={_id}

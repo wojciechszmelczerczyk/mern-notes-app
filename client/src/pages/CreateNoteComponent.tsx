@@ -30,10 +30,10 @@ export default function CreateNoteComponent() {
   }
   return (
     <div className='flex flex-row min-h-screen justify-center items-center'>
-      <div className=''>
-        <label className=''>Note title: </label>
+      <div>
+        <label className='lg:text-2xl'>Note title: </label>
         <input
-          className='px-1 border rounded-lg'
+          className='px-1 border rounded-lg lg:h-10'
           data-cy='noteTitleInput'
           name='title'
           placeholder='title'
