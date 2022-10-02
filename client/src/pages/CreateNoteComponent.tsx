@@ -56,13 +56,12 @@ export default function CreateNoteComponent() {
         >
           Create note
         </button>
-      </div>
-      <div
-        className='createNoteError'
-        data-cy='createNoteError'
-        style={{ color: "red" }}
-      >
-        {error ? error : ""}
+        <div
+          className='text-center w-96 py-2 px-3 text-red-500'
+          data-cy='createNoteError'
+        >
+          {error ? error : ""}
+        </div>
       </div>
     </div>
   );

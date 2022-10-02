@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
 import speech from "../svg/speech.svg";
 
 const Form = ({
@@ -37,7 +36,7 @@ const Form = ({
               value={email}
               onChange={handleEmail}
             ></input>
-            <div data-cy='emailError'>
+            <div className='text-red-500' data-cy='emailError'>
               {emailError ? emailError.match("Please enter a valid email") : ""}
             </div>
           </div>
