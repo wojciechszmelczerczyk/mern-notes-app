@@ -1,14 +1,14 @@
-# Get product by id
+# Get note by id
 
 ## Description
 
-Get product by id of currently authorized user.
+Get note by id of currently authorized user.
 
 <b>URL :</b> `/note/:id`
 
-<b>URL parameter:</b> `id=[string]` where `id` is mongoose object id syntax.
-
 <b>Method:</b> `GET`
+
+<b>URL parameter:</b> `id=[string]` where `id` is mongoose object id syntax.
 
 <b>Authorized:</b> `YES`
 

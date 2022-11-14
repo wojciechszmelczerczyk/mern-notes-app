@@ -1,8 +1,8 @@
-# Create transaction
+# Create Note
 
 ## Description
 
-Save new note without content in database.
+Save new note without content.
 
 <b>URL:</b> `/note`
 

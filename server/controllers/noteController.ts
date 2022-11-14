@@ -62,7 +62,8 @@ const createNote = async (req, res) => {
 };
 
 const updateNote = async (req, res) => {
-  const { content, id } = req.body;
+  const { id } = req.params;
+  const { content } = req.body;
 
   if (!mongoose.isValidObjectId(id))
     return res
@@ -86,6 +87,12 @@ const updateNote = async (req, res) => {
 
 const deleteNote = async (req, res) => {
   const { id } = req.params;
+
+  if (!mongoose.isValidObjectId(id))
+    return res
+      .status(400)
+      .json({ fail: true, err: "Provided id has incorrect type" });
+
   const deletedNote = await Note.findByIdAndDelete(id);
 
   if (!deletedNote)
@@ -93,7 +100,7 @@ const deleteNote = async (req, res) => {
       .status(400)
       .json({ fail: true, err: "Note with provided id doesn't exist" });
 
-  res.send("note deleted").status(204);
+  res.status(204).end();
 };
 
 const downloadNote = async (req, res) => {
@@ -113,7 +120,7 @@ const downloadNote = async (req, res) => {
       err: "No format provided. Provide 'pdf' or 'txt' value. ",
     });
 
-  if (format !== "pdf" || format === "txt")
+  if (format !== "pdf" && format !== "txt")
     return res.status(400).json({
       fail: true,
       err: "Provided format is incorrect. Provide 'pdf' or 'txt' value.",

@@ -1,14 +1,16 @@
-# Delete product
+# Delete Note
 
 ## Description
 
-Delete product from database.
+Delete product of currently authorized user.
 
 <b>URL :</b> `/api/products/:id`
 
+<b>Method:</b> `DELETE`
+
 <b>URL parameter:</b> `id=[string]` where `id` is mongoose object id syntax.
 
-<b>Method:</b> `DELETE`
+<b>Authorized:</b> `YES`
 
 ## Success Response
 
@@ -27,7 +29,7 @@ Code: `400 BAD REQUEST`
 Condition: If provided id has incorrect type.
 
 ```json
-{ "id": "Provided id is incorrect" }
+{ "id": "Provided id has incorrect type" }
 ```
 
 Code: `400 BAD REQUEST`
@@ -36,12 +38,4 @@ Condition: If product with provided id doesn't exist.
 
 ```json
 { "id": "Product with provided id doesn't exist" }
-```
-
-Code: `400 BAD REQUEST`
-
-Condition: If no id provided.
-
-```json
-{ "id": "No id provided" }
 ```

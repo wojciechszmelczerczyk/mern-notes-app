@@ -1,12 +1,14 @@
-# Create transaction
+# Update Note
 
 ## Description
 
-Save new product in database.
+Update note with note content.
 
-<b>URL:</b> `/note/save`
+<b>URL:</b> `/note/:id`
 
-<b>Method:</b> `POST`
+<b>Method:</b> `PUT`
+
+<b>URL parameter:</b> `id=[string]` where `id` is mongoose object id syntax.
 
 <b>Authorized:</b> `YES`
 
@@ -14,7 +16,6 @@ Save new product in database.
 
 ```json
 {
-  "id": "[string] (mongoose object id syntax)",
   "content": "[string]?"
 }
 ```
@@ -23,7 +24,6 @@ Save new product in database.
 
 ```json
 {
-  "id": "63725f8c4c26471d10e200c0",
   "content": "newContent"
 }
 ```
