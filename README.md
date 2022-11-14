@@ -172,32 +172,32 @@ REFRESH_TOKEN_EXP=
 
 ### User:
 
-| Method |                            Endpoint                            |
-| :----- | :------------------------------------------------------------: |
-| GET    |               [/user](./server/docs/user/get.md)               |
-| POST   |              [/user](./server/docs/user/post.md)               |
-| DELETE |             [/user](./server/docs/user/delete.md)              |
-| PUT    |               [/user](./server/docs/user/put.md)               |
-| POST   |     [/user/authenticate](./server/docs/user/post-auth.md)      |
-| GET    | [/user/refresh-token](./server/docs/user/get-refresh-token.md) |
+| Method | Endpoint                                                       |
+| :----: | :------------------------------------------------------------- |
+|  GET   | [/user](./server/docs/user/get.md)                             |
+|  POST  | [/user](./server/docs/user/post.md)                            |
+| DELETE | [/user](./server/docs/user/delete.md)                          |
+|  PUT   | [/user](./server/docs/user/put.md)                             |
+|  POST  | [/user/authenticate](./server/docs/user/post-auth.md)          |
+|  GET   | [/user/refresh-token](./server/docs/user/get-refresh-token.md) |
 
 ### Note:
 
-| Method |                     Endpoint                      |
-| :----- | :-----------------------------------------------: |
-| GET    |        [/note](./server/docs/note/get.md)         |
-| POST   |        [/note](./server/docs/note/post.md)        |
-| POST   |   [/note/save](./server/docs/note/post-save.md)   |
-| GET    |    [/note/:id](./server/docs/note/getById.md)     |
-| PUT    |      [/note/:id](./server/docs/note/put.md)       |
-| DELETE |     [/note/:id](./server/docs/note/delete.md)     |
-| POST   | [/note/:id/file](./server/docs/note/post-file.md) |
+| Method | Endpoint                                          |
+| :----: | :------------------------------------------------ |
+|  GET   | [/note](./server/docs/note/get.md)                |
+|  POST  | [/note](./server/docs/note/post.md)               |
+|  POST  | [/note/save](./server/docs/note/post-save.md)     |
+|  GET   | [/note/:id](./server/docs/note/getById.md)        |
+|  PUT   | [/note/:id](./server/docs/note/put.md)            |
+| DELETE | [/note/:id](./server/docs/note/delete.md)         |
+|  POST  | [/note/:id/file](./server/docs/note/post-file.md) |
 
 ### Speech-to-text:
 
-| Method |                            Endpoint                            |
-| :----- | :------------------------------------------------------------: |
-| GET    | [/api/get-speech-token](./server/docs/api/get-speech-token.md) |
+| Method | Endpoint                                                       |
+| :----: | :------------------------------------------------------------- |
+|  GET   | [/api/get-speech-token](./server/docs/api/get-speech-token.md) |
 
 ## JWT
 
