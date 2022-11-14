@@ -10,21 +10,18 @@ import { JWT } from "../types/Jwt";
 
 const register = async (req, res) => {
   let { email, password, refreshToken = "" } = req.body;
-  let errors;
   try {
     // create new user
     const newUser = await User.create({ email, password, refreshToken });
     // return new user
     res.json(newUser);
   } catch (err) {
-    errors = err.message.split(", ");
-    res.json({ errors });
+    res.status(400).json({ fail: true, err: err.message });
   }
 };
 
 const authenticate = async (req, res) => {
   const { email, password } = req.body;
-  let errors;
   try {
     // compare input data and data from database
     const user: any = await User.login(email, password);
@@ -42,14 +39,9 @@ const authenticate = async (req, res) => {
       process.env.ACCESS_TOKEN_EXP
     );
 
-    // update jwt in database with new refresh token
-    await User.findOneAndUpdate({ email }, { refreshToken });
-
     res.status(201).json({ accessToken, refreshToken });
   } catch (err) {
-    errors = err.message.split(", ");
-    console.log(errors);
-    res.json({ errors });
+    res.status(400).json({ fail: true, err: err.message });
   }
 };
 

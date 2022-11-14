@@ -26,10 +26,6 @@ const userSchema = new Schema<IUser, UserModel>({
     required: [true, "Please enter a password"],
     minlength: [6, "Password is too short. Minimum length is 6 characters"],
   },
-
-  refreshToken: {
-    type: String,
-  },
 });
 
 // hash password hook
@@ -52,7 +48,7 @@ userSchema.static("login", async function (email, password) {
     if (auth) {
       return user;
     }
-    throw Error("Password is too short");
+    throw Error("Password is incorrect");
   }
   throw Error("Please enter a valid email");
 });
