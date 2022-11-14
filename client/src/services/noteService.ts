@@ -17,7 +17,7 @@ class NoteService {
 
   saveNote(at, content, id) {
     return axiosInstance.post(
-      "/note/save",
+      "/note/save/",
       { content, id },
       {
         headers: {
@@ -41,18 +41,6 @@ class NoteService {
         Authorization: `Bearer ${at}`,
       },
     });
-  }
-
-  updateNote(at, id, noteContent) {
-    return axiosInstance.put(
-      `/note/${id}`,
-      { content: noteContent },
-      {
-        headers: {
-          Authorization: `Bearer ${at}`,
-        },
-      }
-    );
   }
 
   downloadNote(at, id, format) {

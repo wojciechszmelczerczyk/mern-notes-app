@@ -177,7 +177,6 @@ REFRESH_TOKEN_EXP=
 |  GET   |               [`/user`](./server/docs/user/get.md)               |
 |  POST  |              [`/user`](./server/docs/user/post.md)               |
 | DELETE |             [`/user`](./server/docs/user/delete.md)              |
-|  PUT   |               [`/user`](./server/docs/user/put.md)               |
 |  POST  |     [`/user/authenticate`](./server/docs/user/post-auth.md)      |
 |  GET   | [`/user/refresh-token`](./server/docs/user/get-refresh-token.md) |
 
@@ -187,9 +186,8 @@ REFRESH_TOKEN_EXP=
 | :----: | :-------------------------------------------------: |
 |  GET   |        [`/note`](./server/docs/note/get.md)         |
 |  POST  |        [`/note`](./server/docs/note/post.md)        |
-|  POST  |   [`/note/save`](./server/docs/note/post-save.md)   |
+|  PUT   |      [`/note/save`](./server/docs/note/put.md)      |
 |  GET   |    [`/note/:id`](./server/docs/note/getById.md)     |
-|  PUT   |      [`/note/:id`](./server/docs/note/put.md)       |
 | DELETE |     [`/note/:id`](./server/docs/note/delete.md)     |
 |  POST  | [`/note/:id/file`](./server/docs/note/post-file.md) |
 
