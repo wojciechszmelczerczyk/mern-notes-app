@@ -4,32 +4,28 @@ import unless from "express-unless";
 config({ path: `${process.cwd()}/.env` });
 
 const validateToken = (req, res, next) => {
-  try {
-    // retrieve jwt from auth header
-    let authHeader = req.headers["authorization"];
+  // retrieve jwt from auth header
+  let authHeader = req.headers["authorization"];
 
-    let at = authHeader && authHeader.split(" ")[1];
+  let at = authHeader && authHeader.split(" ")[1];
+  // if token doesn't exist throw error
+  if (at === undefined)
+    return res.status(403).json({ fail: true, err: "No Jwt provided" });
 
-    // if token doesn't exist throw error
-    if (at === undefined) throw new Error("Jwt doesn't exist");
-
-    // otherwise check if token expired
-    verify(at, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
-      if (error) {
-        if (error.name === "TokenExpiredError") {
-          res.status(403).json({ err: error.message });
-        }
-      } else {
-        req.user = user;
-        next();
+  // otherwise check if token expired
+  verify(at, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
+    if (error) {
+      // if token expired, throw error
+      if (error.name === "TokenExpiredError") {
+        return res.status(403).json({ fail: true, err: "Jwt has expired" });
       }
-    });
-  } catch (error) {
-    res.status(403).json({
-      fail: true,
-      error: error.message,
-    });
-  }
+    } else {
+      // otherwise assign payload to user, pass handler
+      req.user = user;
+      next();
+    }
+  });
+  // catch all errors and return error message
 };
 
 validateToken.unless = unless;
