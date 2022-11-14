@@ -50,7 +50,7 @@ Code: `400 BAD REQUEST`
 Condition: If user with provided email doesn't exist.
 
 ```json
-{ "err": "Note title doesn't provided. Please provide title.", "fail": true }
+{ "err": "Please enter a valid email.", "fail": true }
 ```
 
 Code: `400 BAD REQUEST`
@@ -59,7 +59,7 @@ Condition: If provided password is incorrect.
 
 ```json
 {
-  "err": "Note title is too short. Minimum length is 4 characters",
+  "err": "Password is incorrect",
   "fail": true
 }
 ```
