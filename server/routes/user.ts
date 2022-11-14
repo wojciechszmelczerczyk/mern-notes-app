@@ -9,15 +9,9 @@ import {
   refreshToken,
   logout,
   getCurrentUser,
-  updateUser,
 } from "../controllers/userController";
 
-router
-  .route("/")
-  .get(getCurrentUser)
-  .post(register)
-  .put(updateUser)
-  .delete(logout);
+router.route("/").get(getCurrentUser).post(register).delete(logout);
 
 router.post("/authenticate", authenticate);
 

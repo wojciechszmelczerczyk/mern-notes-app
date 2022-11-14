@@ -1,21 +1,21 @@
-# Update product
+# Create transaction
 
 ## Description
 
-Update product in database.
+Save new product in database.
 
-<b>URL :</b> `/api/products/:id`
+<b>URL:</b> `/note/save`
 
-<b>URL parameter:</b> `id=[string]` where `id` is mongoose object id syntax.
+<b>Method:</b> `POST`
 
-<b>Method:</b> `PUT`
+<b>Authorized:</b> `YES`
 
 ## Data constraints
 
 ```json
 {
-  "name": "[string (4-100 characters range)]",
-  "price": "[integer]"
+  "id": "[string] (mongoose object id syntax)",
+  "content": "[string]?"
 }
 ```
 
@@ -23,8 +23,8 @@ Update product in database.
 
 ```json
 {
-  "name": "ball",
-  "price": 105
+  "id": "63725f8c4c26471d10e200c0",
+  "content": "newContent"
 }
 ```
 
@@ -32,93 +32,36 @@ Update product in database.
 
 Code: `200 OK`
 
-Condition: If product with provided correctly id exists and request body data is correct.
+Condition: If provided data is correct.
 
 ### Context example
-
-Updated product returned.
 
 ```json
 {
   "__v": 0,
-  "_id": "6369523318c90dd1e14fd8b0",
-  "createdAt": "2022-11-07T18:45:07.229Z",
-  "name": "ball",
-  "price": 105,
-  "updatedAt": "2022-11-07T20:11:20.319Z"
+  "_id": "63725f8c4c26471d10e200c0",
+  "content": "newContent",
+  "createdAt": "2022-11-14T15:32:28.734Z",
+  "title": "math",
+  "updatedAt": "2022-11-14T16:23:59.460Z",
+  "user_id": "63723da6b7a6c7b6039003f5"
 }
 ```
 
 ## Error Response
 
-### ID
-
 Code: `400 BAD REQUEST`
 
-Condition: If provided id has incorrect type.
+Condition: If note with provided id doesn't exist.
 
 ```json
-{ "id": "Provided id is incorrect" }
+{ "err": "Note with provided id doesn't exist", "fail": true }
 ```
 
 Code: `400 BAD REQUEST`
 
-Condition: If product with provided id doesn't exist.
+Condition: If provided id is incorrect.
 
 ```json
-{ "id": "Product with provided id doesn't exist" }
-```
-
-Code: `400 BAD REQUEST`
-
-Condition: If no id provided.
-
-```json
-{ "id": "No id provided" }
-```
-
-### Body
-
-#### Name
-
-Code: `400 BAD REQUEST`
-
-Condition: If no name provided.
-
-```json
-{ "name": "Please provide the product name" }
-```
-
-Code: `400 BAD REQUEST`
-
-Condition: If provided name is shorter than 4 chars.
-
-```json
-{ "name": "Product name is too short. Minimum length is 4 characters" }
-```
-
-Code: `400 BAD REQUEST`
-
-Condition: If provided name is longer than 100 chars.
-
-```json
-{ "name": "Product name is too long. Maximum length is 100 characters" }
-```
-
-#### Price
-
-Code: `400 BAD REQUEST`
-
-Condition: If no price provided.
-
-```json
-{ "price": "Please provide product price" }
-```
-
-Code: `400 BAD REQUEST`
-
-Condition: If provided price is not integer type.
-
-```json
-{ "price": "Provided price has to be a numeric value" }
+{ "err": "Provided id has incorrect type", "fail": true }
 ```

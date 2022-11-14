@@ -2,18 +2,21 @@
 
 ## Description
 
-Save new product in database.
+Download `.pdf` or `.txt` file.
 
-<b>URL:</b> `/api/products`
+<b>URL:</b> `/note/:id/file`
 
 <b>Method:</b> `POST`
+
+<b>URL parameter:</b> `id=[string]` where `id` is mongoose object id syntax.
+
+<b>Authorized:</b> `YES`
 
 ## Data constraints
 
 ```json
 {
-  "name": "[string (4-100 characters range)]",
-  "price": "[integer]"
+  "format": "[string (pdf or txt)]"
 }
 ```
 
@@ -21,8 +24,7 @@ Save new product in database.
 
 ```json
 {
-  "name": "jacket",
-  "price": 200
+  "format": "pdf"
 }
 ```
 
@@ -30,63 +32,76 @@ Save new product in database.
 
 Code: `200 OK`
 
-Condition: If provided data is correct.
+Condition: If provided body data and id param is correct, download file.
 
 ### Context example
 
-```json
-{
-    "__v": 0,
-    "_id": "6369523318c90dd1e14fd8b0",
-    "createdAt": "2022-11-07T18:45:07.229Z",
-    "name": "jacket",
-    "price": 200,
-    "updatedAt": "2022-11-07T18:45:07.229Z"
-  },
-```
+[PDF File](../../example/note.pdf)
 
 ## Error Response
 
-### Name
-
 Code: `400 BAD REQUEST`
 
-Condition: If no name provided.
+Condition: If no format provided.
+
+### Format
 
 ```json
-{ "name": "Please provide the product name" }
+{ "err": "No format provided. Provide 'pdf' or 'txt' value. ", "fail": true }
 ```
 
 Code: `400 BAD REQUEST`
 
-Condition: If provided name is shorter than 4 chars.
+Condition: If provided format is incorrect.
 
 ```json
-{ "name": "Product name is too short. Minimum length is 4 characters" }
+{
+  "err": "Provided format is incorrect. Provide 'pdf' or 'txt' value.",
+  "fail": true
+}
+```
+
+### ID
+
+Code: `400 BAD REQUEST`
+
+Condition: If provided id is incorrect.
+
+```json
+{
+  "err": "Provided id has incorrect type",
+  "fail": true
+}
 ```
 
 Code: `400 BAD REQUEST`
 
-Condition: If provided name is longer than 100 chars.
+Condition: If note with provided id doesn't exist.
 
 ```json
-{ "name": "Product name is too long. Maximum length is 100 characters" }
+{ "err": "Note with provided id doesn't exist", "fail": true }
 ```
 
-### Price
+### Jwt
 
-Code: `400 BAD REQUEST`
+Code: `403 Forbidden`
 
-Condition: If no price provided.
+Condition: If user doesn't provided jwt.
 
 ```json
-{ "price": "Please provide the product price" }
+{
+  "error": "No Jwt provided",
+  "fail": true
+}
 ```
 
-Code: `400 BAD REQUEST`
+Code: `403 Forbidden`
 
-Condition: If provided price is not integer type.
+Condition: If user provided expired jwt.
 
 ```json
-{ "price": "Provided price has to be a numeric value" }
+{
+  "error": "Jwt has expired",
+  "fail": true
+}
 ```

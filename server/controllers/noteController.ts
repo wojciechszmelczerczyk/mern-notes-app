@@ -62,27 +62,19 @@ const createNote = async (req, res) => {
 };
 
 const updateNote = async (req, res) => {
-  // update note
-  const { content } = req.body;
-
-  const { id } = req.params;
-
-  const updatedNote = await Note.findByIdAndUpdate(id, { content });
-
-  if (!updatedNote)
-    return res.status(400).json({
-      fail: true,
-      err: "Note with provided id doesn't exist",
-    });
-
-  res.status(201).json(updatedNote);
-};
-
-const fillNoteContent = async (req, res) => {
   const { content, id } = req.body;
 
+  if (!mongoose.isValidObjectId(id))
+    return res
+      .status(400)
+      .json({ fail: true, err: "Provided id has incorrect type" });
+
   // add note content
-  const noteWithFillContent = await Note.findByIdAndUpdate(id, { content });
+  const noteWithFillContent = await Note.findByIdAndUpdate(
+    id,
+    { content },
+    { new: true }
+  );
 
   if (!noteWithFillContent)
     return res
@@ -106,8 +98,26 @@ const deleteNote = async (req, res) => {
 
 const downloadNote = async (req, res) => {
   const { id } = req.params;
+
+  if (!mongoose.isValidObjectId(id))
+    return res
+      .status(400)
+      .json({ fail: true, err: "Provided id has incorrect type" });
+
   // intercept file format
   const { format } = req.body;
+
+  if (!format)
+    return res.status(400).json({
+      fail: true,
+      err: "No format provided. Provide 'pdf' or 'txt' value. ",
+    });
+
+  if (format !== "pdf" || format === "txt")
+    return res.status(400).json({
+      fail: true,
+      err: "Provided format is incorrect. Provide 'pdf' or 'txt' value.",
+    });
 
   const note = await Note.findById(id);
 
@@ -170,7 +180,6 @@ export {
   getAllNotes,
   getSingleNote,
   createNote,
-  fillNoteContent,
   updateNote,
   deleteNote,
   downloadNote,

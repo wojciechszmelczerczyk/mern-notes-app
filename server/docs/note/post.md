@@ -89,8 +89,6 @@ Condition: If user doesn't provided jwt.
 
 Code: `403 Forbidden`
 
-### Content example
-
 Condition: If user provided expired jwt.
 
 ```json

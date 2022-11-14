@@ -96,25 +96,4 @@ const getCurrentUser = async (req, res) => {
   res.status(200).json(currentUser);
 };
 
-const updateUser = async (req, res) => {
-  const { email } = req.body;
-
-  const id = req.user.id;
-
-  const updatedUser = await User.findOneAndUpdate(
-    { _id: id },
-    { email },
-    { new: true }
-  );
-
-  res.status(201).json({ updated_user: updatedUser });
-};
-
-export {
-  register,
-  authenticate,
-  refreshToken,
-  logout,
-  getCurrentUser,
-  updateUser,
-};
+export { register, authenticate, refreshToken, logout, getCurrentUser };
