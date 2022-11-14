@@ -16,9 +16,9 @@ class NoteService {
   }
 
   saveNote(at, content, id) {
-    return axiosInstance.post(
-      "/note/save/",
-      { content, id },
+    return axiosInstance.put(
+      `/note/${id}`,
+      { content },
       {
         headers: {
           Authorization: `Bearer ${at}`,
