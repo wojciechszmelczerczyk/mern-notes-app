@@ -50,6 +50,7 @@ export default function RegisterComponent() {
       ) : (
         <Navigate to='/login' />
       )}
+      ote
     </>
   );
 }

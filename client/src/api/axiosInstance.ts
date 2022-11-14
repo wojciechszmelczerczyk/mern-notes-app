@@ -15,6 +15,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const prevRequest = error?.config;
     if (error?.response.status === 403 && !prevRequest?.sent) {
+      console.log("WHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAT");
       prevRequest.sent = true;
       try {
         const { data } = await userService.refreshToken(rt);

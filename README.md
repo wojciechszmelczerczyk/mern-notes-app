@@ -172,32 +172,32 @@ REFRESH_TOKEN_EXP=
 
 ### User:
 
-| Endpoint              | Method | Authenticated | Action                                               |
-| :-------------------- | :----: | :-----------: | :--------------------------------------------------- |
-| `/user`               |  GET   |      \*       | Returns current user data                            |
-| `/user`               |  POST  |       -       | Creates a new user                                   |
-| `/user`               | DELETE |      \*       | Logout user, delete access token                     |
-| `/user`               |  PUT   |      \*       | Update current user                                  |
-| `/user/authenticate`  |  POST  |       -       | Authenticate the user, return access token           |
-| `/user/refresh-token` |  GET   |      \*       | If access token has expired, return new access token |
+| Method |                            Endpoint                            |
+| :----- | :------------------------------------------------------------: |
+| GET    |               [/user](./server/docs/user/get.md)               |
+| POST   |              [/user](./server/docs/user/post.md)               |
+| DELETE |             [/user](./server/docs/user/delete.md)              |
+| PUT    |               [/user](./server/docs/user/put.md)               |
+| POST   |     [/user/authenticate](./server/docs/user/post-auth.md)      |
+| GET    | [/user/refresh-token](./server/docs/user/get-refresh-token.md) |
 
 ### Note:
 
-| Endpoint         | Method | Authenticated | Action                                    |
-| :--------------- | :----: | :-----------: | :---------------------------------------- |
-| `/note`          |  GET   |      \*       | Get all notes of current auth user        |
-| `/note`          |  POST  |      \*       | Create a note                             |
-| `/note/save`     |  POST  |      \*       | Fill note content via speech-to-text api  |
-| `/note/:id`      |  GET   |      \*       | Get single note if owned by the auth user |
-| `/note/:id`      |  PUT   |      \*       | Update note                               |
-| `/note/:id`      | DELETE |      \*       | Delete note                               |
-| `/note/:id/file` |  POST  |      \*       | Download Note in pdf/txt format           |
+| Method |                     Endpoint                      |
+| :----- | :-----------------------------------------------: |
+| GET    |        [/note](./server/docs/note/get.md)         |
+| POST   |        [/note](./server/docs/note/post.md)        |
+| POST   |   [/note/save](./server/docs/note/post-save.md)   |
+| GET    |    [/note/:id](./server/docs/note/getById.md)     |
+| PUT    |      [/note/:id](./server/docs/note/put.md)       |
+| DELETE |     [/note/:id](./server/docs/note/delete.md)     |
+| POST   | [/note/:id/file](./server/docs/note/post-file.md) |
 
 ### Speech-to-text:
 
-| Endpoint                | Method | Authenticated | Action                           |
-| :---------------------- | :----: | :-----------: | :------------------------------- |
-| `/api/get-speech-token` |  GET   |      \*       | Get speech token data and region |
+| Method |                            Endpoint                            |
+| :----- | :------------------------------------------------------------: |
+| GET    | [/api/get-speech-token](./server/docs/api/get-speech-token.md) |
 
 ## JWT
 
