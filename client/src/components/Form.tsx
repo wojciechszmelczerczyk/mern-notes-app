@@ -37,7 +37,7 @@ const Form = ({
               onChange={handleEmail}
             ></input>
             <div className='text-red-500' data-cy='emailError'>
-              {emailError ? emailError.match("Please enter a valid email") : ""}
+              {emailError ? emailError : ""}
             </div>
           </div>
           <div>
@@ -51,10 +51,8 @@ const Form = ({
               value={password}
               onChange={handlePassword}
             ></input>
-            <div data-cy='passwordError'>
-              {passwordError
-                ? passwordError.match("Password is too short")
-                : ""}
+            <div className='text-red-500' data-cy='passwordError'>
+              {passwordError ? passwordError : ""}
             </div>
           </div>
           {accountExist ? (

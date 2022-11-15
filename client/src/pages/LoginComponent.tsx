@@ -16,15 +16,17 @@ export default function LoginComponent() {
 
     const { data } = await UserService.auth(email, password);
 
-    if (data["errors"] === undefined) {
+    if (!data["err"]) {
       // save at and rt in local storage
       localStorage.setItem("at", data["accessToken"]);
       localStorage.setItem("rt", data["refreshToken"]);
-      // add current user id to local storage
       setIsLoggedIn(true);
     } else {
-      setEmailError(data.errors.find((err) => err.includes("email")));
-      setPasswordError(data.errors.find((err) => err.includes("password")));
+      if (data.err.includes("email")) {
+        setEmailError(data.err);
+      } else {
+        setPasswordError(data.err);
+      }
     }
   };
 

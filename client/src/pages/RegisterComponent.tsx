@@ -15,11 +15,11 @@ export default function RegisterComponent() {
 
     const { data } = await UserService.register(email, password);
 
-    if (data["errors"] === undefined) {
+    if (!data.errors) {
       setRedirect(true);
     } else {
-      setEmailError(data.errors.find((err) => err.includes("email")));
-      setPasswordError(data.errors.find((err) => err.includes("password")));
+      setEmailError(data.errors.email);
+      setPasswordError(data.errors.password);
     }
   };
 
