@@ -50,7 +50,7 @@ const refreshToken = async (req, res) => {
     const authHeader = req.headers["authorization"];
     const rt = authHeader && authHeader.split(" ")[1];
 
-    if (rt === undefined) res.json("rt doesn't exist");
+    if (rt === undefined) throw new Error("rt doesn't exist");
 
     const { id } = verify(rt, process.env.REFRESH_TOKEN_SECRET) as JWT;
 
@@ -62,7 +62,7 @@ const refreshToken = async (req, res) => {
 
     res.json({ accessToken: jwt, refreshToken: rt });
   } catch (err) {
-    res.json({
+    res.status(400).json({
       fail: true,
       err: err.message,
     });
@@ -70,13 +70,6 @@ const refreshToken = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  const id = req.user.id;
-
-  // reset cookie
-
-  // invalidate RT in db
-  await User.findByIdAndUpdate(id, { refreshToken: "" });
-
   res.status(200).json({ rtInvalidate: "rt deleted" });
 };
 

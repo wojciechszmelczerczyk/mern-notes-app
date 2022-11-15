@@ -2,9 +2,9 @@
 
 ## Description
 
-Delete product of currently authorized user.
+Delete note of currently authorized user.
 
-<b>URL :</b> `/api/products/:id`
+<b>URL :</b> `/note/:id`
 
 <b>Method:</b> `DELETE`
 
@@ -16,7 +16,7 @@ Delete product of currently authorized user.
 
 Code: `204 No content`
 
-Condition: If product with provided correctly id exists.
+Condition: If note with provided correctly id exists.
 
 ### Context example
 
@@ -29,13 +29,13 @@ Code: `400 BAD REQUEST`
 Condition: If provided id has incorrect type.
 
 ```json
-{ "id": "Provided id has incorrect type" }
+{ "err": "Provided id has incorrect type", "fail": true }
 ```
 
 Code: `400 BAD REQUEST`
 
-Condition: If product with provided id doesn't exist.
+Condition: If note with provided id doesn't exist.
 
 ```json
-{ "id": "Product with provided id doesn't exist" }
+{ "err": "Product with provided id doesn't exist", "fail": true }
 ```
