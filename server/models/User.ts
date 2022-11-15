@@ -48,9 +48,9 @@ userSchema.static("login", async function (email, password) {
     if (auth) {
       return user;
     }
-    throw Error("Password is incorrect");
+    throw new Error("Password is incorrect");
   }
-  throw Error("Please enter a valid email");
+  throw new Error("Please enter a valid email");
 });
 
 const User = model<IUser, UserModel>("user", userSchema);

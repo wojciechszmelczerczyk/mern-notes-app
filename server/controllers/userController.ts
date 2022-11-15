@@ -16,7 +16,12 @@ const register = async (req, res) => {
     // return new user
     res.json(newUser);
   } catch (err) {
-    res.status(400).json({ fail: true, err: err.message });
+    let errors = {};
+
+    Object.keys(err.errors).forEach((key) => {
+      errors[key] = err.errors[key].message;
+    });
+    res.json({ fail: true, errors });
   }
 };
 
@@ -39,9 +44,9 @@ const authenticate = async (req, res) => {
       process.env.ACCESS_TOKEN_EXP
     );
 
-    res.status(201).json({ accessToken, refreshToken });
+    res.json({ accessToken, refreshToken });
   } catch (err) {
-    res.status(400).json({ fail: true, err: err.message });
+    res.json({ fail: true, err: err.message });
   }
 };
 

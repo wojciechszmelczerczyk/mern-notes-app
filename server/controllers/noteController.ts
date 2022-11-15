@@ -56,8 +56,8 @@ const createNote = async (req, res) => {
 
     // give response
     res.status(201).json(newNote);
-  } catch (e) {
-    res.status(400).json({ err: e.message, fail: true });
+  } catch (err) {
+    res.json({ fail: true, err: err.message });
   }
 };
 

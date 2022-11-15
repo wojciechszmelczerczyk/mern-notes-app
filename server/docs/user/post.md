@@ -51,19 +51,52 @@ Before save to database, password was hashed.
 
 Code: `400 BAD REQUEST`
 
-Condition: If provided email is incorrect.
+Condition: If no email provided.
 
 ```json
-{ "err": "Please enter a valid email", "fail": true }
+{
+  "errors": {
+    "email": "Please enter an email"
+  },
+  "fail": true
+}
 ```
 
 Code: `400 BAD REQUEST`
 
-Condition: If provided password is shorter than 6 chars.
+Condition: If provided email is incorrect.
 
 ```json
 {
-  "err": "Password is too short. Minimum length is 6 characters",
+  "errors": {
+    "email": "Please enter a valid email"
+  },
+  "fail": true
+}
+```
+
+Code: `400 BAD REQUEST`
+
+Condition: If no password provided.
+
+```json
+{
+  "errors": {
+    "password": "Please enter a password"
+  },
+  "fail": true
+}
+```
+
+Code: `400 BAD REQUEST`
+
+Condition: If provided password is less than 6 characters.
+
+```json
+{
+  "errors": {
+    "password": "Password is too short. Minimum length is 6 characters"
+  },
   "fail": true
 }
 ```
