@@ -37,7 +37,7 @@ Condition: If user doesn't provided jwt.
 
 ```json
 {
-  "error": "No Jwt provided",
+  "err": "No Jwt provided",
   "fail": true
 }
 ```
@@ -48,7 +48,7 @@ Condition: If user provided expired jwt.
 
 ```json
 {
-  "error": "Jwt has expired",
+  "err": "Jwt has expired",
   "fail": true
 }
 ```

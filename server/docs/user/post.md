@@ -36,7 +36,7 @@ Condition: If provided data is correct.
 
 ### Context example
 
-Hash provided password if data correct.
+Before save to database, password was hashed.
 
 ```json
 {

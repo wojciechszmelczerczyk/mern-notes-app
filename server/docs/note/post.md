@@ -69,7 +69,7 @@ Condition: If provided title is shorter than 4 chars.
 
 Code: `400 BAD REQUEST`
 
-Condition: If provided name is longer than 8 chars.
+Condition: If provided title is longer than 8 chars.
 
 ```json
 {
