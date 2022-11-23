@@ -18,6 +18,7 @@ import {
   faSortAlphaDesc,
 } from "@fortawesome/free-solid-svg-icons";
 import speech from "../svg/speech.svg";
+import OperationStack from "../components/OperationStack";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
@@ -30,9 +31,8 @@ export default function NoteListComponent() {
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
   const [order, setOrder] = useState("desc") as any;
-  const [isDark, setIsDark] = useState(
-    document.querySelector("html").classList.contains("dark")
-  );
+  const title = localStorage.getItem("note_title");
+
   useEffect(() => {
     const at = localStorage.getItem("at");
     noteService
@@ -44,7 +44,7 @@ export default function NoteListComponent() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [isDark, refreshFlag]);
+  }, [refreshFlag]);
 
   const handleUserInput = function (search) {
     const filteredNoteArray = notes.filter((note) =>
@@ -84,17 +84,12 @@ export default function NoteListComponent() {
         className={`${
           isSidebarActive | isSearchActive
             ? "invisible"
-            : "visible flex flex-col "
+            : "visible flex flex-col"
         }`}
       >
         {isLoggedIn ? (
           <>
-            <Navbar
-              order={order}
-              handleSort={handleSort}
-              isDark={isDark}
-              setIsDark={setIsDark}
-            />
+            <Navbar order={order} handleSort={handleSort} />
             <div className='flex lg:py-6 justify-center items-center'>
               <h1 className='text-lg md:text-xl lg:text-2xl font-taviraj font-medium dark:text-white'>
                 Speech
@@ -142,6 +137,7 @@ export default function NoteListComponent() {
                 </div>
               </>
             )}
+            <OperationStack title={title} />
           </>
         ) : (
           <Navigate to='/login' />

@@ -37,7 +37,6 @@
   "scripts": {
     "client": "PORT=5000 react-app-rewired start",
     "server": "ts-node-dev index.ts",
-    "app": "concurrently \"npm run client\" \"npm run server\"",
     "api": "jest --watchAll"
   },
   "devDependencies": {

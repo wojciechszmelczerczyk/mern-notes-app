@@ -1,9 +1,11 @@
 import axios from "axios";
+import { Request, Response } from "express";
 
-const speechTokenController = async (req, res) => {
+const speechTokenController = async (req: Request, res: Response) => {
   res.setHeader("Content-Type", "application/json");
   const speechKey = process.env.SPEECH_KEY;
   const speechRegion = process.env.SPEECH_REGION;
+  console.log(speechKey, speechRegion);
   if (
     speechKey === "paste-your-speech-key-here" ||
     speechRegion === "paste-your-speech-region-here"

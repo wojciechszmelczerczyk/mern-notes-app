@@ -56,11 +56,17 @@ const Form = ({
             </div>
           </div>
           {accountExist ? (
-            <NavLink className='py-3 text-black dark:text-white' to='/register'>
+            <NavLink
+              className='py-3  text-blue-500 dark:text-blue-500'
+              to='/register'
+            >
               Don't have account? Sign Up!
             </NavLink>
           ) : (
-            <NavLink className='py-3 text-black dark:text-white' to='/login'>
+            <NavLink
+              className='py-3 text-blue-500 dark:text-blue-500'
+              to='/login'
+            >
               Already have an account? Login!
             </NavLink>
           )}

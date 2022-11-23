@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Navigate } from "react-router-dom";
 import NoteService from "../services/noteService";
 import download from "js-file-download";
-import { AuthContext } from "../context/AuthContext";
-import { SearchContext } from "../context/SearchContext";
+import { SearchContext, AuthContext, StackContext } from "../context";
 import { useContext } from "react";
 import * as speechsdk from "microsoft-cognitiveservices-speech-sdk";
 import { getTokenOrRefresh } from "../utils/tokenUtil";
@@ -25,12 +24,15 @@ export default function NoteDetailsComponent() {
   const [noteTitle, setNoteTitle] = useState("");
   const [isListening, setListening] = useState(false);
   const [isSearchActive, setIsSearchActive] = useContext(SearchContext);
+  const [list, { push, pop, peek, length }, listInReverse] =
+    useContext(StackContext);
   const [stopRecognizing, setStopRecognizing] = useState(() => noop);
   const [language, setLanguage] = useState("en-US");
   let textarea = document.querySelector("textarea");
   const titleVisualizerContainer = document.querySelector(
     ".titleVisualizerContainer"
   );
+  const numberToPushRef = useRef(0);
 
   let { id } = useParams();
   let navigate = useNavigate();
@@ -76,6 +78,12 @@ export default function NoteDetailsComponent() {
     setLanguage(lang);
   }
 
+  function addToStack() {
+    numberToPushRef.current++;
+    push(numberToPushRef.current);
+    setTimeout(() => pop(), 2000);
+  }
+
   async function createRecognizer() {
     const tokenObj = await getTokenOrRefresh();
     const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(
@@ -119,6 +127,7 @@ export default function NoteDetailsComponent() {
     if (savedNote) {
       setIsSearchActive(false);
       setRedirect(true);
+      addToStack();
     }
   }
 
@@ -214,11 +223,11 @@ export default function NoteDetailsComponent() {
 
   return (
     <>
-      <div className='grid my-4'>
+      <div className='grid dark:bg-black h-screen'>
         {!redirect ? (
           <>
-            <div className='flex flex-row titleVisualizerContainer'>
-              <h1 className='self-center saveNoteTitle display-4 mx-2 mb-3'>
+            <div className='flex flex-row items-center titleVisualizerContainer'>
+              <h1 className='self-center saveNoteTitle display-4 mx-2 mb-3 dark:text-white'>
                 {noteTitle}
               </h1>
             </div>
@@ -227,6 +236,7 @@ export default function NoteDetailsComponent() {
                 <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
               </div>
               <textarea
+                className='no-scrollbar dark:bg-black dark:text-white'
                 rows={15}
                 cols={50}
                 style={{
@@ -242,7 +252,7 @@ export default function NoteDetailsComponent() {
             </div>
             <div className='flex mx-2 space-x-3'>
               <button
-                className='px-2 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white'
+                className='px-2 py-2 max-h-10 bg-green-500 hover:bg-green-700 rounded-lg text-white'
                 onClick={saveNote}
               >
                 Save note
@@ -278,7 +288,7 @@ export default function NoteDetailsComponent() {
                 </div>
               </div>
               <button
-                className='py-2 px-3 bg-red-500 hover:bg-red-700 rounded-lg text-white'
+                className='py-2 px-3 max-h-10 bg-red-500 hover:bg-red-700 rounded-lg text-white'
                 onClick={() => {
                   setIsSearchActive(false);
                   navigate("/");

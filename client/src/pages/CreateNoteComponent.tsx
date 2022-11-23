@@ -15,10 +15,11 @@ export default function CreateNoteComponent() {
     const newNote = await NoteService.createNote(at, title);
 
     if (!newNote.data.err) {
-      const newNoteId = newNote["data"]["_id"];
-      localStorage.setItem("note_id", newNoteId);
+      const newNoteData = newNote["data"];
+      localStorage.setItem("note_id", newNoteData._id);
+      localStorage.setItem("note_title", newNoteData.title);
       setIsSidebarActive(false);
-      navigate(`/note/${newNoteId}`);
+      navigate(`/note/${newNoteData._id}`);
     } else if (newNote.data.err) {
       setError(newNote.data.err);
     }
@@ -29,9 +30,9 @@ export default function CreateNoteComponent() {
     setTitle(e.target.value);
   }
   return (
-    <div className='flex flex-row min-h-screen justify-center items-center'>
+    <div className='flex flex-row min-h-screen justify-center items-center h-screen dark:bg-black '>
       <div>
-        <label className='lg:text-2xl'>Note title: </label>
+        <label className='lg:text-2xl dark:text-white mx-2'>Note title: </label>
         <input
           className='px-1 border rounded-lg lg:h-10'
           data-cy='noteTitleInput'
@@ -41,6 +42,13 @@ export default function CreateNoteComponent() {
           onChange={handleTitle}
         ></input>
         <button
+          onClick={createNote}
+          className='bg-green-600 px-2 py-2 rounded-lg text-white'
+          data-cy='createNoteButton'
+        >
+          Create note
+        </button>
+        <button
           onClick={() => {
             setIsSidebarActive(false);
             navigate("/");
@@ -49,13 +57,7 @@ export default function CreateNoteComponent() {
         >
           Cancel
         </button>
-        <button
-          onClick={createNote}
-          className='bg-green-600 px-2 py-2 rounded-lg text-white'
-          data-cy='createNoteButton'
-        >
-          Create note
-        </button>
+
         <div
           className='text-center w-96 py-2 px-3 text-red-500'
           data-cy='createNoteError'
