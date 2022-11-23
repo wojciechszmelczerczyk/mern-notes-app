@@ -6,9 +6,7 @@ import Search from "../components/Search";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import Searchbar from "../components/Searchbar";
-import { AuthContext } from "../context/AuthContext";
-import { SidebarContext } from "../context/SidebarContext";
-import { SearchContext } from "../context/SearchContext";
+import { AuthContext, SidebarContext, SearchContext } from "../context";
 
 import { useContext } from "react";
 import _ from "lodash";

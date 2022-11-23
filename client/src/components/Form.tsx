@@ -57,7 +57,7 @@ const Form = ({
           </div>
           {accountExist ? (
             <NavLink
-              className='py-3  text-blue-500 dark:text-blue-500'
+              className='py-3 text-blue-500 dark:text-blue-500'
               to='/register'
             >
               Don't have account? Sign Up!
