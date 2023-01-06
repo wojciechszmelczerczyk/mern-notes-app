@@ -51,7 +51,6 @@ const Note = ({ refresh, id, title, content, updatedAt, key }) => {
               showCancelButton: true,
               confirmButtonText: "Delete",
             }).then((result) => {
-              /* Read more about isConfirmed, isDenied below */
               if (result.isConfirmed) {
                 setTimeout(() => deleteDialog(), 1000);
 

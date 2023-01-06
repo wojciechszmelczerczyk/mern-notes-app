@@ -6,12 +6,7 @@ import NoteListComponent from "./pages/NoteListComponent";
 import NoteDetailsComponent from "./pages/NoteDetailsComponent";
 import NotFoundComponent from "./pages/NotFoundComponent";
 
-import {
-  AuthContext,
-  SidebarContext,
-  SearchContext,
-  StackContext,
-} from "./context";
+import { AuthContext, SidebarContext, SearchContext } from "./context";
 
 import { useState } from "react";
 import { useStackState } from "rooks";
@@ -20,31 +15,24 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSidebarActive, setIsSidebarActive] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const [list, { push, pop, peek, length }, listInReverse] = useStackState([]);
 
   return (
     <div className='App'>
       <AuthContext.Provider value={[isLoggedIn, setIsLoggedIn]}>
-        <StackContext.Provider
-          value={[list, { push, pop, peek, length }, listInReverse]}
-        >
-          <SidebarContext.Provider
-            value={[isSidebarActive, setIsSidebarActive]}
-          >
-            <SearchContext.Provider value={[isSearchActive, setIsSearchActive]}>
-              <BrowserRouter>
-                <Routes>
-                  <Route path='/' element={<NoteListComponent />} />
-                  <Route path='/register' element={<RegisterComponent />} />
-                  <Route path='/login' element={<LoginComponent />} />
-                  <Route path='/createNote' element={<CreateNoteComponent />} />
-                  <Route path='/note/:id' element={<NoteDetailsComponent />} />
-                  <Route path='*' element={<NotFoundComponent />} />
-                </Routes>
-              </BrowserRouter>
-            </SearchContext.Provider>
-          </SidebarContext.Provider>
-        </StackContext.Provider>
+        <SidebarContext.Provider value={[isSidebarActive, setIsSidebarActive]}>
+          <SearchContext.Provider value={[isSearchActive, setIsSearchActive]}>
+            <BrowserRouter>
+              <Routes>
+                <Route path='/' element={<NoteListComponent />} />
+                <Route path='/register' element={<RegisterComponent />} />
+                <Route path='/login' element={<LoginComponent />} />
+                <Route path='/createNote' element={<CreateNoteComponent />} />
+                <Route path='/note/:id' element={<NoteDetailsComponent />} />
+                <Route path='*' element={<NotFoundComponent />} />
+              </Routes>
+            </BrowserRouter>
+          </SearchContext.Provider>
+        </SidebarContext.Provider>
       </AuthContext.Provider>
     </div>
   );

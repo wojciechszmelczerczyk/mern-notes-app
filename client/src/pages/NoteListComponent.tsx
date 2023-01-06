@@ -16,7 +16,6 @@ import {
   faSortAlphaDesc,
 } from "@fortawesome/free-solid-svg-icons";
 import speech from "../svg/speech.svg";
-import OperationStack from "../components/OperationStack";
 
 export default function NoteListComponent() {
   const [notes, setNotes] = useState([]);
@@ -29,7 +28,6 @@ export default function NoteListComponent() {
   const [refreshFlag, setRefreshFlag] = useState(false);
   const refresh = [refreshFlag, setRefreshFlag];
   const [order, setOrder] = useState("desc") as any;
-  const title = localStorage.getItem("note_title");
 
   useEffect(() => {
     const at = localStorage.getItem("at");
@@ -105,7 +103,7 @@ export default function NoteListComponent() {
               <div className='flex flex-row-reverse h-64 items-end mx-20 my-2 2xl:items-center 2xl:mx-36'>
                 <Search focus={focus} handleUserInput={handleUserInput} />
                 <FontAwesomeIcon
-                  className='hidden md:block mx-3 dark:text-white'
+                  className='hidden mx-3 dark:text-white md:block md:my-2'
                   style={{ cursor: "pointer" }}
                   onClick={handleSort}
                   icon={order === "asc" ? faSortAlphaAsc : faSortAlphaDesc}
@@ -135,7 +133,6 @@ export default function NoteListComponent() {
                 </div>
               </>
             )}
-            <OperationStack title={title} />
           </>
         ) : (
           <Navigate to='/login' />

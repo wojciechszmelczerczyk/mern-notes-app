@@ -24,15 +24,13 @@ export default function NoteDetailsComponent() {
   const [noteTitle, setNoteTitle] = useState("");
   const [isListening, setListening] = useState(false);
   const [isSearchActive, setIsSearchActive] = useContext(SearchContext);
-  const [list, { push, pop, peek, length }, listInReverse] =
-    useContext(StackContext);
+  useContext(StackContext);
   const [stopRecognizing, setStopRecognizing] = useState(() => noop);
   const [language, setLanguage] = useState("en-US");
   let textarea = document.querySelector("textarea");
   const titleVisualizerContainer = document.querySelector(
     ".titleVisualizerContainer"
   );
-  const numberToPushRef = useRef(0);
 
   let { id } = useParams();
   let navigate = useNavigate();
@@ -78,12 +76,6 @@ export default function NoteDetailsComponent() {
     setLanguage(lang);
   }
 
-  function addToStack() {
-    numberToPushRef.current++;
-    push(numberToPushRef.current);
-    setTimeout(() => pop(), 2000);
-  }
-
   async function createRecognizer() {
     const tokenObj = await getTokenOrRefresh();
     const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(
@@ -127,7 +119,6 @@ export default function NoteDetailsComponent() {
     if (savedNote) {
       setIsSearchActive(false);
       setRedirect(true);
-      addToStack();
     }
   }
 
@@ -238,7 +229,7 @@ export default function NoteDetailsComponent() {
               <textarea
                 className='no-scrollbar dark:bg-black dark:text-white'
                 rows={15}
-                cols={50}
+                cols={40}
                 style={{
                   border: "none",
                   outline: "none",
@@ -252,10 +243,10 @@ export default function NoteDetailsComponent() {
             </div>
             <div className='flex mx-2 space-x-3'>
               <button
-                className='px-2 py-2 max-h-10 bg-green-500 hover:bg-green-700 rounded-lg text-white'
+                className='px-3 py-2 max-h-10 bg-green-500 hover:bg-green-700 rounded-lg text-white'
                 onClick={saveNote}
               >
-                Save note
+                Save
               </button>
               <div className='saveDropdownContainer'>
                 <div className='dropdown'>

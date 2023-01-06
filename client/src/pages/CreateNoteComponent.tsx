@@ -34,7 +34,7 @@ export default function CreateNoteComponent() {
       <div>
         <label className='lg:text-2xl dark:text-white mx-2'>Note title: </label>
         <input
-          className='px-1 border rounded-lg lg:h-10'
+          className='px-1 border rounded-lg h-8 w-32 lg:w-96 lg:h-10'
           data-cy='noteTitleInput'
           name='title'
           placeholder='title'

@@ -4,7 +4,7 @@ const Search = ({ focus, handleUserInput }) => {
   return (
     <div>
       <input
-        className='hidden px-1 border rounded-lg md:block'
+        className='hidden px-1 w-80 h-8 border rounded-lg md:block'
         placeholder='Search note'
         onChange={(e) => handleUserInput(e.target.value)}
         onFocus={() => setIsFocus(true)}

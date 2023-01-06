@@ -9,10 +9,15 @@ import User from "../models/User";
 import { JWT } from "../types/Jwt";
 
 const register = async (req, res) => {
-  let { email, password, refreshToken = "" } = req.body;
+  let { email, password } = req.body;
   try {
+    // check if user with provided email already exist
+    const user = await User.findOne({ email });
+
+    if (user) return res.json({ fail: true, err: "Email already in use" });
+
     // create new user
-    const newUser = await User.create({ email, password, refreshToken });
+    const newUser = await User.create({ email, password });
     // return new user
     res.json(newUser);
   } catch (err) {

@@ -65,7 +65,7 @@ const Navbar = ({ order, handleSort }) => {
       </div>
       <div onClick={toggleSearchbar}>
         <FontAwesomeIcon
-          className='block md:hidden mx-2 my-4 cursor-pointer dark:text-white'
+          className='block md:hidden mx-3 my-4 cursor-pointer dark:text-white'
           icon={faSearch}
         />
       </div>
