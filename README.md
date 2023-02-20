@@ -1,6 +1,6 @@
 # Speech Notes App
 
-## Project description
+## Description
 
 The project target is helping hearing impaired students during the lessons they attend. But potentially can be used by any student.
 
@@ -39,16 +39,8 @@ Client side will be created in `React` using `Tailwindcss` framework.
   - [App Architecture](#app-architecture)
   - [Database Architecture](#database-architecture)
 
-- [App flow](#app-flow)
 - [Client routing](#client-routing)
 - [API Endpoints](#api-endpoints)
-- [JWT](#jwt)
-
-  - [Middleware](#middleware)
-  - [Create token](#create-token-helper-function)
-  - [Refresh token](#refresh-token)
-
-- [Cache](#cache)
 
 - [Tests](#tests)
   - [E2E](#e2e)
@@ -160,10 +152,6 @@ App implements Rest API style architecture. App includes Speech-to-text API.
 
 [![](https://mermaid.ink/img/pako:eNpNzjEOwjAMBdCrWJ6rHiAzWalEYctiNS6NIAlykwElvTsBFYSnL_2nLxecomVUyHJwdBXyJsDvLqM-Qa19Xwsch7MGBQutb_GvALBDz-LJ2bZUPj2mhT0bVC1akptBE7bm8sNSYm1dioJqpvvKHVJOcXyGCVWSzF-0P7Sr7QWbhjTi)](https://mermaid.live/edit#pako:eNpNzjEOwjAMBdCrWJ6rHiAzWalEYctiNS6NIAlykwElvTsBFYSnL_2nLxecomVUyHJwdBXyJsDvLqM-Qa19Xwsch7MGBQutb_GvALBDz-LJ2bZUPj2mhT0bVC1akptBE7bm8sNSYm1dioJqpvvKHVJOcXyGCVWSzF-0P7Sr7QWbhjTi)
 
-## App flow
-
-[![](https://mermaid.ink/img/pako:eNpVks9uwjAMxl_FyolJ8AI9bALa8ee63SgHq_FKBE0q1zChlnefSwp0vaT5_LNjf0lrimDJJKZkrA_wneYe9JvvmErXCDHUWNIeZrP3ruZwcZagYLLkxeGp6WDRIv-ToAjMVMjHLZZa9LmwmVypeRsr24kPg7C9C53wFZ7HYonOdzCPxCYSHi-uRCGQAJXG7811sNw9N_vILyOvbfW0p1_wQZRMd_0K4uREYz6NfEMCL6CDLOIjMBtAQRZtVme1zpdD9c_WNTG_wQvZhwOf95zVyIGorF8OrGJZddH13vXzndQHHS3G1zF-JKpHpwY1KMu9mZqKWC2weo9tn5AbOVBFuUn01yIfc5P7m3Ln2qohmXUS2CQ_el00NXiW8HX1hUmEz_SAUof6JqqBuv0B3yOyKw)](https://mermaid.live/edit#pako:eNpVks9uwjAMxl_FyolJ8AI9bALa8ee63SgHq_FKBE0q1zChlnefSwp0vaT5_LNjf0lrimDJJKZkrA_wneYe9JvvmErXCDHUWNIeZrP3ruZwcZagYLLkxeGp6WDRIv-ToAjMVMjHLZZa9LmwmVypeRsr24kPg7C9C53wFZ7HYonOdzCPxCYSHi-uRCGQAJXG7811sNw9N_vILyOvbfW0p1_wQZRMd_0K4uREYz6NfEMCL6CDLOIjMBtAQRZtVme1zpdD9c_WNTG_wQvZhwOf95zVyIGorF8OrGJZddH13vXzndQHHS3G1zF-JKpHpwY1KMu9mZqKWC2weo9tn5AbOVBFuUn01yIfc5P7m3Ln2qohmXUS2CQ_el00NXiW8HX1hUmEz_SAUof6JqqBuv0B3yOyKw)
-
 ## Client routing
 
 | Endpoint      | Authenticated |      Component       | Description                                 |
@@ -201,115 +189,6 @@ App implements Rest API style architecture. App includes Speech-to-text API.
 | Method |                             Endpoint                             |
 | :----: | :--------------------------------------------------------------: |
 |  GET   | [`/api/get-speech-token`](./server/docs/api/get-speech-token.md) |
-
-## JWT
-
-### Token auth implementation.
-
-#### If access token is valid get protected route resource, otherwise send refresh token and get new access token.
-
-[![](https://mermaid.ink/img/pako:eNpNkEGOgzAMRa9ied1egMVUFJiqW8qOsIiIW6KSpDKhVRW4-6TASPXK8n-W_3fA1inCBG8sHx1UubAQK62zXpP1Dez3PzCl1QTHunJ3siBH34HRSvX0kkzNunBcwDycB0greMpeq8O8SvkiQRbeNGyjbBn91iUNbuSW4EL8JG6-F4pg3YYXq4syujjV6ef-N39aVUuveHqKAXCHhthIrWKu8GEE-o4MCUxiqyTfBQo7R258KOmpUNo7xuQq-4F2GBO6y9u2mHge6R_KtYw_Mhs1_wFqSmIt)](https://mermaid.live/edit#pako:eNpNkEGOgzAMRa9ied1egMVUFJiqW8qOsIiIW6KSpDKhVRW4-6TASPXK8n-W_3fA1inCBG8sHx1UubAQK62zXpP1Dez3PzCl1QTHunJ3siBH34HRSvX0kkzNunBcwDycB0greMpeq8O8SvkiQRbeNGyjbBn91iUNbuSW4EL8JG6-F4pg3YYXq4syujjV6ef-N39aVUuveHqKAXCHhthIrWKu8GEE-o4MCUxiqyTfBQo7R258KOmpUNo7xuQq-4F2GBO6y9u2mHge6R_KtYw_Mhs1_wFqSmIt)
-
-### Middleware
-
-#### Middleware which verify access token.
-
-```javascript
-const validateToken = (req, res, next) => {
-  try {
-    // retrieve jwt from auth header
-    let authHeader = req.headers["authorization"];
-
-    let at = authHeader && authHeader.split(" ")[1];
-
-    // if token doesn't exist throw error
-    if (at === undefined) throw new Error("Jwt doesn't exist");
-
-    // otherwise check if token expired
-    verify(at, process.env.ACCESS_TOKEN_SECRET, async (error, user) => {
-      if (error) {
-        if (error.name === "TokenExpiredError") {
-          res.status(403).json({ err: error.message });
-        }
-      } else {
-        req.user = user;
-        next();
-      }
-    });
-  } catch (error) {
-    res.status(403).json({
-      fail: true,
-      error: error.message,
-    });
-  }
-};
-```
-
-### Create token helper function.
-
-#### Function sign new token with user id.
-
-```javascript
-const createToken = (id, secret, exp) => {
-  return sign(
-    {
-      id,
-    },
-    secret,
-    {
-      expiresIn: exp,
-    }
-  );
-};
-```
-
-### Refresh token
-
-#### When middleware respond with `403` status Axios response interceptor will catch response, send API request to `/user/refresh-token` and update expired at with new one.
-
-```javascript
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const prevRequest = error?.config;
-
-    if (error?.response.status === 403 && !prevRequest?.sent) {
-      prevRequest.sent = true;
-
-      try {
-        const { data } = await userService.refreshToken(rt);
-
-        prevRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
-
-        localStorage.setItem("at", data.accessToken);
-
-        return axiosInstance(prevRequest);
-      } catch (err) {
-        return Promise.reject(err);
-      }
-    }
-  },
-  (err) => Promise.reject(err)
-);
-```
-
-## Cache
-
-### Cache Architecture
-
-[![](https://mermaid.ink/img/pako:eNpVkEtuwyAQhq8ymrVzAS8qxaYnSHd2FhSGGtWAw6OSFXL34PhRhRWa_-ObYe4onCSs8cfzaYAv1lso59y1oyYbr3A6fWRPt0QhZmi6C_k_8teVapYUShwmZwNlOL_VtQLr4JdmUC5ZWUGx-Bnkd4a2Y80maVd4zf5VzZvqkJDMwLqWi4G292wfIiZvQXlnQCzxodgahOg8HQ1AuGkGbXf29W-s0JA3XMuykPtS6TEOZKjHulwlKZ7G2GNvHwVNk-SRPqUuYqwVHwNVyFN0l9kKrKNPtENM87Jfs1GPJ2dveRA)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNpVkEtuwyAQhq8ymrVzAS8qxaYnSHd2FhSGGtWAw6OSFXL34PhRhRWa_-ObYe4onCSs8cfzaYAv1lso59y1oyYbr3A6fWRPt0QhZmi6C_k_8teVapYUShwmZwNlOL_VtQLr4JdmUC5ZWUGx-Bnkd4a2Y80maVd4zf5VzZvqkJDMwLqWi4G292wfIiZvQXlnQCzxodgahOg8HQ1AuGkGbXf29W-s0JA3XMuykPtS6TEOZKjHulwlKZ7G2GNvHwVNk-SRPqUuYqwVHwNVyFN0l9kKrKNPtENM87Jfs1GPJ2dveRA)
-
-#### Search if key exist in Redis cache, if so return data, otherwise set new key value with 1 hour expiration time.
-
-```javascript
-if ((await client.get("notes")) === null) {
-  const notes = await Note.find({ user_id: id });
-  await client.setEx("notes", 3600, JSON.stringify(notes));
-  res.status(200).json(notes);
-} else {
-  res.status(200).json(JSON.parse(await client.get("notes")));
-}
-```
 
 ## Tests
 
@@ -414,13 +293,13 @@ it("if user credentials are correct, redirect to note list page", () => {
 
 </details>
 
+<br />
+
 ### API
 
 #### To run tests:
 
 `npm run api`
-
-#### Note
 
 `GET /note`
 
@@ -524,7 +403,7 @@ test("when jwt is expired", async () => {
 
 </details>
 
-#### User
+<br />
 
 `POST /user`
 
