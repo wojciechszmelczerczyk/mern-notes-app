@@ -214,7 +214,7 @@ export default function NoteDetailsComponent() {
 
   return (
     <>
-      <div className='grid dark:bg-black h-screen'>
+      <div className='grid dark:bg-black h-screen place-items-center'>
         {!redirect ? (
           <>
             <div className='flex flex-row items-center titleVisualizerContainer'>
@@ -227,9 +227,9 @@ export default function NoteDetailsComponent() {
                 <i className='fas fa-microphone fa-lg mr-2' onClick={mic}></i>
               </div>
               <textarea
-                className='no-scrollbar dark:bg-black dark:text-white'
+                className='no-scrollbar dark:bg-black dark:text-white my-3'
                 rows={15}
-                cols={40}
+                cols={80}
                 style={{
                   border: "none",
                   outline: "none",
@@ -243,7 +243,7 @@ export default function NoteDetailsComponent() {
             </div>
             <div className='flex mx-2 space-x-3'>
               <button
-                className='px-3 py-2 max-h-10 bg-green-500 hover:bg-green-700 rounded-lg text-white'
+                className='px-4 py-3 bg-green-500 hover:bg-green-700 rounded-lg text-white'
                 onClick={saveNote}
               >
                 Save
@@ -251,7 +251,7 @@ export default function NoteDetailsComponent() {
               <div className='saveDropdownContainer'>
                 <div className='dropdown'>
                   <button
-                    className='bg-blue-500 hover:bg-blue-700 px-2 py-2 text-white rounded-lg dropdown-toggle'
+                    className='bg-blue-500 hover:bg-blue-700 px-4 py-3 text-white rounded-lg dropdown-toggle'
                     type='button'
                     id='dropdownLangButton'
                     data-bs-toggle='dropdown'
@@ -279,7 +279,7 @@ export default function NoteDetailsComponent() {
                 </div>
               </div>
               <button
-                className='py-2 px-3 max-h-10 bg-red-500 hover:bg-red-700 rounded-lg text-white'
+                className='py-3 px-4 bg-red-500 hover:bg-red-700 rounded-lg text-white'
                 onClick={() => {
                   setIsSearchActive(false);
                   navigate("/");
@@ -289,7 +289,7 @@ export default function NoteDetailsComponent() {
               </button>
               <div className='downloadButtonContainer dropdown'>
                 <button
-                  className='px-2 py-2 bg-yellow-500 hover:bg-yellow-700 rounded-lg text-white dropdown-toggle'
+                  className='px-4 py-3 bg-yellow-500 hover:bg-yellow-700 rounded-lg text-white dropdown-toggle'
                   type='button'
                   id='dropdownMenuButton'
                   data-bs-toggle='dropdown'

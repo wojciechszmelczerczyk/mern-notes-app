@@ -6,7 +6,7 @@ const Buffer = ({ text }) => {
       className={
         text.length === 0
           ? "hidden"
-          : "absolute top-2/4 left-2/4 overflow-scroll no-scrollbar h-16 w-48 rounded-xl bg-slate-400"
+          : "absolute top-1/4 left-2/4 -translate-x-2/4	 overflow-scroll no-scrollbar h-16 w-80 rounded-xl bg-white-400 shadow-md"
       }
     >
       {text ? (
